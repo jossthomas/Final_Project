@@ -5,12 +5,11 @@
 import sys
 import numpy as np
 import pandas as pd
+import matplotlib
 import matplotlib.pyplot as plt
 from lmfit import minimize, Parameters, fit_report
 from scipy import stats
 import seaborn as sns #All sns features can be deleted without affecting program function
-
-
 
 class schoolfield:
     def __init__(self, data, index):
@@ -82,7 +81,7 @@ class schoolfield:
         genus = self.data['ConGenus'][0]
         species = self.data['ConSpecies'][0]
 
-        self.name = ' '.join([str(self.index), ':' ,genus, species])
+        self.name = r' '.join([genus, species])
         
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression"
@@ -102,7 +101,7 @@ class schoolfield:
         T_pk = parameter_vals['T_pk']   
 
         fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref))) /\
-                        (1 + (E/(E_D - E)) * np.exp(E_D / self.k * (1 / self.T_pk - 1 / temps)))
+                        (1 + (E/(E_D - E)) * np.exp(E_D / self.k * (1 / T_pk - 1 / temps)))
                         )
         return fit
         
@@ -142,13 +141,21 @@ class schoolfield:
         self.smooth_y = np.exp(self.fit(self.model.params, self.smooth_x))
         
     def __str__(self):
-        vars = [self.name, self.B0, self.E_init, self.T_pk]
-        text = """
+        vars = [self.name, self.B0, self.E_init, self.T_pk, self.final_B0, self.final_E, self.final_T_pk, self.R2, self.model.aic]
+        text = """\
         {0[0]}
         
-        B0 = {0[1]:.2f}
-        E = {0[2]:.2f}
-        T Peak = {0[3]:.2f}
+        B0 est = {0[1]:.2f}
+        B0 final = {0[4]:.2f}
+        
+        E est = {0[2]:.2f}
+        E final = {0[5]:.2f}
+        
+        T Peak est = {0[3]:.2f}
+        T Peak final =  {0[6]:.2f}
+        
+        R2: = {0[7]:.2f}
+        AIC = {0[8]:.2f}
         
         -----------------------------------
         """.format(vars)
@@ -156,21 +163,23 @@ class schoolfield:
         
     def plot(self):
         textdata = [self.final_E, self.R2, self.AIC]
-    
+        title = '{}: {}'.format(self.index, self.name)
+        
         f = plt.figure()
-        sns.set(style="ticks")
+        sns.set_style("ticks", {'axes.grid': True})
         ax = f.add_subplot(111)
         
-        plt.plot(self.temps, self.responses, marker='o', linestyle='None')
-        plt.plot(self.smooth_x, self.smooth_y, marker='None')
+        plt.plot(self.smooth_x, self.smooth_y, marker='None', color='royalblue', linewidth=3)
+        plt.plot(self.temps, self.responses, marker='o', linestyle='None', color='green')
         plt.xlabel('Temperature (K)')
         plt.ylabel('Response')
-        plt.title(self.name, fontsize=14, fontweight='bold')
+        plt.title(title, fontsize=14, fontweight='bold')
         plt.text(0.05, 0.85,'E:  {0[0]:.2f}\nR2:  {0[1]:.2f}\nAIC: {0[2]:.2f}'.format(textdata),
-                 ha='left', va='center', transform=ax.transAxes, color='slategrey')
+                 ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
         sns.despine()
         
         plt.savefig('../results/{}.png'.format(self.index), bbox_inches='tight')
+        plt.close()
        
 def get_datasets(path):
     "Create a set of temperature response curve datasets from csv"
