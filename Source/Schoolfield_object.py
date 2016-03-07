@@ -6,7 +6,7 @@ import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from lmfit import minimize, Parameters
+from lmfit import minimize, Parameters, fit_report
 from scipy import stats
 import seaborn as sns #All sns features can be deleted without affecting program function
 
@@ -30,8 +30,8 @@ class schoolfield:
         self.fit_model()
         self.smooth()
         self.get_AIC()
+        self.get_final_values()
         
-            
     def clean_dataset(self, data):
         "Normalise each dataset"
         #Transform temps to kelvin
@@ -108,7 +108,6 @@ class schoolfield:
         
     def schoolfield_fit(self, params, temps, responses):
         "Called by fit model only, generates residuals using test values"
-                        
         residuals = np.exp(self.fit(params, self.temps)) - responses
         
         return residuals
@@ -121,11 +120,6 @@ class schoolfield:
                               method="leastsq")
                               
         self.R2 = 1 - np.var(self.model.residual) / np.var(self.responses)
-
-    def smooth(self):
-        "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
-        self.smooth_x = np.arange(self.temps.min() - 1, self.temps.max() + 1, 0.1)
-        self.smooth_y = np.exp(self.fit(self.model.params, self.smooth_x))
         
     def get_AIC(self):
         k = self.model.nvarys
@@ -133,7 +127,20 @@ class schoolfield:
         rss = self.model.chisqr
         
         self.AIC = np.log((2 * np.exp(1)) / n) + n + 2 + n * np.log(rss) + 2 * k
-
+        
+    def get_final_values(self):
+        "Get the final fitted values for the model"
+        values = self.model.params.valuesdict()
+        self.final_B0 = values['B0_start']
+        self.final_E = values['E']
+        self.final_E_D = values['E_D']
+        self.final_T_pk = values['T_pk']   
+        
+    def smooth(self):
+        "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
+        self.smooth_x = np.arange(self.temps.min() - 3, self.temps.max() + 3, 0.1)
+        self.smooth_y = np.exp(self.fit(self.model.params, self.smooth_x))
+        
     def __str__(self):
         vars = [self.name, self.B0, self.E_init, self.T_pk]
         text = """
@@ -148,22 +155,23 @@ class schoolfield:
         return text
         
     def plot(self):
+        textdata = [self.final_E, self.R2, self.AIC]
+    
         f = plt.figure()
         sns.set(style="ticks")
         ax = f.add_subplot(111)
+        
         plt.plot(self.temps, self.responses, marker='o', linestyle='None')
         plt.plot(self.smooth_x, self.smooth_y, marker='None')
         plt.xlabel('Temperature (K)')
         plt.ylabel('Response')
         plt.title(self.name, fontsize=14, fontweight='bold')
-        plt.text(0.1, 0.9,'R2: {0:.2f}\nAIC: {1:.2f}'.format(self.R2, self.AIC), ha='center', va='center', transform=ax.transAxes)
+        plt.text(0.05, 0.85,'E:  {0[0]:.2f}\nR2:  {0[1]:.2f}\nAIC: {0[2]:.2f}'.format(textdata),
+                 ha='left', va='center', transform=ax.transAxes, color='slategrey')
         sns.despine()
         
         plt.savefig('../results/{}.png'.format(self.index), bbox_inches='tight')
        
-        
-        
-        
 def get_datasets(path):
     "Create a set of temperature response curve datasets from csv"
     data = pd.read_csv(path, encoding = "ISO-8859-1") #Open in latin 1   
