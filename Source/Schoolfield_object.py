@@ -6,15 +6,18 @@ import sys
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from lmfit import Minimizer, minimize, Parameters
+from lmfit import minimize, Parameters
 from scipy import stats
+import seaborn as sns #All sns features can be deleted without affecting program function
+
+
 
 class schoolfield:
     def __init__(self, data, index):
         self.k = 8.62e-5 #Boltzmann constant
         self.Tref = 273.15 #Reference temperature - 0C
         self.data = self.clean_dataset(data)
-        self.index = index
+        self.index = index #ID for the model
         
         self.temps = np.array(self.data['K'].values) #Temperatures
         self.responses = np.array(self.data['Cor_Trait_Value'].values) #Growth rates
@@ -25,6 +28,7 @@ class schoolfield:
         self.estimate_B0()
         self.set_parameters()
         self.fit_model()
+        self.smooth()
         self.get_AIC()
         
             
@@ -89,19 +93,23 @@ class schoolfield:
                           ('E_D',self.E_init * 4, True, 0, np.inf,  None),
                           ('T_pk', self.T_pk, True, 273.15-50, 273.15+150,  None))
 
-    def schoolfield_fit(self, params, temps, responses):
-        "Called by fit model only, generates residuals using test values"
+    def fit(self, params, temps):
+        "Fit a schoolfield curve to a list of temperature values"
         parameter_vals = params.valuesdict()
         B0 = parameter_vals['B0_start']
         E = parameter_vals['E']
         E_D = parameter_vals['E_D']
         T_pk = parameter_vals['T_pk']   
 
-        fit = B0 + np.log(np.exp((-E / self.k) * ((1 / self.temps) - (1 / self.Tref))) /\
-                        (1 + (E/(E_D - E)) * np.exp(E_D / self.k * (1 / self.T_pk - 1 / self.temps)))
+        fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref))) /\
+                        (1 + (E/(E_D - E)) * np.exp(E_D / self.k * (1 / self.T_pk - 1 / temps)))
                         )
+        return fit
+        
+    def schoolfield_fit(self, params, temps, responses):
+        "Called by fit model only, generates residuals using test values"
                         
-        residuals = np.exp(fit) - responses
+        residuals = np.exp(self.fit(params, self.temps)) - responses
         
         return residuals
         
@@ -112,9 +120,13 @@ class schoolfield:
                               args=(self.temps, self.responses),
                               method="leastsq")
                               
-        self.model_y = self.model.residual + self.responses
         self.R2 = 1 - np.var(self.model.residual) / np.var(self.responses)
-                             
+
+    def smooth(self):
+        "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
+        self.smooth_x = np.arange(self.temps.min() - 1, self.temps.max() + 1, 0.1)
+        self.smooth_y = np.exp(self.fit(self.model.params, self.smooth_x))
+        
     def get_AIC(self):
         k = self.model.nvarys
         n = self.model.ndata
@@ -137,14 +149,20 @@ class schoolfield:
         
     def plot(self):
         f = plt.figure()
+        sns.set(style="ticks")
         ax = f.add_subplot(111)
-        plt.plot(self.temps, self.responses, marker='o', color='b', linestyle='None')
-        plt.plot(self.temps, self.model_y, marker='None', color='r')
+        plt.plot(self.temps, self.responses, marker='o', linestyle='None')
+        plt.plot(self.smooth_x, self.smooth_y, marker='None')
         plt.xlabel('Temperature (K)')
         plt.ylabel('Response')
-        plt.title(self.name)
+        plt.title(self.name, fontsize=14, fontweight='bold')
         plt.text(0.1, 0.9,'R2: {0:.2f}\nAIC: {1:.2f}'.format(self.R2, self.AIC), ha='center', va='center', transform=ax.transAxes)
+        sns.despine()
+        
         plt.savefig('../results/{}.png'.format(self.index), bbox_inches='tight')
+       
+        
+        
         
 def get_datasets(path):
     "Create a set of temperature response curve datasets from csv"
