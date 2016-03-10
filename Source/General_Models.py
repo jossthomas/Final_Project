@@ -29,6 +29,7 @@ class growth_model:
         self.set_name()
         self.get_T_pk() #Assign value for T - peak
         self.estimate_T_H()
+        self.estimate_T_H_L()
         self.estimate_E_init()
         self.estimate_B0()
         
@@ -66,11 +67,27 @@ class growth_model:
             slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) 
             x_intercept = -intercept/slope
 
-            #find the value of K half way between T growth_max and T growth_0, using 3 not 2 seems to work, no idea why
+            #find the value of K half way between T growth_max and T growth_0 (high), using 3 not 2 seems to work, no idea why
             self.T_H = self.T_pk + ((x_intercept - self.T_pk) / 3) 
         else:
-            self.T_H = self.T_pk + 5 #Totally arbitary
-        
+            self.T_H = self.T_pk + 5 #Totally arbitary, probably wont fit
+
+    def estimate_T_H_L(self):
+        "Find the temperature at which half the enzyme is inactivated by high temperatures"
+        upslope = self.data.loc[:self.Tpk_row] #slice data so only the downwards slope is included (including TPK value)
+        if upslope.shape[0] > 1:
+            x = upslope['K']
+            y = upslope['Cor_Trait_Value']
+            
+            #Not a linear thing, but this is fast
+            slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) 
+            x_intercept = -intercept/slope
+
+            #find the value of K half way between T growth_max and T growth_0 (low)
+            self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 2) 
+        else:
+            self.T_H_L = self.T_pk - 5 #Totally arbitary,  probably wont fit
+            
     def estimate_E_init(self):
         "Estimate energy value using the slope of the values to the peak of an arrhenius plot"
         upslope = self.data.loc[:self.Tpk_row] #slice data so only values less than TKP row are included
@@ -217,13 +234,13 @@ class schoolfield_two_factor(growth_model):
         """.format(vars)
         return text
 
-class schoolfield_original(growth_model):
+class schoolfield_original_simple(growth_model):
      # Original Sharpe-Schoolfield's model with low-temp inactivation term removed, very similar to previous model
      # This seems to generate pretty much identical results to the two factor model, but throws its toys out the pram sometimes.
      # In this version T_H is the temperature at which half the enzyme is denatured by heat stress
     def __init__(self, data, index):
         super().__init__(data, index) #Run the __init__ method from the base class
-        self.index = str(index) + "_Sch_O"
+        self.index = str(index) + "_Sch_OS"
         self.set_parameters()
         self.fit_model()
         self.smooth()
@@ -237,7 +254,7 @@ class schoolfield_original(growth_model):
         self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
                           ('E', self.E_init, True, 0, np.inf,  None),
                           ('E_D',self.E_init * 4, True, 0, np.inf,  None),
-                          ('T_H', self.T_H, True, 273.15-50, 273.15+150,  None))
+                          ('T_H', self.T_H, True, self.T_pk, 273.15+170,  None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -302,7 +319,104 @@ class schoolfield_original(growth_model):
      
         """.format(vars)
         return text        
+
+
+class schoolfield_original(growth_model):
+     # Original Sharpe-Schoolfield's model with low-temp inactivation term removed, very similar to previous model
+     # In this version T_H_L is a low temperature enzyme inactivation constant (as if having a high temp one wasn't fun enough already)
+    def __init__(self, data, index):
+        super().__init__(data, index) #Run the __init__ method from the base class
+        self.index = str(index) + "_Sch_O"
+        self.set_parameters()
+        self.fit_model()
+        self.smooth()
+        self.assess_model()
+        self.get_final_values()
         
+    def set_parameters(self):
+        "Create a parameters object using out guesses, these will then be fitted using least squares regression, note additional T_H_L parameter"
+        self.parameters = Parameters()
+        #                   Name,      Start,   Can_Vary, Lower, Upper
+        self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
+                          ('E', self.E_init, True, 0, np.inf,  None),
+                          ('E_D',self.E_init * 4, True, 0, np.inf,  None),
+                          ('E_D_L',self.E_init * (-6), True, -np.inf, 0,  None),
+                          ('T_H', self.T_H, True, self.T_pk, 273.15+170,  None),
+                          ('T_H_L', self.T_H_L, True, 273.15-70, self.T_pk,  None))
+
+    def fit(self, params, temps):
+        "Fit a schoolfield curve to a list of temperature values"
+        parameter_vals = params.valuesdict()
+        B0 = parameter_vals['B0_start']
+        E = parameter_vals['E']
+        E_D = parameter_vals['E_D']
+        E_D_L = parameter_vals['E_D_L']
+        T_H = parameter_vals['T_H']
+        T_H_L = parameter_vals['T_H_L']         
+        
+        fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref)))\
+                        /(1 + np.exp((E_D_L / self.k) * (1 / T_H_L - 1 / temps)) + \
+                              np.exp((E_D / self.k) * (1 / T_H - 1 / temps))))
+        
+        return fit
+        
+    def schoolfield_fit(self, params, temps, responses):
+        "Called by fit model only, generates residuals using test values"
+        residuals = np.exp(self.fit(params, self.temps)) - responses
+        
+        return residuals
+        
+    def fit_model(self):
+        "Least squares regression to minimise fit"
+        self.model = minimize(self.schoolfield_fit, 
+                              self.parameters, 
+                              args=(self.temps, self.responses),
+                              method="leastsq")
+                              
+        self.R2 = 1 - np.var(self.model.residual) / np.var(self.responses)
+        
+    def get_final_values(self):
+        "Get the final fitted values for the model"
+        values = self.model.params.valuesdict()
+        self.final_B0 = values['B0_start']
+        self.final_E = values['E']
+        self.final_E_D = values['E_D']
+        self.final_E_D_L = values['E_D_L']
+        self.final_T_H = values['T_H']
+        self.final_T_H_L = values['T_H_L']           
+        
+    def __str__(self):
+        "Allows print() to be called on the object"
+        vars = [self.name, self.B0, self.final_B0, self.E_init, self.final_E, self.E_init * 4, self.final_E_D, self.E_init * (-6), self.final_E_D_L,
+                self.T_pk, self.T_H, self.final_T_H, self.T_H_L, self.final_T_H_L, self.R2, self.AIC, self.BIC]
+        text = """\
+        ---Schoolfield Original Model With T_H and T_H_L---
+        {0[0]}
+        
+        B0 est = {0[1]:.2f}
+        B0 final = {0[2]:.2f}
+        
+        E est = {0[3]:.2f}
+        E final = {0[4]:.2f}     
+        
+        E D est = {0[5]:.2f}
+        E D final = {0[6]:.2f}
+        
+        E D L est = {0[7]:.2f}
+        E D L final = {0[8]:.2f}
+        
+        TPK = {0[9]:.2f}
+        T H est = {0[10]:.2f}
+        T H final =  {0[11]:.2f}
+        T H L est = {0[12]:.2f}
+        T H L final =  {0[13]:.2f}  
+        
+        R2: = {0[14]:.2f}
+        AIC = {0[15]:.2f}
+        BIC = {0[16]:.2f}
+     
+        """.format(vars)
+        return text                
         
 def get_datasets(path):
     "Create a set of temperature response curve datasets from csv"
@@ -310,7 +424,7 @@ def get_datasets(path):
     ids = pd.unique(data['OriginalID']).tolist() #Get unique identifiers
     #create a dictionary of datasets for easy access later
     Datasets = {}
-    for id in ids:
+    for id in ids[:15]:
         curve_data = data.loc[data['OriginalID'] == id] #seperate data by uniqueID
         curve_data = curve_data.sort_values(['ConTemp']).reset_index() #sort so rows are in temperature order, reset index to 0  
         Datasets[id] = curve_data
@@ -325,6 +439,10 @@ for i in Datasets.keys():
         model_TF = schoolfield_two_factor(dataset, i)
         print(model_TF)
         model_TF.plot()
-        model_O = schoolfield_original(dataset, i)
-        print(model_O)
-        model_O.plot()
+        model_OS = schoolfield_original_simple(dataset, i)
+        print(model_OS)
+        model_OS.plot()
+        if dataset.shape[0] > 5: #This model has two additional variables
+            model_O = schoolfield_original(dataset, i)
+            print(model_O)
+            model_O.plot()
