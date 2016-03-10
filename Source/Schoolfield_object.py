@@ -28,7 +28,7 @@ class schoolfield:
         self.set_parameters()
         self.fit_model()
         self.smooth()
-        self.get_AIC()
+        self.assess_model()
         self.get_final_values()
         
     def clean_dataset(self, data):
@@ -120,12 +120,13 @@ class schoolfield:
                               
         self.R2 = 1 - np.var(self.model.residual) / np.var(self.responses)
         
-    def get_AIC(self):
+    def assess_model(self):
         k = self.model.nvarys
         n = self.model.ndata
-        rss = self.model.chisqr
+        rss = sum(np.power(self.model.residual, 2))
         
-        self.AIC = np.log((2 * np.exp(1)) / n) + n + 2 + n * np.log(rss) + 2 * k
+        self.AIC = n * np.log((2 * np.pi) / n) + n + 2 + n * np.log(rss) + 2 * k
+        self.BIC = n + n * np.log(2 * np.pi) + n * np.log(rss / n) + (np.log(n)) * (k + 1)
         
     def get_final_values(self):
         "Get the final fitted values for the model"
@@ -141,28 +142,33 @@ class schoolfield:
         self.smooth_y = np.exp(self.fit(self.model.params, self.smooth_x))
         
     def __str__(self):
-        vars = [self.name, self.B0, self.E_init, self.T_pk, self.final_B0, self.final_E, self.final_T_pk, self.R2, self.model.aic]
+        vars = [self.name, self.B0, self.final_B0, self.E_init, self.final_E, self.T_pk, self.final_T_pk,
+                self.E_init * 4, self.final_E_D, self.R2, self.AIC, self.BIC]
         text = """\
         {0[0]}
         
         B0 est = {0[1]:.2f}
-        B0 final = {0[4]:.2f}
+        B0 final = {0[2]:.2f}
         
-        E est = {0[2]:.2f}
-        E final = {0[5]:.2f}
+        E est = {0[3]:.2f}
+        E final = {0[4]:.2f}
         
-        T Peak est = {0[3]:.2f}
+        T Peak est = {0[5]:.2f}
         T Peak final =  {0[6]:.2f}
         
-        R2: = {0[7]:.2f}
-        AIC = {0[8]:.2f}
+        E_D est = {0[7]:.2f}
+        E_D final = {0[8]:.2f}
+        
+        R2: = {0[9]:.2f}
+        AIC = {0[10]:.2f}
+        BIC = {0[11]:.2f}
         
         -----------------------------------
         """.format(vars)
         return text
         
     def plot(self):
-        textdata = [self.final_E, self.R2, self.AIC]
+        textdata = [self.final_E,self.final_E_D, self.R2, self.AIC, self.BIC]
         title = '{}: {}'.format(self.index, self.name)
         
         f = plt.figure()
@@ -174,7 +180,7 @@ class schoolfield:
         plt.xlabel('Temperature (K)')
         plt.ylabel('Response')
         plt.title(title, fontsize=14, fontweight='bold')
-        plt.text(0.05, 0.85,'E:  {0[0]:.2f}\nR2:  {0[1]:.2f}\nAIC: {0[2]:.2f}'.format(textdata),
+        plt.text(0.05, 0.85,'E:  {0[0]:.2f}\nED: {0[1]:.2f}\nR2:  {0[2]:.2f}\nAIC: {0[3]:.2f},\nBIC: {0[4]:.2f}'.format(textdata),
                  ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
         sns.despine()
         
@@ -186,7 +192,6 @@ def get_datasets(path):
     data = pd.read_csv(path, encoding = "ISO-8859-1") #Open in latin 1   
     ids = pd.unique(data['OriginalID']).tolist() #Get unique identifiers
     #create a dictionary of datasets for easy access later
-    #Remove negative values if there are any to allow log transpforms
     Datasets = {}
     for id in ids:
         curve_data = data.loc[data['OriginalID'] == id] #seperate data by uniqueID
