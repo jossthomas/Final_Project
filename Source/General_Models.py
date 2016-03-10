@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-"""This is a work in progress, its messy and not fully functional!"""
+"""
+This is a work in progress, its messy and not fully functional!
+Written in Python 3.5 Anaconda Distribution
+"""
 
 import sys
 import numpy as np
@@ -57,13 +60,13 @@ class growth_model:
         self.T_pk = dataset.loc[self.Tpk_row]['K'] #Temperature at which rate is maximum
         
     def estimate_T_H(self):
-        "Find the temperature at which half the enzyme is inactivated by high temperatures"
+        "Estimate the temperature at which half the enzyme is inactivated by high temperatures"
         downslope = self.data.loc[self.Tpk_row:] #slice data so only the downwards slope is included (including TPK value)
         if downslope.shape[0] > 1:
             x = downslope['K']
             y = downslope['Cor_Trait_Value']
             
-            #Not a linear thing, but this is fast
+            #Not a linear function in reality, but this is fast and works!
             slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) 
             x_intercept = -intercept/slope
 
@@ -73,7 +76,7 @@ class growth_model:
             self.T_H = self.T_pk + 5 #Totally arbitary, probably wont fit
 
     def estimate_T_H_L(self):
-        "Find the temperature at which half the enzyme is inactivated by high temperatures"
+        "Estimate the temperature at which half the enzyme is inactivated by low temperatures"
         upslope = self.data.loc[:self.Tpk_row] #slice data so only the downwards slope is included (including TPK value)
         if upslope.shape[0] > 1:
             x = upslope['K']
@@ -81,7 +84,7 @@ class growth_model:
             
             #Not a linear thing, but this is fast
             slope, intercept, r_value, p_value, std_err = stats.linregress(x,y) 
-            x_intercept = -intercept/slope
+            x_intercept = -intercept/slope 
 
             #find the value of K half way between T growth_max and T growth_0 (low)
             self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 2) 
@@ -118,21 +121,22 @@ class growth_model:
         self.name = r' '.join([genus, species])
         
     def assess_model(self):
-        k = self.model.nvarys
-        n = self.model.ndata
-        rss = sum(np.power(self.model.residual, 2))
+        k = self.model.nvarys #Number of variables
+        n = self.model.ndata #Number of data points
+        rss = sum(np.power(self.model.residual, 2)) #Residual sum of squares
+        
         
         self.AIC = n * np.log((2 * np.pi) / n) + n + 2 + n * np.log(rss) + 2 * k
         self.BIC = n + n * np.log(2 * np.pi) + n * np.log(rss / n) + (np.log(n)) * (k + 1)
            
     def smooth(self):
         "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
-        self.smooth_x = np.arange(self.temps.min() - 3, self.temps.max() + 3, 0.1)
+        self.smooth_x = np.arange(self.temps.min() - 3, self.temps.max() + 3, 0.1) #Extrapolate a little 
         self.smooth_y = np.exp(self.fit(self.model.params, self.smooth_x))
          
     def plot(self):
-        textdata = [self.final_E,self.final_E_D, self.R2, self.AIC, self.BIC]
-        title = '{}: {}'.format(self.index, self.name)
+        textdata = [self.final_E,self.final_E_D, self.R2, self.AIC, self.BIC] #Added to plot to show fit quality
+        title = '{}: {}'.format(self.index, self.name) 
         
         f = plt.figure()
         sns.set_style("ticks", {'axes.grid': True})
@@ -145,9 +149,9 @@ class growth_model:
         plt.title(title, fontsize=14, fontweight='bold')
         plt.text(0.05, 0.85,'E:  {0[0]:.2f}\nED: {0[1]:.2f}\nR2:  {0[2]:.2f}\nAIC: {0[3]:.2f}\nBIC: {0[4]:.2f}'.format(textdata),
                  ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
-        sns.despine()
+        sns.despine() #Remove top and right border
         
-        plt.savefig('../results/{}.png'.format(self.index), bbox_inches='tight')
+        plt.savefig('../results/{}.png'.format(self.index), bbox_inches='tight') 
         plt.close()
 
 
@@ -173,10 +177,10 @@ class schoolfield_two_factor(growth_model):
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
         parameter_vals = params.valuesdict()
-        B0 = parameter_vals['B0_start']
-        E = parameter_vals['E']
-        E_D = parameter_vals['E_D']
-        T_pk = parameter_vals['T_pk']   
+        B0 = parameter_vals['B0_start'] #Basic metabolic rate
+        E = parameter_vals['E'] #Activation energy of enzymes
+        E_D = parameter_vals['E_D'] #Inactivation energy of enzymes
+        T_pk = parameter_vals['T_pk'] #Temperature at which peak response is observed  
 
         fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref))) /\
                         (1 + (E/(E_D - E)) * np.exp(E_D / self.k * (1 / T_pk - 1 / temps)))
@@ -240,7 +244,7 @@ class schoolfield_original_simple(growth_model):
      # In this version T_H is the temperature at which half the enzyme is denatured by heat stress
     def __init__(self, data, index):
         super().__init__(data, index) #Run the __init__ method from the base class
-        self.index = str(index) + "_Sch_OS"
+        self.index = str(index) + "_Sch_OS" #Used to name plot graphics file
         self.set_parameters()
         self.fit_model()
         self.smooth()
@@ -259,10 +263,10 @@ class schoolfield_original_simple(growth_model):
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
         parameter_vals = params.valuesdict()
-        B0 = parameter_vals['B0_start']
-        E = parameter_vals['E']
-        E_D = parameter_vals['E_D']
-        T_H = parameter_vals['T_H']   
+        B0 = parameter_vals['B0_start'] #Basic metabolic rate
+        E = parameter_vals['E'] #Activation energy of enzymes
+        E_D = parameter_vals['E_D'] #Inactivation energy of enzymes
+        T_H = parameter_vals['T_H'] #Temperature at which half od enzzymes are denatured
         
         fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref)))\
                         /(1 + np.exp((E_D / self.k) * (1 / T_H - 1 / temps))))
@@ -326,7 +330,7 @@ class schoolfield_original(growth_model):
      # In this version T_H_L is a low temperature enzyme inactivation constant (as if having a high temp one wasn't fun enough already)
     def __init__(self, data, index):
         super().__init__(data, index) #Run the __init__ method from the base class
-        self.index = str(index) + "_Sch_O"
+        self.index = str(index) + "_Sch_O" #Used to name plot graphics file
         self.set_parameters()
         self.fit_model()
         self.smooth()
@@ -347,12 +351,12 @@ class schoolfield_original(growth_model):
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
         parameter_vals = params.valuesdict()
-        B0 = parameter_vals['B0_start']
-        E = parameter_vals['E']
-        E_D = parameter_vals['E_D']
-        E_D_L = parameter_vals['E_D_L']
-        T_H = parameter_vals['T_H']
-        T_H_L = parameter_vals['T_H_L']         
+        B0 = parameter_vals['B0_start'] #Basic metabolic rate
+        E = parameter_vals['E'] #Activation energy of enzymes
+        E_D = parameter_vals['E_D'] #Inactivation energy of enzymes
+        E_D_L = parameter_vals['E_D_L'] #Energy of cold inactivation
+        T_H = parameter_vals['T_H'] #Temperature at which half of enzymes are denatured
+        T_H_L = parameter_vals['T_H_L'] #Temperature at which half of enzymes are cold inactivated
         
         fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref)))\
                         /(1 + np.exp((E_D_L / self.k) * (1 / T_H_L - 1 / temps)) + \
@@ -424,7 +428,7 @@ def get_datasets(path):
     ids = pd.unique(data['OriginalID']).tolist() #Get unique identifiers
     #create a dictionary of datasets for easy access later
     Datasets = {}
-    for id in ids[:15]:
+    for id in ids:
         curve_data = data.loc[data['OriginalID'] == id] #seperate data by uniqueID
         curve_data = curve_data.sort_values(['ConTemp']).reset_index() #sort so rows are in temperature order, reset index to 0  
         Datasets[id] = curve_data
