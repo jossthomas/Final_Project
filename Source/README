@@ -1,1 +1,20 @@
-All code goes here. 
+======== Schoolfield Object.py ========
+Single file implementation of the Schoolfield-Sharpe model of growth.
+
+No paramters, all paths set in script.
+
+Outputs fits as png plots to ../Results
+
+========== General_Models.py ==========
+Implementation of four different growth models.
+
+All models inherit methods from the basic growth_model class.  
+
+Automatically selects and plots the best model for the dataset - this isn't 100% functional right now.
+
+Creates a CSV of results in ../results/
+Output names indicate model used:
+BA = Boltzman Ahrrenius model
+O = Original three factor Schoolfield model
+OS = Simplified two factor Schoolfield model
+TF = Two factor schoolfield model using peak temperatures rather than enzzyme rate estimates

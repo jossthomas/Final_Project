@@ -14,10 +14,18 @@ from lmfit import minimize, Parameters, fit_report
 from scipy import stats
 import seaborn as sns #All sns features can be deleted without affecting program function
 
-class growth_model:
+class physiological_growth_model:
     """
-    Base class, not to be directly called. All other models will inherit from this!
+    Base class, not to be directly called! All other models based on physiological rate constants will inherit from this!
     ALL child classes must have correctly named methods (fit, get_final_values)
+    
+    These models tend to assume growth has a single limiting enzyme. 
+    
+    Children:
+        Boltzmann_Arrhenius
+        Schoolfield Peak Temperature Modificatin
+        Schoolfield Two factor modification
+        Schoolfield original
     """
     
     k = 8.62e-5 #Boltzmann constant
@@ -37,7 +45,7 @@ class growth_model:
         self.estimate_T_H_L()
         self.estimate_E_init()
         self.estimate_B0()
-        
+
     def clean_dataset(self, data):
         "Normalise each dataset"
         #Transform temps to kelvin
@@ -58,12 +66,17 @@ class growth_model:
         
     def get_ancillary_info(self):
         "None of this is used for fitting, its soley for recording perposes"
-        self.original_id = self.data['OriginalID'][0]
+        self.original_id = self.data['FinalID'][0]
+        self.database_id = self.data['OriginalID'][0]
         self.reference = self.data['Citation'][0]
         self.latitude = self.data['Latitude'][0]
         self.longditude = self.data['Longitude'][0]
         self.kingdom = self.data['ConKingdom'][0]
         self.phylum = self.data['ConPhylum'][0]
+        self.class_ = self.data['ConClass'][0]
+        self.order = self.data['ConOrder'][0]
+        self.family = self.data['ConFamily'][0]
+        self.genus = self.data['ConGenus'][0]
         self.plotted = False
 
     def get_T_pk(self):
@@ -76,13 +89,13 @@ class growth_model:
         downslope = self.data.loc[self.Tpk_row:] #slice data so only the downwards slope is included (including TPK value)
         if downslope.shape[0] > 1:
             x = downslope['K']
-            y = downslope['Cor_Trait_Value']
+            y = downslope['Cor_Trait_Value'] ** 0.5
             
             #Not a linear function in reality, but this is fast and works!
             slope, intercept, r_value, p_value, stderr = stats.linregress(x,y) 
             x_intercept = -intercept/slope
 
-            #find the value of K half way between T growth_max and T growth_0 (high), using 3 not 2 seems to work, no idea why
+            #find the value of K half way between T growth_max and T growth_0 (high), using 3 not 2 as growth rate increases are exponential not linear
             self.T_H = self.T_pk + ((x_intercept - self.T_pk) / 3) 
         else:
             self.T_H = self.T_pk + 5 #Totally arbitary, probably wont fit
@@ -92,14 +105,14 @@ class growth_model:
         upslope = self.data.loc[:self.Tpk_row] #slice data so only the downwards slope is included (including TPK value)
         if upslope.shape[0] > 1:
             x = upslope['K']
-            y = upslope['Cor_Trait_Value']
-            
+            y = upslope['Cor_Trait_Value'] ** 0.5
+
             #Not a linear thing, but this is fast
             slope, intercept, r_value, p_value, stderr = stats.linregress(x,y) 
             x_intercept = -intercept/slope 
 
             #find the value of K half way between T growth_max and T growth_0 (low)
-            self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 2) 
+            self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 3) 
         else:
             self.T_H_L = self.T_pk - 5 #Totally arbitary,  probably wont fit
             
@@ -109,6 +122,7 @@ class growth_model:
         if upslope.shape[0] > 1:
             temps = upslope['K']
             responses = upslope['Cor_Trait_Value']
+            
             x = 1 / (self.k * temps)
             y = np.log(responses)
             
@@ -129,8 +143,12 @@ class growth_model:
         "Set species name to be applied to plot title"
         genus = self.data['ConGenus'][0]
         species = self.data['ConSpecies'][0]
-
-        self.name = r' '.join([genus, species])
+        Consumer = self.data['Consumer'][0]
+        
+        if Consumer:
+            self.name = Consumer
+        else:
+            self.name = r' '.join([genus, species])
         
     def get_residuals(self, params, temps, responses):
         "Called by fit model only, generates residuals using test values"
@@ -160,7 +178,47 @@ class growth_model:
         "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
         self.smooth_x = np.arange(self.temps.min() - 3, self.temps.max() + 3, 0.1) #Extrapolate a little 
         self.smooth_y = np.exp(self.fit(self.model.params, self.smooth_x))
-         
+        
+    def est_final_temps(self):
+        """
+        First we check if smooth y already contains the peak, we extend if it doesn't
+        Slightly messy function as schoolfield cannot be evalutated non numerically
+        First finds an estimate of TPK
+        Then finds upslope and downslope values
+        Then finds percentiles within the upslope and downslope
+        """
+        
+        percentile = 0.75 #Closest percentile to find 
+        
+        peak_check_x = np.arange(self.temps.min() - 15, self.temps.max() + 15, 0.1) #check 15 degrees either side, if its not in this range it won't be found anyway
+        peak_check_y = np.exp(self.fit(self.model.params, peak_check_x))
+
+        if peak_check_y.argmax() < peak_check_y.size - 1:
+            
+            max_index = peak_check_y.argmax()
+            max_val = peak_check_y.max()
+            #Index the temperatures with the maximum response value's position
+            self.tpk_est = peak_check_x[max_index]    
+            self.max_response_est = max_val
+            
+            #Find the value of each part of a function as a percentage of the maximum
+            upslope_y = peak_check_y[:max_index + 1] / max_val
+            downslope_y = peak_check_y[max_index:] / max_val
+            upslope_x = peak_check_x[:max_index + 1]
+            downslope_x = peak_check_x[max_index:]
+        
+            position_lower = (np.abs(upslope_y-percentile)).argmin()
+            position_upper = (np.abs(downslope_y-percentile)).argmin()
+        
+            self.lower_percentile = upslope_x[position_lower]
+            self.upper_percentile = downslope_x[position_upper]
+            
+        else:
+            self.tpk_est = 'NA'
+            self.lower_percentile = 'NA'
+            self.upper_percentile = 'NA'
+            self.max_response_est = 'NA'
+            
     def plot(self):
         self.plotted = True
         textdata = [self.final_E, self.R2, self.AIC, self.BIC] #Added to plot to show fit quality
@@ -172,6 +230,12 @@ class growth_model:
         
         plt.plot(self.smooth_x, self.smooth_y, marker='None', color='royalblue', linewidth=3)
         plt.plot(self.temps, self.responses, marker='o', linestyle='None', color='green')
+        try:
+            plt.axvline(x=self.lower_percentile, linestyle = ':')
+            plt.axvline(x=self.upper_percentile, linestyle = ':')
+            plt.axvline(x=self.tpk_est, linestyle = '--')
+        except TypeError:
+            pass
         plt.xlabel('Temperature (K)')
         plt.ylabel(self.trait)
         plt.title(title, fontsize=14, fontweight='bold')
@@ -179,7 +243,7 @@ class growth_model:
                  ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
         sns.despine() #Remove top and right border
         
-        plt.savefig('../results/{}.png'.format(self.index), bbox_inches='tight') 
+        plt.savefig('../results/fits/{}.png'.format(self.index), bbox_inches='tight') 
         plt.close()
         
     def get_stderrs(self):
@@ -196,7 +260,7 @@ class growth_model:
     def __eq__(self, other):
         return self.AIC == other.AIC and self.BIC == other.BIC
         
-class Boltzmann_Arrhenius(growth_model):
+class Boltzmann_Arrhenius(physiological_growth_model):
     "Simplest model - when all else fails - only works with upslope"
     model_name = "Boltzmann Arrhenius"
     def __init__(self, data, index):
@@ -249,11 +313,10 @@ class Boltzmann_Arrhenius(growth_model):
         AIC = {0[6]:.2f}
         BIC = {0[7]:.2f}
         
-        -----------------------------------
         """.format(vars)
         return text
 
-class schoolfield_two_factor(growth_model):
+class schoolfield_two_factor(physiological_growth_model):
     "Schoolfield model using T_pk as a substitute for T_H"
     model_name = "schoolfield two factor"
     def __init__(self, data, index):
@@ -265,14 +328,15 @@ class schoolfield_two_factor(growth_model):
         self.assess_model()
         self.get_final_values()
         self.get_stderrs()
+        self.est_final_temps()
         
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression"
         self.parameters = Parameters()
         #                   Name,      Start,   Can_Vary, Lower, Upper
         self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
-                          ('E', self.E_init, True, 0, np.inf,  None),
-                          ('E_D',self.E_init * 4, True, 0, np.inf,  None),
+                          ('E', self.E_init, True, 10E-10, np.inf,  None),
+                          ('E_D',self.E_init * 4, True, 10E-10, np.inf,  None),
                           ('T_pk', self.T_pk, True, 273.15-50, 273.15+150,  None))
 
     def fit(self, params, temps):
@@ -282,10 +346,10 @@ class schoolfield_two_factor(growth_model):
         E = parameter_vals['E'] #Activation energy of enzymes
         E_D = parameter_vals['E_D'] #Inactivation energy of enzymes
         T_pk = parameter_vals['T_pk'] #Temperature at which peak response is observed  
-
+        
         fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref))) /\
-                        (1 + (E/(E_D - E)) * np.exp(E_D / self.k * (1 / T_pk - 1 / temps)))
-                        )
+                         (1 + (E/(E_D - E)) * np.exp(E_D / self.k * (1 / T_pk - 1 / temps))))
+
         return fit
         
     def get_final_values(self):
@@ -305,10 +369,11 @@ class schoolfield_two_factor(growth_model):
     def __str__(self):
         "Allows print() to be called on the object"
         vars = [self.name, self.B0, self.final_B0, self.E_init, self.final_E, self.T_pk, self.final_T_pk,
-                self.E_init * 4, self.final_E_D, self.R2, self.AIC, self.BIC]
+                self.E_init * 4, self.final_E_D, self.R2, self.AIC, self.BIC, self.database_id]
         text = """\
         ---Schoolfield Two Factor Model---
         {0[0]}
+        {0[12]}
         
         B0 est = {0[1]:.2f}
         B0 final = {0[2]:.2f}
@@ -326,11 +391,10 @@ class schoolfield_two_factor(growth_model):
         AIC = {0[10]:.2f}
         BIC = {0[11]:.2f}
         
-        -----------------------------------
         """.format(vars)
         return text
 
-class schoolfield_original_simple(growth_model):
+class schoolfield_original_simple(physiological_growth_model):
      # Original Sharpe-Schoolfield's model with low-temp inactivation term removed, very similar to previous model
      # This seems to generate pretty much identical results to the two factor model, but throws its toys out the pram sometimes.
      # In this version T_H is the temperature at which half the enzyme is denatured by heat stress
@@ -344,6 +408,7 @@ class schoolfield_original_simple(growth_model):
         self.assess_model()
         self.get_final_values()
         self.get_stderrs()
+        self.est_final_temps()
         
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression"
@@ -384,10 +449,11 @@ class schoolfield_original_simple(growth_model):
     def __str__(self):
         "Allows print() to be called on the object"
         vars = [self.name, self.B0, self.final_B0, self.E_init, self.final_E, self.T_pk, self.T_H, 
-                self.final_T_H, self.E_init * 4, self.final_E_D, self.R2, self.AIC, self.BIC]
+                self.final_T_H, self.E_init * 4, self.final_E_D, self.R2, self.AIC, self.BIC, self.database_id]
         text = """\
         ---Schoolfield Original Model With Single T_H---
         {0[0]}
+        {0[13]}
         
         B0 est = {0[1]:.2f}
         B0 final = {0[2]:.2f}
@@ -409,7 +475,7 @@ class schoolfield_original_simple(growth_model):
         """.format(vars)
         return text        
 
-class schoolfield_original(growth_model):
+class schoolfield_original(physiological_growth_model):
      # Original Sharpe-Schoolfield's model with low-temp inactivation term removed, very similar to previous model
      # In this version T_H_L is a low temperature enzyme inactivation constant (as if having a high temp one wasn't fun enough already)
     model_name = "schoolfield"
@@ -422,6 +488,7 @@ class schoolfield_original(growth_model):
         self.assess_model()
         self.get_final_values()
         self.get_stderrs()
+        self.est_final_temps()
         
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression, note additional T_H_L parameter"
@@ -444,8 +511,8 @@ class schoolfield_original(growth_model):
         T_H = parameter_vals['T_H'] #Temperature at which half of enzymes are denatured
         T_H_L = parameter_vals['T_H_L'] #Temperature at which half of enzymes are cold inactivated
         
-        fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref)))\
-                        /(1 + np.exp((E_D_L / self.k) * (1 / T_H_L - 1 / temps)) + \
+        fit = B0 + np.log(np.exp((-E / self.k) * ((1 / temps) - (1 / self.Tref)))    \
+                        /(1 + np.exp((E_D_L / self.k) * (1 / T_H_L - 1 / temps)) +   \
                               np.exp((E_D / self.k) * (1 / T_H - 1 / temps))))
         
         return fit
@@ -467,13 +534,15 @@ class schoolfield_original(growth_model):
         self.final_E_D_L_stderr = self.model.params['E_D_L'].stderr
         self.final_T_stderr = self.model.params['T_H'].stderr        
         self.final_T_H_L_stderr = self.model.params['T_H_L'].stderr    
+        
     def __str__(self):
         "Allows print() to be called on the object"
         vars = [self.name, self.B0, self.final_B0, self.E_init, self.final_E, self.E_init * 4, self.final_E_D, self.E_init * (-6), self.final_E_D_L,
-                self.T_pk, self.T_H, self.final_T_H, self.T_H_L, self.final_T_H_L, self.R2, self.AIC, self.BIC]
+                self.T_pk, self.T_H, self.final_T_H, self.T_H_L, self.final_T_H_L, self.R2, self.AIC, self.BIC, self.database_id]
         text = """\
         ---Schoolfield Original Model With T_H and T_H_L---
         {0[0]}
+        {0[17]}
         
         B0 est = {0[1]:.2f}
         B0 final = {0[2]:.2f}
@@ -502,24 +571,26 @@ class schoolfield_original(growth_model):
             
 def get_datasets(path):
     "Create a set of temperature response curve datasets from csv"
-    data = pd.read_csv(path, encoding = "ISO-8859-1") #Open in latin 1   
-    ids = pd.unique(data['OriginalID']).tolist() #Get unique identifiers
+    data = pd.read_csv(path, encoding = "ISO-8859-1") #Open in latin 1
+    data['FinalID'] = pd.factorize(data['OriginalID'])[0]
+    ids = pd.unique(data['FinalID']).tolist() #Get unique identifiers
+    data.to_csv('debug.csv')
     #create a dictionary of datasets for easy access later
     Datasets = {}
     for id in ids:
-        curve_data = data.loc[data['OriginalID'] == id] #seperate data by uniqueID
+        curve_data = data.loc[data['FinalID'] == id] #seperate data by uniqueID
         curve_data = curve_data.sort_values(['ConTemp']).reset_index() #sort so rows are in temperature order, reset index to 0  
         Datasets[id] = curve_data
     return Datasets    
     
-data_path = '../Data/Tom_Smith_IDs.csv'
+data_path = '../Data/database.csv'
 Datasets = get_datasets(data_path)
 all_models = []
 
 for i in Datasets.keys():
     dataset = Datasets[i]
     if dataset.shape[0] > 3: #Must have more datapoints than number of variables
-        models = [Boltzmann_Arrhenius(dataset, i), schoolfield_two_factor(dataset, i), schoolfield_original_simple(dataset, i)]
+        models = [schoolfield_two_factor(dataset, i), schoolfield_original_simple(dataset, i)]
         if dataset.shape[0] > 5: #This model has two additional variables
             models.append(schoolfield_original(dataset, i))
         
@@ -530,9 +601,9 @@ for i in Datasets.keys():
             best_model.plot()
 
 #Create a blank dataframe
-output = pd.DataFrame(columns=("ID", "Species", "Model_name", "Reference", "Trait", "Latitude", "Longitude", "Kingdom", "Phylum",
-                               "B0", "B0_stderr", "E", "E stderr", "T_pk", "T_pk stderr", "E_D ", "E_D stderr", "E_D_L", 
-                               "E_D_L stderr", "R_Squared", "AIC", "BIC", "Plotted", "Temp_Vals", "Trait_Vals")) 
+output = pd.DataFrame(columns=("ID", "Species", "Model_name", "Reference", "Trait", "Latitude", "Longitude", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", 
+                               "B0", "B0_stderr", "E", "E stderr", "T_pk", "T_pk.stderr", "E_D ", "E_D.stderr", "E_D_L", "E_D_L stderr", "Est.Tpk", "Est.Tmin", "Est.Tmax", 
+                               "Max response", "R_Squared", "AIC", "BIC", "Plotted", "Temp_Vals", "Trait_Vals")) 
 #Add results to dataframe
 iter = 0 
 for i in all_models:
@@ -549,9 +620,10 @@ for i in all_models:
         final_T_stderr = getattr(model, 'final_T_stderr', "NA")
         final_T_H_L_stderr= getattr(model, 'final_T_H_L_stderr', "NA")
 
-        output.loc[iter] = [model.original_id, model.name, model.model_name, model.reference, model.trait, model.latitude, model.longditude, model.kingdom, model.phylum, 
-                            model.final_B0, model.final_B0_stderr, model.final_E, model.final_E_stderr, final_T_pk, final_T_pk_stderr, final_E_D, final_E_D_stderr,
-                            final_E_D_L, final_E_D_L_stderr, model.R2, model.AIC, model.BIC, model.plotted, np.array(model.temps), np.array(model.responses)]
+        output.loc[iter] = [model.original_id, model.name, model.model_name, model.reference, model.trait, model.latitude, model.longditude, model.kingdom, model.phylum, model.class_, 
+                            model.order, model.family, model.genus, model.final_B0, model.final_B0_stderr, model.final_E, model.final_E_stderr, final_T_pk, final_T_pk_stderr, 
+                            final_E_D, final_E_D_stderr, final_E_D_L, final_E_D_L_stderr, model.tpk_est, model.lower_percentile, model.upper_percentile, model.max_response_est,
+                            model.R2, model.AIC, model.BIC, model.plotted, np.array(model.temps), np.array(model.responses)]
         iter += 1
 
 output = output.sort_values(['Species', 'ID']).reset_index()        
