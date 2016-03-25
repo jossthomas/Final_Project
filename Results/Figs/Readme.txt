@@ -6,4 +6,6 @@ Growth_Range: T range is calculated as the difference between Tpk and the temper
 
 Response_Size: Data filtered for specific growth rates only (about 450 datapoints). There are some outliers not shown on this graph as they were in the 10000's which suggested to me that there was some error in either the fit or the data. 
 
+TKP_TAE: TPK vs growth rate with colouring by terminal electron acceptor. 
+
 The other graphs are hopefully fairly self explanatory. 

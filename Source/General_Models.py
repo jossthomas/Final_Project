@@ -77,6 +77,8 @@ class physiological_growth_model:
         self.order = self.data['ConOrder'][0]
         self.family = self.data['ConFamily'][0]
         self.genus = self.data['ConGenus'][0]
+        self.donor = self.data['ElectronDonorCommon'][0]
+        self.acceptor = self.data['ElectronAcceptorCommon'][0]
         self.plotted = False
 
     def get_T_pk(self):
@@ -574,7 +576,6 @@ def get_datasets(path):
     data = pd.read_csv(path, encoding = "ISO-8859-1") #Open in latin 1
     data['FinalID'] = pd.factorize(data['OriginalID'])[0]
     ids = pd.unique(data['FinalID']).tolist() #Get unique identifiers
-    data.to_csv('debug.csv')
     #create a dictionary of datasets for easy access later
     Datasets = {}
     for id in ids:
@@ -603,7 +604,7 @@ for i in Datasets.keys():
 #Create a blank dataframe
 output = pd.DataFrame(columns=("ID", "Species", "Model_name", "Reference", "Trait", "Latitude", "Longitude", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", 
                                "B0", "B0_stderr", "E", "E stderr", "T_pk", "T_pk.stderr", "E_D ", "E_D.stderr", "E_D_L", "E_D_L stderr", "Est.Tpk", "Est.Tmin", "Est.Tmax", 
-                               "Max response", "R_Squared", "AIC", "BIC", "Plotted", "Temp_Vals", "Trait_Vals")) 
+                               "Max response", "Donor", "Acceptor", "R_Squared", "AIC", "BIC", "Plotted", "Temp_Vals", "Trait_Vals")) 
 #Add results to dataframe
 iter = 0 
 for i in all_models:
@@ -623,8 +624,9 @@ for i in all_models:
         output.loc[iter] = [model.original_id, model.name, model.model_name, model.reference, model.trait, model.latitude, model.longditude, model.kingdom, model.phylum, model.class_, 
                             model.order, model.family, model.genus, model.final_B0, model.final_B0_stderr, model.final_E, model.final_E_stderr, final_T_pk, final_T_pk_stderr, 
                             final_E_D, final_E_D_stderr, final_E_D_L, final_E_D_L_stderr, model.tpk_est, model.lower_percentile, model.upper_percentile, model.max_response_est,
-                            model.R2, model.AIC, model.BIC, model.plotted, np.array(model.temps), np.array(model.responses)]
+                            model.donor, model.acceptor, model.R2, model.AIC, model.BIC, model.plotted, np.array(model.temps), np.array(model.responses)]
         iter += 1
 
 output = output.sort_values(['Species', 'ID']).reset_index()        
 output.to_csv('../results/summary.csv')
+output.to_csv('../Data/summary.csv')

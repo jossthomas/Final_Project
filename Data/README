@@ -1,1 +1,5 @@
 All growth data goes here. 
+
+Database.csv is the mane bacterial growth database.
+
+Summary.csv contains parametereters estimated from database.csv using schoolfield curve fitting. 
