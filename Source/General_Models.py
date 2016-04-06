@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 """
-This is a work in progress, its messy and not fully functional!
+This program provides a framework for and implementation of least squares fitting of various 
+thermal response models based on experimental data
+
 Written in Python 3.5 Anaconda Distribution
 """
 
-import sys
 import numpy as np
 import pandas as pd
-import matplotlib
 import matplotlib.pyplot as plt
 from lmfit import minimize, Parameters, fit_report
 from scipy import stats
@@ -31,6 +31,7 @@ class physiological_growth_model:
     k = 8.62e-5 #Boltzmann constant
     Tref = 273.15 #Reference temperature - 0C
     def __init__(self, data, index):
+        "Initiate the model, this method is called by all child classes"
         self.data = self.clean_dataset(data)
         self.index = index #ID for the model
         self.get_ancillary_info()
@@ -65,7 +66,7 @@ class physiological_growth_model:
         return data
         
     def get_ancillary_info(self):
-        "None of this is used for fitting, its soley for recording perposes"
+        "Get information on each curve to include in the summary"
         self.original_id = self.data['FinalID'][0]
         self.database_id = self.data['OriginalID'][0]
         self.reference = self.data['Citation'][0]
@@ -80,43 +81,50 @@ class physiological_growth_model:
         self.donor = self.data['ElectronDonorCommon'][0]
         self.acceptor = self.data['ElectronAcceptorCommon'][0]
         self.plotted = False
+        self.response_corrected = False
 
     def get_T_pk(self):
-        "Find the temperature at which maximum growth is observed"
-        self.Tpk_row = dataset['Cor_Trait_Value'].idxmax()
+        "Find the temperature at which maximum response is observed"
+        self.Tpk_row = dataset['Cor_Trait_Value'].idxmax() #Index of max response
         self.T_pk = dataset.loc[self.Tpk_row]['K'] #Temperature at which rate is maximum
         
     def estimate_T_H(self):
         "Estimate the temperature at which half the enzyme is inactivated by high temperatures"
-        downslope = self.data.loc[self.Tpk_row:] #slice data so only the downwards slope is included (including TPK value)
+        #slice data so only the downwards slope is included (including TPK value) 
+        downslope = self.data.loc[self.Tpk_row:]
         if downslope.shape[0] > 1:
             x = downslope['K']
+            
+            #Linearise the slop by taking the square root
             y = downslope['Cor_Trait_Value'] ** 0.5
             
-            #Not a linear function in reality, but this is fast and works!
-            slope, intercept, r_value, p_value, stderr = stats.linregress(x,y) 
+            #Calculate a regression line and find the x intercept
+            slope, intercept, *vals = stats.linregress(x,y) 
             x_intercept = -intercept/slope
 
-            #find the value of K half way between T growth_max and T growth_0 (high), using 3 not 2 as growth rate increases are exponential not linear
+            #find the value of K a third of the way between T growth_max and T growth_0 (high).
             self.T_H = self.T_pk + ((x_intercept - self.T_pk) / 3) 
         else:
-            self.T_H = self.T_pk + 5 #Totally arbitary, probably wont fit
+            #Use an arbitary value and hope for the best
+            self.T_H = self.T_pk + 5
 
     def estimate_T_H_L(self):
         "Estimate the temperature at which half the enzyme is inactivated by low temperatures"
-        upslope = self.data.loc[:self.Tpk_row] #slice data so only the downwards slope is included (including TPK value)
+        #slice data so only the downwards slope is included (including TPK value)
+        upslope = self.data.loc[:self.Tpk_row]
         if upslope.shape[0] > 1:
             x = upslope['K']
+            #Linearise using square root
             y = upslope['Cor_Trait_Value'] ** 0.5
 
-            #Not a linear thing, but this is fast
-            slope, intercept, r_value, p_value, stderr = stats.linregress(x,y) 
+            slope, intercept, *vals = stats.linregress(x,y) 
             x_intercept = -intercept/slope 
 
-            #find the value of K half way between T growth_max and T growth_0 (low)
-            self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 3) 
+            #find the value of K a quarter of the way between T growth_max and T growth_0 (low)
+            self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 4) 
         else:
-            self.T_H_L = self.T_pk - 5 #Totally arbitary,  probably wont fit
+            #Once again, use an arbitary value and hope for the best
+            self.T_H_L = self.T_pk - 5
             
     def estimate_E_init(self):
         "Estimate energy value using the slope of the values to the peak of an arrhenius plot"
@@ -136,16 +144,20 @@ class physiological_growth_model:
             
     def estimate_B0(self):
         "Returns the response at the tempetature closest to Tref"
-        if self.temps.min() > self.Tref:
-            self.B0 = np.log(self.responses.min())
-        else:
-            self.B0 = np.log(self.responses[self.temps <= self.Tref].max())
+        closest_T_index = abs(self.temps - self.Tref).argmin()
+        self.B0 = np.log(self.responses[closest_T_index])
             
     def set_name(self):
         "Set species name to be applied to plot title"
         genus = self.data['ConGenus'][0]
         species = self.data['ConSpecies'][0]
         Consumer = self.data['Consumer'][0]
+        
+        #Use this to remove pseudoreplicates
+        if pd.isnull(species):
+            self.strain_check = Consumer
+        else:
+            self.strain_check = ' '.join([genus, species]).lower()
         
         if Consumer:
             self.name = Consumer
@@ -168,13 +180,18 @@ class physiological_growth_model:
         self.R2 = 1 - np.var(self.model.residual) / np.var(self.responses)
         
     def assess_model(self):
+        """Calculate the Akaike Information Criterion and Bayesian Information Criterion, using:
+
+        - n:   number of observations
+        - k:   number of parameters
+        - rss: residual sum of squares
+        """
         k = self.model.nvarys #Number of variables
         n = self.model.ndata #Number of data points
         rss = sum(np.power(self.model.residual, 2)) #Residual sum of squares
         
-        
-        self.AIC = n * np.log((2 * np.pi) / n) + n + 2 + n * np.log(rss) + 2 * k
-        self.BIC = n + n * np.log(2 * np.pi) + n * np.log(rss / n) + (np.log(n)) * (k + 1)
+        self.AIC = 2 * k + n * np.log(rss / n)
+        self.BIC = np.log(n)*(k + 1) + n * np.log(rss / n)
            
     def smooth(self):
         "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
@@ -183,45 +200,59 @@ class physiological_growth_model:
         
     def est_final_temps(self):
         """
-        First we check if smooth y already contains the peak, we extend if it doesn't
         Slightly messy function as schoolfield cannot be evalutated non numerically
         First finds an estimate of TPK
-        Then finds upslope and downslope values
-        Then finds percentiles within the upslope and downslope
-        """
-        
+        Uses the TPK value to split the growth curve into an upwards slope and a downwards slope
+        Then finds the temperature at the rate which is the given percentage of the maximum rate
+        """ 
         percentile = 0.75 #Closest percentile to find 
         
-        peak_check_x = np.arange(self.temps.min() - 15, self.temps.max() + 15, 0.1) #check 15 degrees either side, if its not in this range it won't be found anyway
+        #check 15 degrees either side, if its not in this range it won't be found anyway
+        peak_check_x = np.arange(self.temps.min() - 15, self.temps.max() + 15, 0.1)
         peak_check_y = np.exp(self.fit(self.model.params, peak_check_x))
 
+        #Check the max response isn't the final value in the curve
         if peak_check_y.argmax() < peak_check_y.size - 1:
-            
             max_index = peak_check_y.argmax()
             max_val = peak_check_y.max()
+            
             #Index the temperatures with the maximum response value's position
             self.tpk_est = peak_check_x[max_index]    
             self.max_response_est = max_val
             
-            #Find the value of each part of a function as a percentage of the maximum
+            #In some cases the fitting function leads to a near infinitisimal peak being found skewing the value
+            #Check if that has happened and correct to the maximum observed rate if it has!
+            
+            max_val_check_1 = peak_check_y[max_index - 5] / self.max_response_est
+            
+            #Kicks in if response increases 15% in half a degrees
+            if max_val_check_1 < 0.85:
+                self.response_corrected = True
+                self.max_response_est = self.responses.max()
+
+            #Find each y value as a percentage of the maximum
             upslope_y = peak_check_y[:max_index + 1] / max_val
             downslope_y = peak_check_y[max_index:] / max_val
             upslope_x = peak_check_x[:max_index + 1]
             downslope_x = peak_check_x[max_index:]
-        
+            
+            #Get the closest value to the percentage
             position_lower = (np.abs(upslope_y-percentile)).argmin()
             position_upper = (np.abs(downslope_y-percentile)).argmin()
-        
+            
+            #Index the original x values to find percentile
             self.lower_percentile = upslope_x[position_lower]
             self.upper_percentile = downslope_x[position_upper]
             
         else:
+            #Set default values
             self.tpk_est = 'NA'
             self.lower_percentile = 'NA'
             self.upper_percentile = 'NA'
             self.max_response_est = 'NA'
             
     def plot(self):
+        #We can use this to ID which model is best
         self.plotted = True
         textdata = [self.final_E, self.R2, self.AIC, self.BIC] #Added to plot to show fit quality
         title = '{}: {}'.format(self.index, self.name) 
@@ -230,9 +261,12 @@ class physiological_growth_model:
         sns.set_style("ticks", {'axes.grid': True})
         ax = f.add_subplot(111)
         
+        #Plot fitted curve
         plt.plot(self.smooth_x, self.smooth_y, marker='None', color='royalblue', linewidth=3)
+        #Plot actual observed data as a scatterplot
         plt.plot(self.temps, self.responses, marker='o', linestyle='None', color='green')
         try:
+            #If the percentile values were found plot them, otherwise pass
             plt.axvline(x=self.lower_percentile, linestyle = ':')
             plt.axvline(x=self.upper_percentile, linestyle = ':')
             plt.axvline(x=self.tpk_est, linestyle = '--')
@@ -249,11 +283,12 @@ class physiological_growth_model:
         plt.close()
         
     def get_stderrs(self):
+        #Standard errors estimated by the fitting function
         self.final_B0_stderr = self.model.params['B0_start'].stderr
         self.final_E_stderr = self.model.params['E'].stderr 
             
     def __lt__(self, other):
-        "By defining greater than we can directly compare models to determine which is best"
+        "By defining less than we can directly compare models using max() to determine which is best"
         if self.AIC == other.AIC:
             return self.BIC > other.BIC
         else:
@@ -263,7 +298,7 @@ class physiological_growth_model:
         return self.AIC == other.AIC and self.BIC == other.BIC
         
 class Boltzmann_Arrhenius(physiological_growth_model):
-    "Simplest model - when all else fails - only works with upslope"
+    "Simplest model - only works with linear upwards responses"
     model_name = "Boltzmann Arrhenius"
     def __init__(self, data, index):
         super().__init__(data, index) #Run the __init__ method from the base class
@@ -278,9 +313,9 @@ class Boltzmann_Arrhenius(physiological_growth_model):
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression"
         self.parameters = Parameters()
-        #                   Name,      Start,   Can_Vary, Lower, Upper
+        #                             Name,  Start,   Can_Vary, Lower, Upper
         self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
-                          ('E', self.E_init, True, 0, np.inf,  None))
+                                 ('E', self.E_init, True, 0, np.inf,  None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -288,7 +323,7 @@ class Boltzmann_Arrhenius(physiological_growth_model):
         B0 = parameter_vals['B0_start'] #Basic metabolic rate
         E = parameter_vals['E'] #Activation energy of enzymes
 
-        fit = B0 - E/self.k * (1/temps - 1/self.Tref)
+        fit = B0 - E / self.k * (1 / temps - 1 / self.Tref)
 
         return fit
         
@@ -497,11 +532,11 @@ class schoolfield_original(physiological_growth_model):
         self.parameters = Parameters()
         #                   Name,      Start,   Can_Vary, Lower, Upper
         self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
-                          ('E', self.E_init, True, 0, np.inf,  None),
-                          ('E_D',self.E_init * 4, True, 0, np.inf,  None),
-                          ('E_D_L',self.E_init * (-6), True, -np.inf, 0,  None),
-                          ('T_H', self.T_H, True, self.T_pk, 273.15+170,  None),
-                          ('T_H_L', self.T_H_L, True, 273.15-70, self.T_pk,  None))
+                          ('E', self.E_init, True, 10E-10, np.inf,  None),
+                          ('E_D',self.E_init * 4, True, 10E-10, np.inf,  None),
+                          ('E_D_L',self.E_init * (-6), True, -np.inf, -10E-10,  None),
+                          ('T_H', self.T_H, True, self.T_pk + 0.1, 273.15+170,  None),
+                          ('T_H_L', self.T_H_L, True, 273.15-70, self.T_pk - 0.1,  None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -602,9 +637,9 @@ for i in Datasets.keys():
             best_model.plot()
 
 #Create a blank dataframe
-output = pd.DataFrame(columns=("ID", "Species", "Model_name", "Reference", "Trait", "Latitude", "Longitude", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", 
+output = pd.DataFrame(columns=("ID", "Strain", "Model_name", "Species", "Reference", "Trait", "Latitude", "Longitude", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", 
                                "B0", "B0_stderr", "E", "E stderr", "T_pk", "T_pk.stderr", "E_D ", "E_D.stderr", "E_D_L", "E_D_L stderr", "Est.Tpk", "Est.Tmin", "Est.Tmax", 
-                               "Max response", "Donor", "Acceptor", "R_Squared", "AIC", "BIC", "Plotted", "Temp_Vals", "Trait_Vals")) 
+                               "Max response", "Donor", "Acceptor", "R_Squared", "AIC", "BIC", "Plotted", "Corrected", "Temp_Vals", "Trait_Vals")) 
 #Add results to dataframe
 iter = 0 
 for i in all_models:
@@ -621,12 +656,12 @@ for i in all_models:
         final_T_stderr = getattr(model, 'final_T_stderr', "NA")
         final_T_H_L_stderr= getattr(model, 'final_T_H_L_stderr', "NA")
 
-        output.loc[iter] = [model.original_id, model.name, model.model_name, model.reference, model.trait, model.latitude, model.longditude, model.kingdom, model.phylum, model.class_, 
+        output.loc[iter] = [model.original_id, model.name, model.model_name, model.strain_check, model.reference, model.trait, model.latitude, model.longditude, model.kingdom, model.phylum, model.class_, 
                             model.order, model.family, model.genus, model.final_B0, model.final_B0_stderr, model.final_E, model.final_E_stderr, final_T_pk, final_T_pk_stderr, 
                             final_E_D, final_E_D_stderr, final_E_D_L, final_E_D_L_stderr, model.tpk_est, model.lower_percentile, model.upper_percentile, model.max_response_est,
-                            model.donor, model.acceptor, model.R2, model.AIC, model.BIC, model.plotted, np.array(model.temps), np.array(model.responses)]
+                            model.donor, model.acceptor, model.R2, model.AIC, model.BIC, model.plotted, model.response_corrected, np.array(model.temps), np.array(model.responses)]
         iter += 1
 
-output = output.sort_values(['Species', 'ID']).reset_index()        
+output = output.sort_values(['Strain', 'ID']).reset_index()        
 output.to_csv('../results/summary.csv')
-output.to_csv('../Data/summary.csv')
+output.to_csv('../Data/summaries/summary.csv')

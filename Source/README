@@ -18,3 +18,8 @@ BA = Boltzman Ahrrenius model
 O = Original three factor Schoolfield model
 OS = Simplified two factor Schoolfield model
 TF = Two factor schoolfield model using peak temperatures rather than enzzyme rate estimates
+
+========== Models_R_Output.py ==========
+Modified version of General_Models. Instead of plotting outputs CSV to allow curve plotting in R. 
+
+This is super slow because I'm lazy, only use with small datasets!
