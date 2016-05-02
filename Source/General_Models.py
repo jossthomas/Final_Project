@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+#change __init__ to __call__
+
 """
 This program provides a framework for and implementation of least squares fitting of various 
 thermal response models based on experimental data
@@ -13,6 +15,9 @@ import matplotlib.pyplot as plt
 from lmfit import minimize, Parameters, fit_report
 from scipy import stats
 import seaborn as sns #All sns features can be deleted without affecting program function
+from datetime import datetime
+
+starttime = datetime.now()
 
 class physiological_growth_model:
     """
@@ -29,6 +34,7 @@ class physiological_growth_model:
     """
     
     k = 8.62e-5 #Boltzmann constant
+    R = 8.314 #Gas constant
     Tref = 273.15 #Reference temperature - 0C
     def __init__(self, data, index):
         "Initiate the model, this method is called by all child classes"
@@ -80,7 +86,8 @@ class physiological_growth_model:
         self.genus = self.data['ConGenus'][0]
         self.donor = self.data['ElectronDonorCommon'][0]
         self.acceptor = self.data['ElectronAcceptorCommon'][0]
-        self.plotted = False
+        self.is_optimal = self.data['OptimalConditions'][0]
+        self.respiration_type = self.data['RespirationType'][0]
         self.response_corrected = False
 
     def get_T_pk(self):
@@ -155,7 +162,7 @@ class physiological_growth_model:
         
         #Use this to remove pseudoreplicates
         if pd.isnull(species):
-            self.strain_check = Consumer
+            self.strain_check = Consumer.lower()
         else:
             self.strain_check = ' '.join([genus, species]).lower()
         
@@ -253,7 +260,6 @@ class physiological_growth_model:
             
     def plot(self):
         #We can use this to ID which model is best
-        self.plotted = True
         textdata = [self.final_E, self.R2, self.AIC, self.BIC] #Added to plot to show fit quality
         title = '{}: {}'.format(self.index, self.name) 
         
@@ -619,7 +625,7 @@ def get_datasets(path):
         Datasets[id] = curve_data
     return Datasets    
     
-data_path = '../Data/database.csv'
+data_path = '../Data/database_TS.csv'
 Datasets = get_datasets(data_path)
 all_models = []
 
@@ -629,21 +635,25 @@ for i in Datasets.keys():
         models = [schoolfield_two_factor(dataset, i), schoolfield_original_simple(dataset, i)]
         if dataset.shape[0] > 5: #This model has two additional variables
             models.append(schoolfield_original(dataset, i))
-        
-        all_models.append(models)
-        best_model = max(models)
-        if best_model:
-            print(best_model)
-            best_model.plot()
+    """        
+    elif dataset.shape[0] > 1:
+        models = [Boltzmann_Arrhenius(dataset, i)] #Not enough data points to fit other models so fit this
+    """    
+    all_models.append(models)
+    best_model = max(models)
+    if best_model:
+        print(best_model)
+        best_model.plot()
 
 #Create a blank dataframe
 output = pd.DataFrame(columns=("ID", "Strain", "Model_name", "Species", "Reference", "Trait", "Latitude", "Longitude", "Kingdom", "Phylum", "Class", "Order", "Family", "Genus", 
                                "B0", "B0_stderr", "E", "E stderr", "T_pk", "T_pk.stderr", "E_D ", "E_D.stderr", "E_D_L", "E_D_L stderr", "Est.Tpk", "Est.Tmin", "Est.Tmax", 
-                               "Max response", "Donor", "Acceptor", "R_Squared", "AIC", "BIC", "Plotted", "Corrected", "Temp_Vals", "Trait_Vals")) 
+                               "Max response", "Donor", "Acceptor", "Respiration.Type", "R_Squared", "AIC", "BIC", "Rank", "Corrected", "Optimal Conditions", "Number of Data Points", "Number of Variables")) 
 #Add results to dataframe
 iter = 0 
-for i in all_models:
-    for model in i:
+for candidates in all_models:
+    candidates.sort() #Uses built in lt method, best model will be first
+    for rank, model in enumerate(candidates[::-1]):
         #Not all models have all attributes so set defaults
         final_T_pk_stderr = getattr(model, 'final_T_pk_stderr', "NA")
         final_T_pk = getattr(model, 'final_T_pk', "NA")
@@ -659,9 +669,11 @@ for i in all_models:
         output.loc[iter] = [model.original_id, model.name, model.model_name, model.strain_check, model.reference, model.trait, model.latitude, model.longditude, model.kingdom, model.phylum, model.class_, 
                             model.order, model.family, model.genus, model.final_B0, model.final_B0_stderr, model.final_E, model.final_E_stderr, final_T_pk, final_T_pk_stderr, 
                             final_E_D, final_E_D_stderr, final_E_D_L, final_E_D_L_stderr, model.tpk_est, model.lower_percentile, model.upper_percentile, model.max_response_est,
-                            model.donor, model.acceptor, model.R2, model.AIC, model.BIC, model.plotted, model.response_corrected, np.array(model.temps), np.array(model.responses)]
+                            model.donor, model.acceptor, model.respiration_type, model.R2, model.AIC, model.BIC, rank + 1, model.response_corrected, model.is_optimal, model.model.ndata, model.model.nvarys]
         iter += 1
 
 output = output.sort_values(['Strain', 'ID']).reset_index()        
-output.to_csv('../results/summary.csv')
-output.to_csv('../Data/summaries/summary.csv')
+output.to_csv('../results/summary_TS_edit.csv')
+output.to_csv('../Data/summaries/summary_TS_edit.csv')
+
+print('Completed in: ', datetime.now() - starttime)
