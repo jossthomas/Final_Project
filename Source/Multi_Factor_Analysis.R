@@ -2,9 +2,11 @@
 #install.packages("reshape2")
 #install.packages("colorspace")
 #install.packages("scales")
+#install.packages("Cairo")
 #install.packages("plyr")
 #install.packages("grid")
 #install.packages("gridExtra")
+#install.packages("multcomp")
 
 #------Package requirements------
 
@@ -15,6 +17,7 @@ require(Cairo)
 require(scales)
 require(grid) 
 require(gridExtra)
+require(multcomp)
 
 CairoWin() #On windows cairo plotting has antialiasing while native plotting does not
 
@@ -34,7 +37,7 @@ main_theme <- theme_bw() +
 
 #simple large high contrast palette + order randomisation 
 HC_pal <- c('#000000', '#444444', '#000099', '#3344AA', '#3377DD', '#00FFBB', '#00FF00', '#999900', '#990088', '#FF0000', '#FF9900', '#FF00BB', '#FFFF22', '#00AA00', '#ff66ff', '#ecc6ec')
-HC_pal <- sample(pal)
+HC_pal <- sample(HC_pal)
 
 #------Declare Global Functions------
 
@@ -70,9 +73,9 @@ g_legend<-function(a.gplot){
 }
 
 #------Read and Setup Data------
-setwd('C:\\Users\\Joss\\Dropbox\\Final_Project\\Computation\\Data')
+setwd('C:/Users/Joss/Dropbox/Final_Project/Computation/Source')
 
-data <- read.csv('../Data/summaries/summary_TS_edit.csv')
+data <- read.csv('../Data/summaries/summary_new.csv')
 
 #Replace blanks in respiration type column with NA
 data$Respiration.Type[data$Respiration.Type == ''] <- NA
@@ -84,7 +87,7 @@ best_fits <- data[data$Rank==1,]
 best_fits_growth <- best_fits[best_fits$Trait == 'Specific Growth Rate',]
 
 #Geometric means for strains with more than one entry
-best_fits_mean_growth <- aggregate(cbind(Max.response, Est.Tpk, Est.Tmin, Est.Tmax)~Species:Trait*Kingdom*Phylum*Class*Order*Family*Genus*Acceptor, data=best_fits_growth,  FUN=gm_mean)
+best_fits_mean_growth <- aggregate(cbind(Max.response, Est.Tpk, Est.Tmin, Est.Tmax)~Species:Trait*ConKingdom*ConPhylum*ConClass*ConOrder*ConFamily*ConGenus*RespirationType, data=best_fits_growth,  FUN=gm_mean)
 
 #Take logs
 log_data <- best_fits_mean_growth
@@ -92,17 +95,16 @@ log_data$Est.Tpk <- log(log_data$Est.Tpk)
 log_data$Max.response <- log(log_data$Max.response)
 
 #Separate by kingdom
-best_fits_bacteria <-best_fits_mean[best_fits_mean_growth$Kingdom == 'Bacteria',]
-best_fits_archaea <-best_fits_mean[best_fits_mean_growth$Kingdom == 'Archaea',]
+best_fits_bacteria <-best_fits_mean_growth[best_fits_mean_growth$ConKingdom == 'Bacteria',]
+best_fits_archaea <-best_fits_mean_growth[best_fits_mean_growth$ConKingdom == 'Archaea',]
 
-best_fits_bacteria_log <-log_data[log_data$Kingdom == 'Bacteria',]
-best_fits_archaea_log <-log_data[log_data$Kingdom == 'Archaea',]
+best_fits_bacteria_log <-log_data[log_data$ConKingdom == 'Bacteria',]
+best_fits_archaea_log <-log_data[log_data$ConKingdom == 'Archaea',]
 
 #------Quick Analysis of Which models are best based on the number of data points in the curve------
 
 model_scores <- ggplot(best_fits, aes(x=Number.of.Data.Points, fill=factor(Model_name))) +
   geom_histogram(position = "fill", binwidth=10) +
-  geom_text(position = "stack") +
   xlim(c(0,100)) +
   ylab("Frequency") +
   xlab("Number of Observations")
@@ -114,7 +116,7 @@ model_scores
 
 #All species
 
-all_reponses <- ggplot(best_fits_growth, aes(x=Est.Tpk, y=Max.response, colour=Kingdom)) +  
+all_reponses <- ggplot(best_fits_growth, aes(x=Est.Tpk, y=Max.response, colour=ConKingdom)) +  
   geom_point(alpha=0.5, size=4) +
   main_theme +
   xlab('Optimum Temperature (K)') +
@@ -122,7 +124,7 @@ all_reponses <- ggplot(best_fits_growth, aes(x=Est.Tpk, y=Max.response, colour=K
   theme(legend.position = "none") 
 #all_reponses
 
-all_reponses_log <- ggplot(log_data, aes(x=Est.Tpk, y=Max.response, colour=Kingdom)) +  
+all_reponses_log <- ggplot(log_data, aes(x=Est.Tpk, y=Max.response, colour=ConKingdom)) +  
   geom_point(alpha=0.5, size=4) +
   main_theme +
   xlab('Log(Optimum Temperature (K))') +
@@ -169,7 +171,7 @@ archaea_reponses_log <- ggplot(best_fits_archaea_log, aes(x=Est.Tpk, y=Max.respo
 #------Create Histograms of Topt and Tpk values------
 #Histograms of max response frequences and tpk frequencies
 
-hist_all_TPK <- ggplot(best_fits_growth, aes(x=Est.Tpk, fill=Kingdom)) +
+hist_all_TPK <- ggplot(best_fits_growth, aes(x=Est.Tpk, fill=ConKingdom)) +
   main_theme +
   xlab(' ') +
   ylab(expression(paste("Count"^"1"))) +
@@ -178,7 +180,7 @@ hist_all_TPK <- ggplot(best_fits_growth, aes(x=Est.Tpk, fill=Kingdom)) +
   geom_histogram()
 #hist_all_TPK
 
-hist_all_Resp <- ggplot(best_fits_growth, aes(x=Max.response, fill=Kingdom)) +
+hist_all_Resp <- ggplot(best_fits_growth, aes(x=Max.response, fill=ConKingdom)) +
   coord_flip() +
   main_theme +
   xlab(' ') +
@@ -189,7 +191,7 @@ hist_all_Resp <- ggplot(best_fits_growth, aes(x=Max.response, fill=Kingdom)) +
 
 #logs of same thing
 
-hist_all_TPK_log <- ggplot(log_data, aes(x=Est.Tpk, fill=Kingdom)) +
+hist_all_TPK_log <- ggplot(log_data, aes(x=Est.Tpk, fill=ConKingdom)) +
   main_theme +
   xlab(' ') +
   ylab(expression(paste("Count"^"1"))) +
@@ -197,7 +199,7 @@ hist_all_TPK_log <- ggplot(log_data, aes(x=Est.Tpk, fill=Kingdom)) +
   geom_histogram()
 #hist_all_TPK_log
 
-hist_all_Resp_log <- ggplot(log_data, aes(x=Max.response, fill=Kingdom)) +
+hist_all_Resp_log <- ggplot(log_data, aes(x=Max.response, fill=ConKingdom)) +
   coord_flip() +
   main_theme +
   xlab(' ') +
@@ -283,9 +285,11 @@ hist_archaea_Resp_log <- ggplot(best_fits_archaea_log, aes(x=Max.response)) +
 #------Setup Grid Utilities------
 
 #Create a plot which has a nicely formatted legend
-legend_plot <- ggplot(best_fits_growth, aes(x=Est.Tpk, y=Max.response, colour=Kingdom)) +
+legend_plot <- ggplot(best_fits_growth, aes(x=Est.Tpk, y=Max.response, colour=ConKingdom)) +
   main_theme +
-  geom_point(size=4)
+  geom_point(size=4) +
+  scale_colour_discrete(name="Kingdom") +
+  guides(title.position="top", colour=guide_legend(ncol=1))
 
 #Extract said legend
 legend <- g_legend(legend_plot)
@@ -310,14 +314,3 @@ grid.arrange(hist_archaea_TPK, legend, archaea_reponses, hist_archaea_Resp, ncol
 
 #Log Archaea only
 grid.arrange(hist_archaea_TPK_log, legend, archaea_reponses_log, hist_archaea_Resp_log, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
-
-#------Multi Variable Analysis------
-
-overall_lm <- lm(Max.response ~ Est.Tpk*Kingdom, data=best_fits_mean_growth)
-summary(overall_lm)
-
-bacteria_lm <- lm(Max.response ~ Est.Tpk, data=best_fits_bacteria)
-summary(bacteria_lm)
-
-archaea_lm <- lm(Max.response ~ Est.Tpk, data=best_fits_archaea)
-summary(archaea_lm)
