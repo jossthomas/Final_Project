@@ -17,12 +17,13 @@ import os
 from lmfit import minimize, Parameters, fit_report
 from scipy import stats
 from datetime import datetime
+from functools import total_ordering
 
 starttime = datetime.now()
 
 class estimate_parameters:
     """
-    This class estimates a bunch of metabolic parameters which are then passed to the models themselves. It also extracts useful data from the database which is passed to the models. 
+    This class estimates all of metabolic parameters which are required as starting points for the least squared fitting of the models themselves. It also extracts useful data from the database which is passed to the models. 
     """
     
     #Going to define a bunch of parameters here which can then be overwritten by passing flags to __init__
@@ -43,10 +44,9 @@ class estimate_parameters:
     species_level_col_name = 'ConSpecies'
     
     species_data = True
-    log_data = False #Fit the model to log transformed data
     is_celcius = True #Is the input temps in celcius
     
-    def __init__(self, data, index, aux_parameters_names , flags = {}):
+    def __init__(self, data, aux_parameters_names = [] , flags = {}):
        
         for k, v in flags.items(): #flags will overwrite the values above allowing for flexible databases
             setattr(self, k, v)
@@ -86,16 +86,14 @@ class estimate_parameters:
         data['Cor_Trait_Value'] = data[self.Y_vals_col_name] * self.x_val_conversion # Convert corrected value from s^-1 to d^-1
         
         #If any trait values are negative then subtract the smallest value to normalise
+        minimum_temp_value  = data['K'].min()
         minimum_trait_value  = data['Cor_Trait_Value'].min()
         
-        if minimum_trait_value < 0:
+        if minimum_trait_value <= 0:
             data['Cor_Trait_Value'] -= minimum_trait_value - 10E-10 #Get rid of any 0s
-        else:
-            data['Cor_Trait_Value'] += 10E-10 #If there are 0s the above will not work so correct anyway
-            
-        if self.log_data:
-            data['Cor_Trait_Value'] = np.log(data['Cor_Trait_Value'])
-            data['K'] = np.log(data['K'])
+        
+        if minimum_temp_value <= 0:
+            data['K'] -= minimum_temp_value - 10E-10 #Get rid of any 0s
             
         return data
         
@@ -185,28 +183,25 @@ class estimate_parameters:
                 print('Warning, no name found at this level for group')
             
     def __str__(self):
-        vars = [self.species_name, self.temps, self.responses, self.trait, self.B0, self.E_init, self.T_H_L, self.T_H, self.T_pk, self.Tpk_row]
+        vars = [self.species_name, self.temps, self.responses, self.trait, self.B0,
+                self.E_init, self.T_H_L, self.T_H, self.T_pk, self.Tpk_row]
         
         text = """\
         ----------------------
         {0[0]}
         Trait: {0[3]}
         
-        Temps:
-        {0[1]}
-        Responses:
-        {0[2]}
-        
-        B0: {0[4]}
-        E: {0[5]}
-        THL: {0[6]}
-        TH: {0[7]}
-        TPK: {0[8]}
-        TPK Row: {0[9]}
+        B0: {0[4]:.2f}
+        E: {0[5]:.2f}
+        THL: {0[6]:.2f}
+        TH: {0[7]:.2f}
+        TPK: {0[8]:.2f}
+        TPK Row: {0[9]:.2f}
         """.format(vars)
         
         return text
-        
+
+@total_ordering #This decorator generates all comparison operators from __lt__ and __eq__        
 class physiological_growth_model:
     k = 8.62e-5 #Boltzmann constant
     Tref = 273.15 #Reference temperature - 0C
@@ -370,7 +365,35 @@ class physiological_growth_model:
         "These aren't actually outputted anywhere, but it would be easy enough to make them so I'm leaving this here"
         self.final_B0_stderr = self.model.params['B0_start'].stderr
         self.final_E_stderr = self.model.params['E'].stderr 
-            
+    
+    def parameters_dict(self):
+        "Returns a dictionary of the final paramters"
+        
+        final_B0 = getattr(self, 'final_B0', "NA")
+        final_E = getattr(self, 'final_E', "NA")
+        final_estimated_T_pk = getattr(self, 'tpk_est', "NA")
+        final_max_response = getattr(self, 'max_response_est', "NA")
+        final_upper_percentile = getattr(self, 'upper_percentile', "NA")
+        final_lower_percentile = getattr(self, 'lower_percentile', "NA")
+        final_E_D = getattr(self, 'final_E_D', "NA")
+        final_E_D_L = getattr(self, 'final_E_D_L', "NA")
+        final_T_H = getattr(self, 'final_T_H', "NA")
+        final_T_H_L = getattr(self, 'final_T_H_L', "NA")   
+    
+        param_dict = {
+        "B0": final_B0,
+        "E": final_E,
+        "TPK": final_estimated_T_pk,
+        "MaxResp": final_max_response,
+        "75_Percent_Growth_Upper": final_upper_percentile,
+        "75_Percent_Growth_Lower": final_lower_percentile,
+        "ED": final_E_D,
+        "EDL": final_E_D_L,
+        "TH": final_T_H,
+        "THL":  final_T_H_L}
+        
+        return param_dict
+    
     def __lt__(self, other):
         "By defining less than we can directly compare models using max() to determine which is best"
         if self.AIC == other.AIC:
@@ -398,9 +421,9 @@ class Boltzmann_Arrhenius(physiological_growth_model):
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression"
         self.parameters = Parameters()
-        #                             Name,  Start,   Can_Vary, Lower, Upper
-        self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
-                                 ('E', self.E_init, True, 0, np.inf,  None))
+        #                         Name,       Start,           Can_Vary,  Lower,    Upper
+        self.parameters.add_many(('B0_start', self.B0,         True,      -np.inf,  np.inf,    None),
+                                 ('E',        self.E_init,     True,       0,       np.inf,    None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -420,7 +443,9 @@ class Boltzmann_Arrhenius(physiological_growth_model):
         
     def __str__(self):
         "Allows print() to be called on the object"
-        vars = [self.species_name, self.B0, self.final_B0, self.E_init, self.final_E, self.R2, self.AIC, self.BIC]
+        vars = [self.species_name, self.B0, self.final_B0, self.E_init, 
+                self.final_E, self.R2, self.AIC, self.BIC]
+                
         text = """\
         ---Boltzmann Arrhenius Model---
         {0[0]}
@@ -455,11 +480,11 @@ class schoolfield_two_factor(physiological_growth_model):
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression"
         self.parameters = Parameters()
-        #                   Name,      Start,   Can_Vary, Lower, Upper
-        self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
-                          ('E', self.E_init, True, 10E-10, np.inf,  None),
-                          ('E_D',self.E_init * 4, True, 10E-10, np.inf,  None),
-                          ('T_pk', self.T_pk, True, 273.15-50, 273.15+150,  None))
+        #                         Name,       Start,           Can_Vary,  Lower,           Upper
+        self.parameters.add_many(('B0_start', self.B0,         True,      -np.inf,         np.inf,       None),
+                                 ('E',        self.E_init,     True,       10E-10,         np.inf,       None),
+                                 ('E_D',      self.E_init * 4, True,       10E-10,         np.inf,       None),
+                                 ('T_pk',     self.T_pk,       True,       273.15-50,      273.15+150,   None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -491,8 +516,10 @@ class schoolfield_two_factor(physiological_growth_model):
         
     def __str__(self):
         "Allows print() to be called on the object"
-        vars = [self.species_name, self.B0, self.final_B0, self.E_init, self.final_E, self.T_pk, self.final_T_pk,
-                self.E_init * 4, self.final_E_D, self.R2, self.AIC, self.BIC]
+        vars = [self.species_name, self.B0, self.final_B0, self.E_init,
+                self.final_E, self.T_pk, self.final_T_pk, self.E_init * 4, 
+                self.final_E_D, self.R2, self.AIC, self.BIC]
+                
         text = """\
         ---Schoolfield Two Factor Model---
         {0[0]}
@@ -535,11 +562,11 @@ class schoolfield_original_simple(physiological_growth_model):
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression"
         self.parameters = Parameters()
-        #                   Name,      Start,   Can_Vary, Lower, Upper
-        self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
-                          ('E', self.E_init, True, 0, np.inf,  None),
-                          ('E_D',self.E_init * 4, True, 0, np.inf,  None),
-                          ('T_H', self.T_H, True, self.T_pk, 273.15+170,  None))
+        #                         Name,       Start,           Can_Vary,  Lower,           Upper
+        self.parameters.add_many(('B0_start', self.B0,         True,     -np.inf,          np.inf,      None),
+                                 ('E',        self.E_init,     True,      0,               np.inf,      None),
+                                 ('E_D',      self.E_init * 4, True,      0,               np.inf,      None),
+                                 ('T_H',      self.T_H,        True,      self.T_pk,       273.15+170,  None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -615,13 +642,13 @@ class schoolfield_original(physiological_growth_model):
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression, note additional T_H_L parameter"
         self.parameters = Parameters()
-        #                   Name,      Start,   Can_Vary, Lower, Upper
-        self.parameters.add_many(('B0_start', self.B0, True, -np.inf, np.inf,  None),
-                          ('E', self.E_init, True, 10E-10, np.inf,  None),
-                          ('E_D',self.E_init * 4, True, 10E-10, np.inf,  None),
-                          ('E_D_L',self.E_init * (-6), True, -np.inf, -10E-10,  None),
-                          ('T_H', self.T_H, True, self.T_pk + 0.1, 273.15+170,  None),
-                          ('T_H_L', self.T_H_L, True, 273.15-70, self.T_pk - 0.1,  None))
+        #                         Name,       Start,           Can_Vary,  Lower,           Upper
+        self.parameters.add_many(('B0_start', self.B0,            True,   -np.inf,         np.inf,           None),
+                                 ('E',        self.E_init,        True,   10E-10,          np.inf,           None),
+                                 ('E_D',      self.E_init * 4,    True,   10E-10,          np.inf,           None),
+                                 ('E_D_L',    self.E_init * (-6), True,   -np.inf,         -10E-10,          None),
+                                 ('T_H',      self.T_H,           True,   self.T_pk + 0.1, 273.15+170,       None),
+                                 ('T_H_L',    self.T_H_L,         True,   273.15-70,       self.T_pk - 0.1,  None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -660,8 +687,11 @@ class schoolfield_original(physiological_growth_model):
         
     def __str__(self):
         "Allows print() to be called on the object"
-        vars = [self.species_name, self.B0, self.final_B0, self.E_init, self.final_E, self.E_init * 4, self.final_E_D, self.E_init * (-6), self.final_E_D_L,
-                self.T_pk, self.T_H, self.final_T_H, self.T_H_L, self.final_T_H_L, self.R2, self.AIC, self.BIC]
+        vars = [self.species_name, self.B0, self.final_B0, self.E_init, self.final_E, 
+                self.E_init * 4, self.final_E_D, self.E_init * (-6), self.final_E_D_L,
+                self.T_pk, self.T_H, self.final_T_H, self.T_H_L, self.final_T_H_L, 
+                self.R2, self.AIC, self.BIC]
+                
         text = """\
         ---Schoolfield Original Model With T_H and T_H_L---
         {0[0]}
@@ -721,8 +751,8 @@ def rank_and_flatten(model_list):
     
 def output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = False, sortby=['Species', 'FinalID']):
     col_names = ["Species", "Model_name", "Trait", "B0", "E", "T_pk", "E_D", "E_D_L", "Est.Tpk",
-                 "Est.Tmin", "Est.Tmax", "Max response", "R_Squared", "AIC", "BIC",
-                 "Rank", "Corrected", "Number.of.Data.Points", "Number.of.Variables"] + aux_cols
+                 "Est.Tmin", "Est.Tmax", "Max response", "R_Squared", "AIC", "BIC", "Rank", 
+                 "Corrected", "Number.of.Data.Points", "Number.of.Variables"] + aux_cols
                  
     if whole_curves:
         col_names += ['Temperature', 'Response', 'Original_Data']
@@ -740,15 +770,19 @@ def output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = F
         final_T_H = getattr(model, 'final_T_H', "NA")
         final_T_H_L = getattr(model, 'final_T_H_L', "NA")
         
+        model_parameters = [model.species_name, model.model_name, model.trait, model.final_B0, 
+                            model.final_E, final_T_pk, final_E_D, final_E_D_L, final_estimated_T_pk, 
+                            final_lower_percentile, final_upper_percentile, final_max_response]
+                            
+        fit_statisitics =  [model.R2, model.AIC, model.BIC, model.rank, model.response_corrected, model.model.ndata, model.model.nvarys]                    
+        
         if whole_curves: #output the entire smooth growth curve
             for i, x in np.ndenumerate(model.smooth_x):
                 temp = x
                 resp = model.smooth_y[i]
                 key = model.index + '_model_point_' + str(i[0]) #needs to be unique
                 
-                entries = [model.species_name, model.model_name, model.trait, model.final_B0, model.final_E, final_T_pk, final_E_D, final_E_D_L, final_estimated_T_pk, 
-                final_lower_percentile, final_upper_percentile, final_max_response, temp, resp, model.R2, model.AIC, model.BIC, model.rank,
-                model.response_corrected, model.model.ndata, model.model.nvarys] + model.aux_parameters_values + [temp, resp, 'False']
+                entries = model_parameters + fit_statisitics + model.aux_parameters_values + [temp, resp, 'False']
                 
                 row = (key, entries)
                 rows.append(row)
@@ -758,17 +792,13 @@ def output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = F
                 resp = model.responses[i]
                 key = model.index + '_orig_point_' + str(i[0]) #needs to be unique
                 
-                entries = [model.species_name, model.model_name, model.trait, model.final_B0, model.final_E, final_T_pk, final_E_D, final_E_D_L, final_estimated_T_pk, 
-                final_lower_percentile, final_upper_percentile, final_max_response, temp, resp, model.R2, model.AIC, model.BIC, model.rank,
-                model.response_corrected, model.model.ndata, model.model.nvarys] + model.aux_parameters_values + [temp, resp, 'True']
+                entries = model_parameters + fit_statisitics + model.aux_parameters_values + [temp, resp, 'True']
                 
                 row = (key, entries)
                 rows.append(row)   
                 
         else:
-            entries = [model.species_name, model.model_name, model.trait, model.final_B0, model.final_E, final_T_pk, final_E_D, final_E_D_L, 
-                       final_estimated_T_pk, final_lower_percentile, final_upper_percentile, final_max_response, model.R2, model.AIC, model.BIC, 
-                       model.rank, model.response_corrected, model.model.ndata, model.model.nvarys] + model.aux_parameters_values 
+            entries = model_parameters + fit_statisitics + model.aux_parameters_values
                    
             row = (model.index, entries)
             rows.append(row)

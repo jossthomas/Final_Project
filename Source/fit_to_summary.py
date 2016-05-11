@@ -37,28 +37,18 @@ for level in analysis_levels:
                        'full_strain_col_name': level,
                        'genus_level_col_name': level,
                        'species_level_col_name': level}
-                       
-    param_est_log_flags = dict(param_est_flags) #Copy the dictionary 
-    param_est_log_flags['log_data'] = True
     
     all_models = []
-    all_models_log = []
     
     Datasets = get_datasets(data_path, sep = level, _sort = ['Est.Tpk'])                            
     for i in Datasets.keys():
         dataset = Datasets[i]
-        if dataset.shape[0] > 10: #Must have more datapoints than number of variables
-            est_params = estimate_parameters(dataset, i, aux_parameters, flags = param_est_flags)
-            #est_params_log = estimate_parameters(dataset, i, aux_parameters, flags = param_est_log_flags)
-            
+        if dataset.shape[0] >= 6: #Must have more datapoints than number of variables
+            est_params = estimate_parameters(dataset, aux_parameters, flags = param_est_flags) 
             print(est_params)
-            #print(est_params_log)
-            
-            models = [schoolfield_two_factor(est_params, i), Boltzmann_Arrhenius(est_params, i)] #
-            #models_log = [schoolfield_two_factor(est_params_log, i), Boltzmann_Arrhenius(est_params_log, i)]
-            
+       
+            models = [schoolfield_two_factor(est_params, i), Boltzmann_Arrhenius(est_params, i)]
             all_models.append(models)
-            #all_models_log.append(models_log)
             
             plot_path = '../Results/Maxima_fits/{}/standard'.format(level)
             plot_path_log = '../Results/Maxima_fits/{}/log'.format(level)
@@ -68,15 +58,9 @@ for level in analysis_levels:
                 model.plot(plot_path)
                 model.plot(plot_path_log, scale_type = 'log')
                 model.plot(plot_path_arrh, scale_type = 'arrhenius')
-                #models_log[i].plot()
 
     all_models = rank_and_flatten(all_models)
-    #all_models_log = rank_and_flatten(all_models_log)
-    
     summary_path = '../Results/Maxima_fits/{}_summary.csv'.format(level)
-    #summary_path_log = '../Results/{}_log_summary.csv'.format(level)
-    
     output_csv(all_models, path = summary_path, aux_cols = aux_parameters, sortby=['Species', 'Model_name'])
-    #output_csv(all_models_log, path = summary_path_log, aux_cols = aux_parameters)   
     
 print('Completed in: ', datetime.now() - starttime)

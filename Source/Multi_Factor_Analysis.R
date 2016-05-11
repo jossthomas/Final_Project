@@ -19,7 +19,7 @@ require(grid)
 require(gridExtra)
 require(multcomp)
 
-CairoWin() #On windows cairo plotting has antialiasing while native plotting does not
+#CairoWin() #On windows cairo plotting has antialiasing while native plotting does not
 
 #------Plotting Utilities------
 
@@ -75,7 +75,7 @@ g_legend<-function(a.gplot){
 #------Read and Setup Data------
 setwd('C:/Users/Joss/Dropbox/Final_Project/Computation/Source')
 
-data <- read.csv('../Data/summaries/summary_new.csv')
+data <- read.csv('../Data/summaries/summary.csv')
 
 #Replace blanks in respiration type column with NA
 data$Respiration.Type[data$Respiration.Type == ''] <- NA
@@ -87,7 +87,7 @@ best_fits <- data[data$Rank==1,]
 best_fits_growth <- best_fits[best_fits$Trait == 'Specific Growth Rate',]
 
 #Geometric means for strains with more than one entry
-best_fits_mean_growth <- aggregate(cbind(Max.response, Est.Tpk, Est.Tmin, Est.Tmax)~Species:Trait*ConKingdom*ConPhylum*ConClass*ConOrder*ConFamily*ConGenus*RespirationType, data=best_fits_growth,  FUN=gm_mean)
+best_fits_mean_growth <- aggregate(cbind(Max.response, Est.Tpk, Est.Tmin, Est.Tmax)~Species:Trait*ConKingdom*ConPhylum*ConClass*ConOrder*ConFamily*ConGenus*Best_Guess, data=best_fits_growth,  FUN=gm_mean)
 
 #Take logs
 log_data <- best_fits_mean_growth
@@ -101,6 +101,7 @@ best_fits_archaea <-best_fits_mean_growth[best_fits_mean_growth$ConKingdom == 'A
 best_fits_bacteria_log <-log_data[log_data$ConKingdom == 'Bacteria',]
 best_fits_archaea_log <-log_data[log_data$ConKingdom == 'Archaea',]
 
+write.csv(best_fits_mean_growth, "../Data/summaries/aggregate_data.csv")
 #------Quick Analysis of Which models are best based on the number of data points in the curve------
 
 model_scores <- ggplot(best_fits, aes(x=Number.of.Data.Points, fill=factor(Model_name))) +
@@ -298,19 +299,16 @@ legend <- g_legend(legend_plot)
 #Some axes don't quite line up - they will if the limits are set manually
 
 #All species
-grid.arrange(hist_all_TPK, legend, all_reponses, hist_all_Resp, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+all_species <- arrangeGrob(hist_all_TPK, legend, all_reponses, hist_all_Resp, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+all_species_log  <- arrangeGrob(hist_all_TPK_log, legend, all_reponses_log, hist_all_Resp_log, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+all_bacteria <- arrangeGrob(hist_bacteria_TPK, legend, bacteria_reponses, hist_bacteria_Resp, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+all_bacteria_log <- arrangeGrob(hist_bacteria_TPK_log, legend, bacteria_reponses_log, hist_bacteria_Resp_log, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+all_archaea <- arrangeGrob(hist_archaea_TPK, legend, archaea_reponses, hist_archaea_Resp, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+all_archaea_log <- arrangeGrob(hist_archaea_TPK_log, legend, archaea_reponses_log, hist_archaea_Resp_log, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
 
-#Log all species
-grid.arrange(hist_all_TPK_log, legend, all_reponses_log, hist_all_Resp_log, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
-
-#Bacteria only
-grid.arrange(hist_bacteria_TPK, legend, bacteria_reponses, hist_bacteria_Resp, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
-
-#Log bacteria Only
-grid.arrange(hist_bacteria_TPK_log, legend, bacteria_reponses_log, hist_bacteria_Resp_log, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
-
-#Archaea only
-grid.arrange(hist_archaea_TPK, legend, archaea_reponses, hist_archaea_Resp, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
-
-#Log Archaea only
-grid.arrange(hist_archaea_TPK_log, legend, archaea_reponses_log, hist_archaea_Resp_log, ncol=2, nrow=2, widths=c(4, 1), heights=c(1, 4))
+ggsave(file="../Results/figs/all_species_hist.png", all_species, type="cairo-png", width = 16, height = 10)
+ggsave(file="../Results/figs/all_species_hist_log.png", all_species_log, type="cairo-png", width = 16, height = 10)
+ggsave(file="../Results/figs/all_bacteria_hist.png", all_bacteria, type="cairo-png", width = 16, height = 10)
+ggsave(file="../Results/figs/all_bacteria_hist_log.png", all_bacteria_log, type="cairo-png", width = 16, height = 10)
+ggsave(file="../Results/figs/all_archaea_hist.png", all_archaea, type="cairo-png", width = 16, height = 10)
+ggsave(file="../Results/figs/all_archaea_hist_log.png", all_archaea_log, type="cairo-png", width = 16, height = 10)

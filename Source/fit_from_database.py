@@ -18,12 +18,12 @@ Datasets = get_datasets(data_path)
 all_models = []
 
 aux_parameters = ['FinalID', 'OriginalID', 'Citation', 'Latitude', 'Longitude', 'ConKingdom', 'ConPhylum', 'ConClass',
-                  'ConOrder', 'ConFamily', 'ConGenus', 'ConSpecies', 'OptimalConditions', 'RespirationType']                
+                  'ConOrder', 'ConFamily', 'ConGenus', 'ConSpecies', 'OptimalConditions', 'Best_Guess']                
                   
 for i in Datasets.keys():
     dataset = Datasets[i]
     if dataset.shape[0] > 3: #Must have more datapoints than number of variables
-        est_params = estimate_parameters(dataset, i, aux_parameters)
+        est_params = estimate_parameters(dataset, aux_parameters)
         models = [schoolfield_two_factor(est_params, i), schoolfield_original_simple(est_params, i)]
         if dataset.shape[0] > 5: #This model has two additional variables
             models.append(schoolfield_original(est_params, i))
