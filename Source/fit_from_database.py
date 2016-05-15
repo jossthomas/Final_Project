@@ -14,7 +14,9 @@ from datetime import datetime
 starttime = datetime.now()
 
 data_path = '../Data/database.csv'
-Datasets = get_datasets(data_path)
+data = pd.read_csv(data_path, encoding = "ISO-8859-1") #Open in latin 1
+
+Datasets = get_datasets(data)
 all_models = []
 
 aux_parameters = ['FinalID', 'OriginalID', 'Citation', 'Latitude', 'Longitude', 'ConKingdom', 'ConPhylum', 'ConClass',

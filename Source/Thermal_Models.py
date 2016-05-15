@@ -11,13 +11,13 @@ Written in Python 3.5 Anaconda Distribution
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns #All sns features can be deleted without affecting program function
+import seaborn as sns
 import os
+import re
 
 from lmfit import minimize, Parameters, fit_report
-from scipy import stats
+from scipy import stats, integrate
 from datetime import datetime
-from functools import total_ordering
 
 starttime = datetime.now()
 
@@ -200,8 +200,7 @@ class estimate_parameters:
         """.format(vars)
         
         return text
-
-@total_ordering #This decorator generates all comparison operators from __lt__ and __eq__        
+        
 class physiological_growth_model:
     k = 8.62e-5 #Boltzmann constant
     Tref = 273.15 #Reference temperature - 0C
@@ -237,6 +236,9 @@ class physiological_growth_model:
                               method="leastsq")
                               
         self.R2 = 1 - np.var(self.model.residual) / np.var(self.responses)
+        self.ndata = self.model.ndata
+        self.nvarys = self.model.nvarys
+        
         
     def assess_model(self):
         """Calculate the Akaike Information Criterion and Bayesian Information Criterion, using:
@@ -310,17 +312,19 @@ class physiological_growth_model:
             self.upper_percentile = 'NA'
             self.max_response_est = 'NA'
             
-    def plot(self, out_path, scale_type='standard'):
-        #apologies to anyonne reading this function
-        #We can use this to ID which model is best
-        textdata = [self.final_E, self.final_B0, self.R2, self.AIC, self.BIC] #Added to plot to show fit quality
-        title = '{}: {}'.format(self.index, self.species_name) 
+    def plot(self, out_path, scale_type='standard', plot_residuals=False, hist_axes = False):
+        #General function to sort out plot data and call the right plotting function
+    
+        textdata = [self.R2, self.AIC, self.BIC] #Added to plot to show fit quality
+        title = '{}: {}'.format(self.index, self.species_name) #Graph Title
         
         plt_x = self.temps
         plt_y = self.responses
         
         plt_x_curve = self.smooth_x
         plt_y_curve = self.smooth_y
+        
+        #Reformat data based on scale
         
         if scale_type == 'log':
             plt_x, plt_y, plt_x_curve, plt_y_curve = np.log(plt_x), np.log(plt_y), np.log(plt_x_curve), np.log(plt_y_curve)
@@ -329,9 +333,38 @@ class physiological_growth_model:
             plt_y, plt_y_curve = np.log(plt_y), np.log(plt_y_curve)
             plt_x, plt_x_curve = 1 / plt_x, 1 / plt_x_curve
         
+        #Get correct text data
+        if self.model_name == 'Linear Model':
+            mid_text = 'Slope: {0[0]:.2f} \nIntercept: {0[1]:.2f}'.format([self.slope, self.intercept])
+        else:
+            mid_text = 'E:  {0[0]:.2f}\nB0:  {0[1]:.2f}'.format([self.final_E, self.final_B0])
+        
+        text_all = mid_text + '\nR2:  {0[0]:.2f}\nAIC: {0[1]:.2f}\nBIC: {0[2]:.2f}'.format(textdata)
+        
+        #Create output name
+        sp_name = str(self.species_name).replace(' ', '_')     
+        pattern = re.compile('[\W]+')
+        path_adj = pattern.sub('', sp_name)  #remove non alphanumeric chars
+        output_path = out_path + '/{}_{}.png'.format(self.index, path_adj)
+        
+        print('\t\tWriting: ', output_path)
+        
+        if hist_axes:
+            self.plot2(plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals)
+        else:
+            self.plot1(plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals)
+            
+    def plot1(self, plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals):
+        #Function to plot graph without histogram axes - less seaborn dependency.
+      
         f = plt.figure()
         sns.set_style("ticks", {'axes.grid': True})
+        
         ax = f.add_subplot(111)
+        
+        if scale_type == 'standard':
+            max_y = int(np.ceil(max(plt_y) / 10.0)) * 10
+            ax.set_ylim([0,max_y])
         
         #Plot actual observed data as a scatterplot
         plt.plot(plt_x, plt_y, marker='o', linestyle='None', color='green', alpha=0.7)
@@ -344,20 +377,97 @@ class physiological_growth_model:
         if scale_type == 'log':
             plt.xlabel('log(Temperature (K))')
             plt.ylabel('Log(' + self.trait + ')')
-                
-        if scale_type == 'arrhenius':
+        elif scale_type == 'arrhenius':
             plt.xlabel('1 / Temperature (K)')
-            plt.ylabel('Log(' + self.trait + ')')
-            
+            plt.ylabel('Log(' + self.trait + ')')     
         else:
             plt.xlabel('Temperature (K)')
             plt.ylabel(self.trait)
         
-        plt.text(0.05, 0.85,'E:  {0[0]:.2f}\nB0:  {0[1]:.2f}\nR2:  {0[2]:.2f}\nAIC: {0[3]:.2f}\nBIC: {0[4]:.2f}'.format(textdata),
-                 ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
+        plt.text(0.05, 0.85, text_all, ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
+         
         sns.despine() #Remove top and right border
         
-        output_path = out_path + '/{}.png'.format(self.index)
+        if plot_residuals: #create an inset plot with residuals
+            if self.model_name == 'Linear Model':
+                residual_x = self.temps
+                yvals = self.intercept + (residual_x * self.slope)
+                residuals = yvals - self.responses
+            else:
+                residuals = self.model.residual
+                residual_x = plt_x
+                
+            ax2 = f.add_axes([.7, .65, .2, .2])
+            ax2.plot(residual_x, residuals, marker='None', color='royalblue', linewidth=1)
+            ax2.xaxis.set_visible(False)
+            ax2.yaxis.set_visible(False)
+            ax2.grid(False)
+            plt.title("Residuals")
+        
+        plt.savefig(output_path, bbox_inches='tight') 
+        plt.close()
+        
+    def plot2(self, plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals):
+        "Plots the graph with histogram axes, your mileage may vary..."
+        
+        #Scale works much better if defined manually *shrug*
+        if scale_type == 'standard':
+            max_y = int(np.ceil(max(plt_y) / 10.0)) * 10
+            min_y = 0
+            max_x = int(np.ceil(max(plt_x) / 10.0)) * 10
+            min_x = int(np.floor(min(plt_x) / 10.0)) * 10
+        else:
+            if scale_type == 'log':
+                divisor = 100
+            else:
+                divisor = 20
+            addit_y = max(plt_y) / divisor 
+            addit_x = max(plt_x) / divisor
+            max_y = max(plt_y) + 4 * addit_y #Helps keep the data points away from the text
+            min_y = min(plt_y) - addit_y
+            max_x = max(plt_x) + addit_x
+            min_x = min(plt_x) - addit_x
+            
+        df = pd.DataFrame({'x': plt_x, 'y': plt_y}, columns=["x", "y"])
+        
+        #plot the data and its distribution
+        with sns.axes_style("white", {'axes.grid': True}):
+            g = sns.jointplot(x="x", y="y", color='green', data=df,
+                              stat_func=None,
+                              xlim=(min_x, max_x), 
+                              ylim=(min_y, max_y), 
+                              joint_kws=dict(alpha=0.7),
+                              marginal_kws=dict(bins=20))
+        
+        #Add the fitted curve
+        g.ax_joint.plot(plt_x_curve, plt_y_curve, marker='None', color='royalblue', linewidth=3)
+        g.ax_joint.text(0.05, 0.85, text_all, ha='left', va='center', transform=g.ax_joint.transAxes, color='darkslategrey')
+        
+        if scale_type == 'log':
+            g.set_axis_labels('log(Temperature (K))', 'Log(' + self.trait + ')')
+        elif scale_type == 'arrhenius':
+            g.set_axis_labels('1 / Temperature (K)', 'Log(' + self.trait + ')')
+        else:
+            g.set_axis_labels("Temperature (K)", self.trait)
+        
+        if plot_residuals: #create an inset plot with residuals
+            if self.model_name == 'Linear Model':
+                residual_x = self.temps
+                yvals = self.intercept + (residual_x * self.slope)
+                residuals = yvals - self.responses
+            else:
+                residuals = self.model.residual
+                residual_x = plt_x
+            sns.set_style("white", {'axes.grid': True})    
+            ax2 = g.fig.add_axes([.845, .785, .15, .10])
+            ax2.plot(residual_x, residuals, marker='None', color='royalblue', linewidth=1)
+            ax2.xaxis.set_visible(False)
+            ax2.yaxis.set_visible(False)
+            sns.despine()
+            
+        plt.subplots_adjust(top=0.9)
+        g.fig.suptitle(title, fontsize=14, fontweight='bold')
+        
         plt.savefig(output_path, bbox_inches='tight') 
         plt.close()
         
@@ -367,7 +477,7 @@ class physiological_growth_model:
         self.final_E_stderr = self.model.params['E'].stderr 
     
     def parameters_dict(self):
-        "Returns a dictionary of the final paramters"
+        "Returns a dictionary of the final parameters"
         
         final_B0 = getattr(self, 'final_B0', "NA")
         final_E = getattr(self, 'final_E', "NA")
@@ -403,7 +513,6 @@ class physiological_growth_model:
             
     def __eq__(self, other):
         return self.AIC == other.AIC and self.BIC == other.BIC
-
     
 class Boltzmann_Arrhenius(physiological_growth_model):
     "Simplest model - only works with linear upwards responses"
@@ -646,7 +755,7 @@ class schoolfield_original(physiological_growth_model):
         self.parameters.add_many(('B0_start', self.B0,            True,   -np.inf,         np.inf,           None),
                                  ('E',        self.E_init,        True,   10E-10,          np.inf,           None),
                                  ('E_D',      self.E_init * 4,    True,   10E-10,          np.inf,           None),
-                                 ('E_D_L',    self.E_init * (-6), True,   -np.inf,         -10E-10,          None),
+                                 ('E_D_L',    self.E_init * (-2), True,   -np.inf,         -10E-10,          None),
                                  ('T_H',      self.T_H,           True,   self.T_pk + 0.1, 273.15+170,       None),
                                  ('T_H_L',    self.T_H_L,         True,   273.15-70,       self.T_pk - 0.1,  None))
 
@@ -720,11 +829,59 @@ class schoolfield_original(physiological_growth_model):
      
         """.format(vars)
         return text                
-            
-def get_datasets(path, sep = 'OriginalID', _sort = ['ConTemp']):
+
+class LM(physiological_growth_model):
+    "Linear model"
+    model_name = "Linear Model"
+    def __init__(self, est_parameters, index):
+        self.extract_parameters(est_parameters)
+        self.index = str(index) + "_LM" #ID for the model
+        self.fit_model()
+        self.smooth()
+        self.assess_model()
+        
+    def fit_model(self):
+        self.slope, self.intercept, r, p_value, std_err = stats.linregress(self.temps, self.responses)
+        
+        self.R2 = r * r
+        
+        self.ndata = len(self.temps)
+        self.nvarys = 2
+        
+    def smooth(self):
+        "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
+        self.smooth_x = np.arange(self.temps.min() - 3, self.temps.max() + 3, 0.1) #Extrapolate a little 
+        self.smooth_y = self.intercept + (self.smooth_x * self.slope)        
+        
+    def assess_model(self):
+        k = 2 #Number of variables
+        n = len(self.temps) #Number of data points
+        
+        rss = self.R2 #Residual sum of squares
+        
+        self.AIC = 2 * k + n * np.log(rss / n)
+        self.BIC = np.log(n)*(k + 1) + n * np.log(rss / n)
+        
+    def __str__(self):
+        "Allows print() to be called on the object"
+        vars = [self.species_name, self.slope, self.intercept, self.R2, self.AIC, self.BIC]
+                
+        text = """\
+        ---Linear Model (yawn)---
+        {0[0]}
+        
+        Slope = {0[1]:.2f}
+        Intercept = {0[2]:.2f}
+        
+        R2: = {0[3]:.2f}
+        AIC = {0[4]:.2f}
+        BIC = {0[5]:.2f}
+        
+        """.format(vars)
+        return text        
+        
+def get_datasets(data, sep = 'OriginalID', _sort = ['ConTemp']):
     "Create a set of temperature response curve datasets from csv"
-    data = pd.read_csv(path, encoding = "ISO-8859-1") #Open in latin 1
-    
     data['FinalID'] = pd.factorize(data[sep])[0]
     ids = pd.unique(data['FinalID']).tolist() #Get unique identifiers
     
@@ -749,10 +906,10 @@ def rank_and_flatten(model_list):
         all_models = model_list
     return all_models
     
-def output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = False, sortby=['Species', 'FinalID']):
+def output_csv(model_list, aux_cols = [], path = None, whole_curves = False, sortby=['Species', 'FinalID']):
     col_names = ["Species", "Model_name", "Trait", "B0", "E", "T_pk", "E_D", "E_D_L", "Est.Tpk",
-                 "Est.Tmin", "Est.Tmax", "Max response", "R_Squared", "AIC", "BIC", "Rank", 
-                 "Corrected", "Number.of.Data.Points", "Number.of.Variables"] + aux_cols
+                 "Est.Tmin", "Est.Tmax", "Max response", "Slope", "Intercept", "R_Squared", "AIC",
+                 "BIC", "Rank", "Corrected", "Number.of.Data.Points", "Number.of.Variables"] + aux_cols
                  
     if whole_curves:
         col_names += ['Temperature', 'Response', 'Original_Data']
@@ -760,6 +917,8 @@ def output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = F
     rows = []
     
     for model in model_list:
+        final_B0 = getattr(model, 'final_B0', "NA") #If attribute doesn't exist returns NA
+        final_E = getattr(model, 'final_E', "NA")
         final_T_pk = getattr(model, 'final_T_pk', "NA")
         final_estimated_T_pk = getattr(model, 'tpk_est', "NA")
         final_max_response = getattr(model, 'max_response_est', "NA")
@@ -769,12 +928,15 @@ def output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = F
         final_E_D_L = getattr(model, 'final_E_D_L', "NA")
         final_T_H = getattr(model, 'final_T_H', "NA")
         final_T_H_L = getattr(model, 'final_T_H_L', "NA")
+        final_slope = getattr(model, 'slope', "NA")
+        final_intercept = getattr(model, 'intercept', "NA")
         
-        model_parameters = [model.species_name, model.model_name, model.trait, model.final_B0, 
-                            model.final_E, final_T_pk, final_E_D, final_E_D_L, final_estimated_T_pk, 
-                            final_lower_percentile, final_upper_percentile, final_max_response]
+        model_parameters = [model.species_name, model.model_name, model.trait, final_B0, 
+                            final_E, final_T_pk, final_E_D, final_E_D_L, final_estimated_T_pk, 
+                            final_lower_percentile, final_upper_percentile, final_max_response,
+                            final_slope, final_intercept]
                             
-        fit_statisitics =  [model.R2, model.AIC, model.BIC, model.rank, model.response_corrected, model.model.ndata, model.model.nvarys]                    
+        fit_statisitics =  [model.R2, model.AIC, model.BIC, model.rank, model.response_corrected, model.ndata, model.nvarys]                    
         
         if whole_curves: #output the entire smooth growth curve
             for i, x in np.ndenumerate(model.smooth_x):
@@ -805,4 +967,7 @@ def output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = F
         
     df = pd.DataFrame.from_items(rows,  orient='index', columns=col_names)
     df = df.sort_values(sortby)
-    df.to_csv(path)    
+    
+    if path:
+        df.to_csv(path)     
+    return df

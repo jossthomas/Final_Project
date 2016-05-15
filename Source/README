@@ -104,7 +104,7 @@ These four classes are identical in terms of usage:
     External Calls (for any model)
         print(model) : Will print a summary of the parameters estimated
         
-        model.plot(out_path, scale_type='standard')
+        model.plot(out_path, scale_type='standard', plot_residuals=False, hist_axes = False)
             Purpose:
                 Creates a scatter plot of the model with a smooth line showing the model plot
                 
@@ -116,6 +116,12 @@ These four classes are identical in terms of usage:
                                    'log' (both x and y logged),
                                    'arrhenius' (x = 1/k, y = log(response))
                                    
+                plot_residuals: Adds a subplot showing residuals
+                
+                hist_axes: Adds histograms of the distribution of the x and y axis running along each exis. Your mileage may vary!
+                
+            Note: Plot is implemented as two seperate functions, Plot1 is a standard function and is fairly robust. Plot2 adds histograms to the axes using seaborn and is less robust. Both should be called via the main plot() function. 
+                   
         model.parameters_dict()
             Purpose:
                 Returns a dictionary containing the fitted parameters
@@ -139,13 +145,13 @@ These four classes are identical in terms of usage:
 =============== Functions ===============   
 get_datasets
     Purpose:
-        Load a csv format database and split it by species or some other functional group, the outputs of this can then be passed to the models
+        Split a data frame by species or some other functional group, the outputs of this can then be passed to the models
             
     usage:
         get_datasets(path, sep = 'OriginalID', _sort = ['ConTemp'])
         
         Required Arguments
-            path : The location of the database
+            data : A pandas data frame
                 
         Optional Arguments
             sep : the name of the column by which the data is split into unique values
@@ -161,16 +167,18 @@ rank_and_flatten
         returns [model1, model2, model3, model4]
             
 output_csv
-    Purpose: Output a summary CSV of all fitted models
+    Purpose: Create a dataframe summary of all models and return that summary, will output as a csv if a path is provided.
              WARNING: Will overwrite files without warning!
                  
     Usage:
-        output_csv(model_list, aux_cols = [], path = 'summary.csv', whole_curves = False, sortby=['Species', 'FinalID'])
+        output_csv(model_list, aux_cols = [], path = None, whole_curves = False, sortby=['Species', 'FinalID'])
             
         Required Parameters:
             model_list -  a list of model objects
                 
         optional parameters:
+            path: a path to a file (e.g '../results/summary.csv')
+        
             aux_cols: a list of column names as strings for any auxiliary parameters specified when calling estimate_parameters
                 
             path: What to call and where to put the output file, by default uses the script directory and the name 'summary.csv'
