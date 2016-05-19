@@ -18,6 +18,8 @@ import re
 from lmfit import minimize, Parameters, fit_report
 from scipy import stats, integrate
 from datetime import datetime
+from progress.bar import Bar
+from copy import deepcopy, copy
 
 starttime = datetime.now()
 
@@ -62,7 +64,12 @@ class estimate_parameters:
         self.responses = self.get_column('Cor_Trait_Value') #Growth rates
         
         self.set_name()
+        self.estimate_all()
+    
+    def estimate_all(self):
+        "Estimate all data points, this is outside __init__ so we can call it again when we bootstrap"
         self.get_T_pk() #Assign value for T - peak
+        self.calc_slopes()
         self.estimate_T_H()
         self.estimate_T_H_L()
         self.estimate_E_init()
@@ -72,7 +79,18 @@ class estimate_parameters:
         return self.data[item][0] #Return the first item in the column
         
     def get_column(self, item):
-        return np.array(self.data[item].values) #return the whole column as an np array
+        "Safe way to get a numerical column"
+        vals = np.array(self.data[item].values) #return the whole column as an np array
+        return vals[~np.isnan(vals)]
+        
+    def resample_data(self):
+        "resample so we can bootstrap"
+        bootstrap_N = len(self.temps)
+        
+        indices = np.random.choice(bootstrap_N, bootstrap_N)
+        
+        self.temps = self.temps[indices]
+        self.responses = self.responses[indices]
         
     def clean_dataset(self, data):
         "Normalise each dataset"
@@ -99,25 +117,26 @@ class estimate_parameters:
         
     def get_ancillary_info(self):
         "Get information on each curve to include in the summary"
-        self.aux_parameters_values = [self.data[aux_parameter][0] for aux_parameter in self.aux_parameters_names]
-
+        self.aux_parameters_values = [self.data[aux_parameter][0] for aux_parameter in self.aux_parameters_names]  
+        
     def get_T_pk(self):
         "Find the temperature at which maximum response is observed"
-        self.Tpk_row = self.data['Cor_Trait_Value'].idxmax() #Index of max response
-        self.T_pk = self.data.loc[self.Tpk_row]['K'] #Temperature at which rate is maximum
+        self.Tpk_row = self.responses.argmax() #Index of max response
+        self.T_pk = self.temps[self.Tpk_row] #Temperature at which rate is maximum
+        
+    def calc_slopes(self):
+        "Slice the data to find the upwards and downwards slopes in the dataset"
+        self.upslope_x, self.downslope_x = self.temps[:self.Tpk_row + 1], self.temps[self.Tpk_row:]
+        self.upslope_y, self.downslope_y = self.responses[:self.Tpk_row + 1], self.responses[self.Tpk_row:]  
         
     def estimate_T_H(self):
         "Estimate the temperature at which half the enzyme is inactivated by high temperatures"
-        #slice data so only the downwards slope is included (including TPK value) 
-        downslope = self.data.loc[self.Tpk_row:]
-        if downslope.shape[0] > 1:
-            x = downslope['K']
-            
-            #Linearise the slop by taking the square root
-            y = downslope['Cor_Trait_Value'] ** 0.5
+        if len(self.downslope_x) > 1:
+            #Linearise the slope by taking the square root
+            downslope_y = np.sqrt(self.downslope_y)
             
             #Calculate a regression line and find the x intercept
-            slope, intercept, *vals = stats.linregress(x,y) 
+            slope, intercept, *vals = stats.linregress(self.downslope_x, self.downslope_y) 
             x_intercept = -intercept/slope
 
             #find the value of K a third of the way between T growth_max and T growth_0 (high).
@@ -128,14 +147,11 @@ class estimate_parameters:
 
     def estimate_T_H_L(self):
         "Estimate the temperature at which half the enzyme is inactivated by low temperatures"
-        #slice data so only the downwards slope is included (including TPK value)
-        upslope = self.data.loc[:self.Tpk_row]
-        if upslope.shape[0] > 1:
-            x = upslope['K']
+        if len(self.upslope_x) > 1:
             #Linearise using square root
-            y = upslope['Cor_Trait_Value'] ** 0.5
+            upslope_y = np.sqrt(self.upslope_y)
 
-            slope, intercept, *vals = stats.linregress(x,y) 
+            slope, intercept, *vals = stats.linregress(self.upslope_x, self.upslope_y) 
             x_intercept = -intercept/slope 
 
             #find the value of K a quarter of the way between T growth_max and T growth_0 (low)
@@ -146,13 +162,9 @@ class estimate_parameters:
             
     def estimate_E_init(self):
         "Estimate energy value using the slope of the values to the peak of an arrhenius plot"
-        upslope = self.data.loc[:self.Tpk_row] #slice data so only values less than TKP row are included
-        if upslope.shape[0] > 1:
-            temps = upslope['K']
-            responses = upslope['Cor_Trait_Value']
-            
-            x = 1 / (self.k * temps)
-            y = np.log(responses)
+        if len(self.upslope_x) > 1:
+            x = 1 / (self.k * self.upslope_x)
+            y = np.log(self.upslope_y)
             
             slope, intercept, r_value, p_value, stderr = stats.linregress(x,y)
             
@@ -186,7 +198,7 @@ class estimate_parameters:
         vars = [self.species_name, self.temps, self.responses, self.trait, self.B0,
                 self.E_init, self.T_H_L, self.T_H, self.T_pk, self.Tpk_row]
         
-        text = """\
+        text = """
         ----------------------
         {0[0]}
         Trait: {0[3]}
@@ -208,6 +220,19 @@ class physiological_growth_model:
     response_corrected = False #In cases where a peak in the curve tends to infinity this will be set to true. 
     rank = 'NA' #When fitting multiple models to the same data we will use this to rank models
     
+    def __init__(self):
+        self.temps = np.array([])
+        self.responses = np.array([])
+        self.species_name = None
+        self.trait = None
+        self.B0 = None
+        self.E_init = None
+        self.T_H_L = None
+        self.T_H = None
+        self.T_pk = None
+        self.aux_parameters_names = []
+        self.aux_parameters_values = []
+        
     def extract_parameters(self, est_parameters):
         self.temps = est_parameters.temps
         self.responses = est_parameters.responses
@@ -218,7 +243,6 @@ class physiological_growth_model:
         self.T_H_L = est_parameters.T_H_L
         self.T_H = est_parameters.T_H
         self.T_pk = est_parameters.T_pk
-        self.Tpk_row = est_parameters.Tpk_row
         self.aux_parameters_names = est_parameters.aux_parameters_names
         self.aux_parameters_values = est_parameters.aux_parameters_values
          
@@ -347,7 +371,7 @@ class physiological_growth_model:
         path_adj = pattern.sub('', sp_name)  #remove non alphanumeric chars
         output_path = out_path + '/{}_{}.png'.format(self.index, path_adj)
         
-        print('\t\tWriting: ', output_path)
+        print('\tWriting: {}'.format(output_path))
         
         if hist_axes:
             self.plot2(plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals)
@@ -361,10 +385,6 @@ class physiological_growth_model:
         sns.set_style("ticks", {'axes.grid': True})
         
         ax = f.add_subplot(111)
-        
-        if scale_type == 'standard':
-            max_y = int(np.ceil(max(plt_y) / 10.0)) * 10
-            ax.set_ylim([0,max_y])
         
         #Plot actual observed data as a scatterplot
         plt.plot(plt_x, plt_y, marker='o', linestyle='None', color='green', alpha=0.7)
@@ -411,20 +431,18 @@ class physiological_growth_model:
         "Plots the graph with histogram axes, your mileage may vary..."
         
         #Scale works much better if defined manually *shrug*
+        _ylim = None
         if scale_type == 'standard':
-            max_y = int(np.ceil(max(plt_y) / 10.0)) * 10
-            min_y = 0
-            max_x = int(np.ceil(max(plt_x) / 10.0)) * 10
-            min_x = int(np.floor(min(plt_x) / 10.0)) * 10
+            max_x = int(np.ceil(max(plt_x_curve) / 10.0)) * 10
+            min_x = int(np.floor(min(plt_x_curve) / 10.0)) * 10
         else:
             if scale_type == 'log':
                 divisor = 100
             else:
-                divisor = 20
-            addit_y = max(plt_y) / divisor 
+                divisor = 20  
+                addit_y = max(plt_y) / divisor 
+                _ylim = (min(plt_y) - addit_y, max(plt_y) + 4 * addit_y) #Helps keep the data points away from the text
             addit_x = max(plt_x) / divisor
-            max_y = max(plt_y) + 4 * addit_y #Helps keep the data points away from the text
-            min_y = min(plt_y) - addit_y
             max_x = max(plt_x) + addit_x
             min_x = min(plt_x) - addit_x
             
@@ -434,21 +452,22 @@ class physiological_growth_model:
         with sns.axes_style("white", {'axes.grid': True}):
             g = sns.jointplot(x="x", y="y", color='green', data=df,
                               stat_func=None,
+                              ylim = _ylim,
                               xlim=(min_x, max_x), 
-                              ylim=(min_y, max_y), 
-                              joint_kws=dict(alpha=0.7),
+                              joint_kws=dict(alpha=0.5),
                               marginal_kws=dict(bins=20))
         
         #Add the fitted curve
         g.ax_joint.plot(plt_x_curve, plt_y_curve, marker='None', color='royalblue', linewidth=3)
         g.ax_joint.text(0.05, 0.85, text_all, ha='left', va='center', transform=g.ax_joint.transAxes, color='darkslategrey')
         
+        """
         if scale_type == 'log':
             g.set_axis_labels('log(Temperature (K))', 'Log(' + self.trait + ')')
         elif scale_type == 'arrhenius':
             g.set_axis_labels('1 / Temperature (K)', 'Log(' + self.trait + ')')
         else:
-            g.set_axis_labels("Temperature (K)", self.trait)
+            g.set_axis_labels('Temperature (K)', self.trait)
         
         if plot_residuals: #create an inset plot with residuals
             if self.model_name == 'Linear Model':
@@ -458,16 +477,14 @@ class physiological_growth_model:
             else:
                 residuals = self.model.residual
                 residual_x = plt_x
+                
             sns.set_style("white", {'axes.grid': True})    
             ax2 = g.fig.add_axes([.845, .785, .15, .10])
             ax2.plot(residual_x, residuals, marker='None', color='royalblue', linewidth=1)
             ax2.xaxis.set_visible(False)
             ax2.yaxis.set_visible(False)
             sns.despine()
-            
-        plt.subplots_adjust(top=0.9)
-        g.fig.suptitle(title, fontsize=14, fontweight='bold')
-        
+        """
         plt.savefig(output_path, bbox_inches='tight') 
         plt.close()
         
@@ -517,7 +534,9 @@ class physiological_growth_model:
 class Boltzmann_Arrhenius(physiological_growth_model):
     "Simplest model - only works with linear upwards responses"
     model_name = "Boltzmann Arrhenius"
-    def __init__(self, est_parameters, index):
+    model_name_short = "BA"
+    
+    def fit_from_parameters(self, est_parameters, index):
         self.extract_parameters(est_parameters)
         self.index = str(index) + "_BA" #ID for the model
         self.set_parameters()
@@ -555,7 +574,7 @@ class Boltzmann_Arrhenius(physiological_growth_model):
         vars = [self.species_name, self.B0, self.final_B0, self.E_init, 
                 self.final_E, self.R2, self.AIC, self.BIC]
                 
-        text = """\
+        text = """
         ---Boltzmann Arrhenius Model---
         {0[0]}
         
@@ -575,7 +594,9 @@ class Boltzmann_Arrhenius(physiological_growth_model):
 class schoolfield_two_factor(physiological_growth_model):
     "Schoolfield model using T_pk as a substitute for T_H"
     model_name = "schoolfield two factor"
-    def __init__(self, est_parameters, index):
+    model_name_short = "SCH_TF"
+        
+    def fit_from_parameters(self, est_parameters, index):
         self.extract_parameters(est_parameters)
         self.index = str(index) + "_Sch_TF" #ID for the model
         self.set_parameters()
@@ -629,7 +650,7 @@ class schoolfield_two_factor(physiological_growth_model):
                 self.final_E, self.T_pk, self.final_T_pk, self.E_init * 4, 
                 self.final_E_D, self.R2, self.AIC, self.BIC]
                 
-        text = """\
+        text = """
         ---Schoolfield Two Factor Model---
         {0[0]}
         
@@ -657,7 +678,9 @@ class schoolfield_original_simple(physiological_growth_model):
      # This seems to generate pretty much identical results to the two factor model, but throws its toys out the pram sometimes.
      # In this version T_H is the temperature at which half the enzyme is denatured by heat stress
     model_name = "schoolfield simple"
-    def __init__(self, est_parameters, index):
+    model_name_short = "SCH_OS"
+    
+    def fit_from_parameters(self, est_parameters, index):
         self.extract_parameters(est_parameters)
         self.index = str(index) + "_Sch_OS" #Used to name plot graphics file
         self.set_parameters()
@@ -709,7 +732,7 @@ class schoolfield_original_simple(physiological_growth_model):
         "Allows print() to be called on the object"
         vars = [self.species_name, self.B0, self.final_B0, self.E_init, self.final_E, self.T_pk, self.T_H, 
                 self.final_T_H, self.E_init * 4, self.final_E_D, self.R2, self.AIC, self.BIC]
-        text = """\
+        text = """
         ---Schoolfield Original Model With Single T_H---
         {0[0]}
         
@@ -737,7 +760,9 @@ class schoolfield_original(physiological_growth_model):
      # Original Sharpe-Schoolfield's model with low-temp inactivation term removed, very similar to previous model
      # In this version T_H_L is a low temperature enzyme inactivation constant (as if having a high temp one wasn't fun enough already)
     model_name = "schoolfield"
-    def __init__(self, est_parameters, index):
+    model_name_short = "SCH_O"
+    
+    def fit_from_parameters(self, est_parameters, index):
         self.extract_parameters(est_parameters)
         self.index = str(index) + "_Sch_O" #Used to name plot graphics file
         self.set_parameters()
@@ -751,13 +776,14 @@ class schoolfield_original(physiological_growth_model):
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression, note additional T_H_L parameter"
         self.parameters = Parameters()
-        #                         Name,       Start,           Can_Vary,  Lower,           Upper
-        self.parameters.add_many(('B0_start', self.B0,            True,   -np.inf,         np.inf,           None),
-                                 ('E',        self.E_init,        True,   10E-10,          np.inf,           None),
-                                 ('E_D',      self.E_init * 4,    True,   10E-10,          np.inf,           None),
-                                 ('E_D_L',    self.E_init * (-2), True,   -np.inf,         -10E-10,          None),
-                                 ('T_H',      self.T_H,           True,   self.T_pk + 0.1, 273.15+170,       None),
-                                 ('T_H_L',    self.T_H_L,         True,   273.15-70,       self.T_pk - 0.1,  None))
+        
+        #                         Name,       Start,                Can_Vary,  Lower,           Upper
+        self.parameters.add_many(('B0_start', self.B0,               True,   -np.inf,         np.inf,           None),
+                                 ('E',        self.E_init,           True,   10E-10,          np.inf,           None),
+                                 ('E_D',      self.E_init * 4,       True,   10E-10,          np.inf,           None),
+                                 ('E_D_L',    self.E_init * (-2),    True,   -np.inf,         -10E-10,          None),
+                                 ('T_H',      self.T_H,              True,   self.T_pk + 0.1, 273.15+170,       None),
+                                 ('T_H_L',    self.T_H_L,            True,   273.15-70,       self.T_pk - 0.1,  None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -801,7 +827,7 @@ class schoolfield_original(physiological_growth_model):
                 self.T_pk, self.T_H, self.final_T_H, self.T_H_L, self.final_T_H_L, 
                 self.R2, self.AIC, self.BIC]
                 
-        text = """\
+        text = """
         ---Schoolfield Original Model With T_H and T_H_L---
         {0[0]}
         
@@ -833,7 +859,9 @@ class schoolfield_original(physiological_growth_model):
 class LM(physiological_growth_model):
     "Linear model"
     model_name = "Linear Model"
-    def __init__(self, est_parameters, index):
+    model_name_short = "LM"
+    
+    def fit_from_parameters(self, est_parameters, index):
         self.extract_parameters(est_parameters)
         self.index = str(index) + "_LM" #ID for the model
         self.fit_model()
@@ -866,7 +894,7 @@ class LM(physiological_growth_model):
         "Allows print() to be called on the object"
         vars = [self.species_name, self.slope, self.intercept, self.R2, self.AIC, self.BIC]
                 
-        text = """\
+        text = """
         ---Linear Model (yawn)---
         {0[0]}
         
@@ -879,8 +907,134 @@ class LM(physiological_growth_model):
         
         """.format(vars)
         return text        
+
+def read_database(path):
+    "Read the file in latin 1, convenience function"
+    return pd.read_csv(path, encoding = "ISO-8859-1")
+
+def fit_models(models, estimates, tag=None, print_each=False):
+    "wrapper for the model classes, performs basic checks and returns a list of fitted models"
+    assert type(models) == list or type(models) == tuple, "Models must be passed as a list of strings!"
+    
+    fitted_models = []
+    not_fitted = []
+    n_vars = len(estimates.temps)
+    
+    models = [i.lower() for i in models]
+    if tag == None: #Make sure plot has a name
+        tag = "{}_".format(estimates.trait)
+    
+    #Model to fit, min number of variables
+    fit_vars = {'lm' : (LM, 2),
+                'boltzmann_arrhenius' : (Boltzmann_Arrhenius, 2),
+                'schoolfield_two_factor': (schoolfield_two_factor, 4),
+                'schoolfield_original_simple': (schoolfield_original_simple, 4), 
+                'schoolfield_original': (schoolfield_original, 6)}
+    
+    for i in models:
+        model_class, min_vars = fit_vars[i]
+        if n_vars >= min_vars:
+            model = model_class()
+            model.fit_from_parameters(estimates, tag) #perform the fit
+            if print_each:
+                print(model)
+                
+            fitted_models.append(model)
+        else: 
+            not_fitted.append(i)
+            
+    if not_fitted:
+        print('\tNot enough data points to fit: ', ', '.join(not_fitted), '\n')
         
-def get_datasets(data, sep = 'OriginalID', _sort = ['ConTemp']):
+    return fitted_models
+    
+def bootstrap_model(model, parameters, N = 1000, suppress_progress = False):
+    "Perform a bootstrap on the model, to see the output you need to set bootstrap to true in output_csv"
+    "Very messy atm, will try and clean up"
+    model_type = model.model_name.lower()
+    
+    fit_vars = {'boltzmann arrhenius' : Boltzmann_Arrhenius,
+                'linear model' : LM,
+                'schoolfield': schoolfield_original,
+                'schoolfield simple': schoolfield_original_simple, 
+                'schoolfield two factor': schoolfield_two_factor}
+    
+    #Lists to store the bootstrapped results speed isn't a big issue versus the model fitting.
+    completed = []
+    E, B0         = [], []
+    tpk, max_resp = [], []
+    T_H, E_D      = [], []
+    T_H_L, E_D_L  = [], []
+    slope, inter  = [], []
+    
+    bar_lab = '\tBootstrapping {} {}'.format(str(model.species_name)[:20], str(model.model_name_short)) #progressbar gets buggy if the text is wider than the output window. 
+    
+    if not suppress_progress:
+        progbar = Bar(bar_lab, max=N)
+    
+    #Iterate n times
+    for i in range(N):
+        bootstrap_model = fit_vars[model_type]() #Fresh model
+        
+        new_parameters = deepcopy(parameters) #copy over parameters as they have built in resample
+        new_parameters.resample_data()
+        new_parameters.estimate_all()
+        
+        bootstrap_model.fit_from_parameters(new_parameters, index='boot') 
+        
+        #extract what we need
+        E.append(getattr(bootstrap_model, 'final_E', "NA"))
+        B0.append(getattr(bootstrap_model, 'final_B0', "NA"))
+        tpk.append(getattr(bootstrap_model, 'tpk_est', "NA"))
+        max_resp.append(getattr(bootstrap_model, 'max_response_est', "NA"))
+        E_D.append(getattr(bootstrap_model, 'final_E_D', "NA"))
+        E_D_L.append(getattr(bootstrap_model, 'final_E_D_L', "NA"))
+        T_H.append(getattr(bootstrap_model, 'final_T_H', "NA"))
+        T_H_L.append(getattr(bootstrap_model, 'final_T_H_L', "NA"))
+        slope.append(getattr(bootstrap_model, 'slope', "NA"))
+        inter.append(getattr(bootstrap_model, 'intercept', "NA"))
+        
+        if not suppress_progress:
+            progbar.next()
+            
+    if not suppress_progress:    
+        progbar.finish()
+    
+    #This is painful
+    if B0[0] != "NA":
+        model.final_B0_max = np.percentile(B0, 97.5)
+        model.final_B0_min = np.percentile(B0, 2.5)
+    if E[0] != "NA":
+        model.final_E_max = np.percentile(E, 97.5)
+        model.final_E_min = np.percentile(E, 2.5)
+    if tpk[0] != "NA":
+        model.tpk_est_max = np.percentile(tpk, 97.5)
+        model.tpk_est_min = np.percentile(tpk, 2.5)
+    if max_resp[0] != "NA":
+        model.max_response_est_max = np.percentile(max_resp, 97.5)
+        model.max_response_est_min = np.percentile(max_resp, 2.5)
+    if E_D[0] != "NA":
+        model.final_E_D_max = np.percentile(E_D, 97.5)
+        model.final_E_D_min = np.percentile(E_D, 2.5)
+    if E_D_L[0] != "NA":
+        model.final_E_D_L_max = np.percentile(E_D_L, 97.5)
+        model.final_E_D_L_min = np.percentile(E_D_L, 2.5)
+    if T_H[0] != "NA":
+        model.final_T_H_max = np.percentile(T_H, 97.5)
+        model.final_T_H_min = np.percentile(T_H, 2.5)
+    if T_H_L[0] != "NA":
+        model.final_T_H_L_max = np.percentile(T_H_L, 97.5)
+        model.final_T_H_L_min    = np.percentile(T_H_L, 2.5)
+    if slope[0] != "NA":
+        model.final_slope_max = np.percentile(slope, 97.5)
+        model.final_slope_min = np.percentile(slope, 2.5)
+    if inter[0] != "NA":
+        model.final_intercept_max = np.percentile(inter, 97.5)
+        model.final_intercept_min = np.percentile(inter, 2.5)
+    
+    return model
+            
+def split_datasets(data, sep = 'OriginalID', _sort = ['ConTemp']):
     "Create a set of temperature response curve datasets from csv"
     data['FinalID'] = pd.factorize(data[sep])[0]
     ids = pd.unique(data['FinalID']).tolist() #Get unique identifiers
@@ -906,11 +1060,20 @@ def rank_and_flatten(model_list):
         all_models = model_list
     return all_models
     
-def output_csv(model_list, aux_cols = [], path = None, whole_curves = False, sortby=['Species', 'FinalID']):
-    col_names = ["Species", "Model_name", "Trait", "B0", "E", "T_pk", "E_D", "E_D_L", "Est.Tpk",
-                 "Est.Tmin", "Est.Tmax", "Max response", "Slope", "Intercept", "R_Squared", "AIC",
-                 "BIC", "Rank", "Corrected", "Number.of.Data.Points", "Number.of.Variables"] + aux_cols
+def compile_models(model_list, aux_cols = [], path = None, whole_curves = False, sortby=['Species', 'Model_name'], bootstrap_cols=False):
+    main_cols = ["Species", "Model_name", "Trait", "B0", "E", "T_pk", "E_D", "E_D_L", "Est.Tpk",
+                 "Est.Tmin", "Est.Tmax", "Max.response", "Slope", "Intercept", "R_Squared", "AIC",
+                 "BIC", "Rank", "Corrected", "Number.of.Data.Points", "Number.of.Variables"]
                  
+    bootstrap_cols = ["B0.max", "B0.min", "E.max", "E.min", "Tpk.max", "Tpk.min", "Response.max",
+                      "Response.min", "ED.max", "ED.min", "EDL.max", "EDL.min", "TH.max", "TH.min", 
+                      "THL.max", "THL.min", "Slope.max", "Slope.min", "Intercept.max", "Intercept.min"]
+    
+    if bootstrap_cols:
+        col_names = main_cols + bootstrap_cols + aux_cols
+    else: 
+       col_names = main_cols + bootstrap_cols + aux_cols
+       
     if whole_curves:
         col_names += ['Temperature', 'Response', 'Original_Data']
     
@@ -931,12 +1094,45 @@ def output_csv(model_list, aux_cols = [], path = None, whole_curves = False, sor
         final_slope = getattr(model, 'slope', "NA")
         final_intercept = getattr(model, 'intercept', "NA")
         
+        if bootstrap_cols:
+            final_B0_max = getattr(model, 'final_B0_max', "NA")
+            final_E_max = getattr(model, 'final_E_max', "NA")
+            final_estimated_T_pk_max = getattr(model, 'tpk_est_max', "NA")
+            final_max_response_max = getattr(model, 'max_response_est_max', "NA")
+            final_E_D_max = getattr(model, 'final_E_D_max', "NA")
+            final_E_D_L_max = getattr(model, 'final_E_D_L_max', "NA")
+            final_T_H_max = getattr(model, 'final_T_H_max', "NA")
+            final_T_H_L_max = getattr(model, 'final_T_H_L_max', "NA")
+            final_slope_max = getattr(model, 'final_slope_max', "NA")
+            final_intercept_max = getattr(model, 'final_intercept_max', "NA")
+
+            final_B0_min = getattr(model, 'final_B0_min', "NA")
+            final_E_min = getattr(model, 'final_E_min', "NA")
+            final_estimated_T_pk_min = getattr(model, 'tpk_est_min', "NA")
+            final_max_response_min = getattr(model, 'max_response_est_min', "NA")
+            final_E_D_min = getattr(model, 'final_E_D_min', "NA")
+            final_E_D_L_min = getattr(model, 'final_E_D_L_min', "NA")
+            final_T_H_min = getattr(model, 'final_T_H_min', "NA")
+            final_T_H_L_min = getattr(model, 'final_T_H_L_min', "NA")        
+            final_slope_min = getattr(model, 'final_slope_min', "NA")      
+            final_intercept_min = getattr(model, 'final_intercept_min', "NA")      
+            
+            bootstrap_data = [final_B0_max, final_B0_min, final_E_max, final_E_min, final_estimated_T_pk_max,
+                              final_estimated_T_pk_min, final_max_response_max, final_max_response_min, 
+                              final_E_D_max, final_E_D_min, final_E_D_L_max, final_E_D_L_min, final_T_H_max,
+                              final_T_H_min, final_T_H_L_max, final_T_H_L_min, final_slope_max, final_slope_min,
+                              final_intercept_max, final_intercept_min]
+        
+        else: 
+            bootstrap_data = []
+        
         model_parameters = [model.species_name, model.model_name, model.trait, final_B0, 
                             final_E, final_T_pk, final_E_D, final_E_D_L, final_estimated_T_pk, 
                             final_lower_percentile, final_upper_percentile, final_max_response,
                             final_slope, final_intercept]
                             
-        fit_statisitics =  [model.R2, model.AIC, model.BIC, model.rank, model.response_corrected, model.ndata, model.nvarys]                    
+        fit_statisitics =  [model.R2, model.AIC, model.BIC, model.rank, model.response_corrected, model.ndata, model.nvarys]     
+
         
         if whole_curves: #output the entire smooth growth curve
             for i, x in np.ndenumerate(model.smooth_x):
@@ -944,7 +1140,7 @@ def output_csv(model_list, aux_cols = [], path = None, whole_curves = False, sor
                 resp = model.smooth_y[i]
                 key = model.index + '_model_point_' + str(i[0]) #needs to be unique
                 
-                entries = model_parameters + fit_statisitics + model.aux_parameters_values + [temp, resp, 'False']
+                entries = model_parameters + fit_statisitics + bootstrap_data + model.aux_parameters_values + [temp, resp, 'False']
                 
                 row = (key, entries)
                 rows.append(row)
@@ -954,13 +1150,13 @@ def output_csv(model_list, aux_cols = [], path = None, whole_curves = False, sor
                 resp = model.responses[i]
                 key = model.index + '_orig_point_' + str(i[0]) #needs to be unique
                 
-                entries = model_parameters + fit_statisitics + model.aux_parameters_values + [temp, resp, 'True']
+                entries = model_parameters + fit_statisitics + bootstrap_data + model.aux_parameters_values + [temp, resp, 'True']
                 
                 row = (key, entries)
                 rows.append(row)   
                 
         else:
-            entries = model_parameters + fit_statisitics + model.aux_parameters_values
+            entries = model_parameters + fit_statisitics + bootstrap_data + model.aux_parameters_values
                    
             row = (model.index, entries)
             rows.append(row)
