@@ -1,346 +1,353 @@
-"","Species","Trait","ConKingdom","ConPhylum","ConClass","ConOrder","ConFamily","ConGenus","Best_Guess","Max.response","Est.Tpk","Est.Tmin","Est.Tmax"
-"1","H1","Specific Growth Rate","Bacteria","","","","","","A1",9.08619759727,342.864,331.464,348.064
-"2","Alkaliphilus transvaalensis","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiaceae","Alkaliphilus","A1",22.1347976787,313.9499,309.3499,317.7499
-"3","Hydrogenophaga pseudoflava","Specific Growth Rate","Bacteria","Proteobacteria","Betaproteobacteria","Burkholderiales","Comamonadaceae","Hydrogenophaga","A1",6.05765232208779,296.748005517298,291.648085980488,299.499009798575
-"4","Hydrogenophilus hirschii","Specific Growth Rate","Bacteria","Proteobacteria","Betaproteobacteria","Hydrogenophilales","Hydrogenophilaceae","Hydrogenophilus","A1",25.8260865776,336.4872,328.8872,339.2872
-"5","Sulfurihydrogenibium kristjanssonii","Specific Growth Rate","Bacteria","Aquificae","Aquificae","Aquificales","Hydrogenothermaceae","Sulfurihydrogenibium","A1",9.02052284983,344.6626,337.0626,346.0626
-"6","Acidibacter ferrireducens","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","","","Acidibacter","Aerobic",2.00908709718,307.6216,304.4216,310.3216
-"7","Acidicaldus organivorans","Specific Growth Rate","Bacteria","Proteobacteria","Alphaproteobacteria","Rhodospirillales","Acetobacteraceae","Acidicaldus","Aerobic",0.08101804629,325.087,319.887,331.487
-"8","Acidocella aromatica","Specific Growth Rate","Bacteria","Proteobacteria","Alphaproteobacteria","Rhodospirillales","Acetobacteraceae","Acidocella","Aerobic",6.37732809372,304.6509,299.4509,307.7509
-"9","Acidovorax sp. k33","Specific Growth Rate","Bacteria","Proteobacteria","Betaproteobacteria","Burkholderiales","Comamonadaceae","Acidovorax","Aerobic",0.460359449972,305.281,294.581,305.981
-"10","Aeribacillus pallidus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Aeribacillus","Aerobic",5.83114273581,332.90631,324.30631,338.20631
-"11","Aeromonas hydrophila","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Aeromonadales","Aeromonadaceae","Aeromonas","Aerobic",43.8992618044,306.7,299.7,309.8
-"12","Aeropyrum pernix","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Aeropyrum","Aerobic",6.00920519499,364.3327,359.4327,368.1327
-"13","Alicyclobacillus acidocaldarius","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Alicyclobacillaceae","Alicyclobacillus","Aerobic",29.4655196889012,339.375325217956,326.009820356438,346.381029602159
-"14","Bacillus cereus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","Aerobic",54.7777418486374,311.036571853423,303.899823627623,314.333841926609
-"15","Bacillus megaterium","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","Aerobic",50.8094883826148,320.975227026843,314.623474199962,324.733598738244
-"16","Bacillus sp. a2","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","Aerobic",4.02725664036,340.5851,334.3851,343.1851
-"17","Bacillus sp. f70","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","Aerobic",20.7767436857,341.9416,329.6416,361.2416
-"18","Bacillus subtilis","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","Aerobic",26.8895415024,312.30385256,302.90385256,318.50385256
-"19","Bosea eneae","Specific Growth Rate","Bacteria","Proteobacteria","Alphaproteobacteria","Rhizobiales","Bradyrhizobiaceae","Bosea","Aerobic",0.381011551364,299.973,293.773,303.273
-"20","Brochothrix thermosphacta","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Listeriaceae","Brochothrix","Aerobic",29.6375841514,301.1637062,296.3637062,302.7637062
-"21","Colwellia demingiae","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Colwelliaceae","Colwellia","Aerobic",5.83828533285,284.2986,279.9986,287.1986
-"22","Colwellia hornerae","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Colwelliaceae","Colwellia","Aerobic",4.05542972407,284.165,278.965,288.365
-"23","Colwellia psychrerythraea","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Colwelliaceae","Colwellia","Aerobic",5.70793495671,286.1772,280.6772,288.6772
-"24","Colwellia psychrotropica","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Colwelliaceae","Colwellia","Aerobic",9.68563338542,291.1102,284.8102,294.5102
-"25","Deinococcus geothermalis","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Deinococcales","Deinococcaceae","Deinococcus","Aerobic",20.2880291256,321.0499,315.6499,325.0499
-"26","Deinococcus murrayi","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Deinococcales","Deinococcaceae","Deinococcus","Aerobic",18.2087614777,323.6499,317.7499,325.3499
-"27","Erwinia amylovora","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Erwinia","Aerobic",13.6950513764,304.211563616,293.811563616,306.011563616
-"28","Escherichia coli","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Escherichia","Aerobic",46.832976245017,313.537066803872,306.35711636296,318.022159403493
-"29","Flavobacterium limicola","Specific Growth Rate","Bacteria","Bacteroidetes","Flavobacteriia","Flavobacteriales","Flavobacteriaceae","Flavobacterium","Aerobic",2.89187588074,293.42234,288.22234,295.82234
-"30","Gelidibacter gilvus","Specific Growth Rate","Bacteria","Bacteroidetes","Flavobacteriia","Flavobacteriales","Flavobacteriaceae","Gelidibacter","Aerobic",3.49847161571,296.80731,289.30731,303.60731
-"31","Gelidibacter sp.","Specific Growth Rate","Bacteria","Bacteroidetes","Flavobacteriia","Flavobacteriales","Flavobacteriaceae","Gelidibacter","Aerobic",4.94664306784,296.18,288.68,304.68
-"32","Geobacillus caldotenax","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Geobacillus","Aerobic",63.4531655457288,336.381030623322,330.531109370517,341.681039212632
-"33","Geobacillus caldoxylosilyticus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Geobacillus","Aerobic",35.2101512857,341.3536,334.3536,345.6536
-"34","Geobacillus stearothermophilus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Geobacillus","Aerobic",59.59585519,329.9029,325.4029,334.1029
-"35","Geobacillus thermodenitrificans","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Geobacillus","Aerobic",50.9606079308,339.0391,335.9391,341.1391
-"36","Geobacillus thermoleovorans","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Geobacillus","Aerobic",25.3081146224163,344.059668214143,339.980408278552,347.060533784441
-"37","Glaciecola punicea","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Alteromonadaceae","Glaciecola","Aerobic",2.11958389407467,290.111911900218,284.703841306014,295.166316469885
-"38","Haloarcula vallismortis","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Halobacteriales","Halobacteriaceae","Haloarcula","Aerobic",13.0813521004,319.4679,306.5679,325.1679
-"39","Halobacterium sp. acam32","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Halobacteriales","Halobacteriaceae","Halobacterium","Aerobic",0.426024000103,302.729,297.229,308.529
-"40","Halobacterium sp. acam34","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Halobacteriales","Halobacteriaceae","Halobacterium","Aerobic",0.591983107081,308.571,301.571,315.871
-"41","Halobaculum gomorrense","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Haloferacales","Haloferacaceae","Halobaculum","Aerobic",13.787345249,318.0195,306.9195,325.8195
-"42","Halococcus morrhuae","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Halobacteriales","Halobacteriaceae","Halococcus","Aerobic",16.7895612416,323.5717,313.3717,329.2717
-"43","Haloferax volcanii","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Haloferacales","Haloferacaceae","Haloferax","Aerobic",15.9152809833,318.5307,308.6307,322.1307
-"44","Halogeometricum borinquense","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Haloferacales","Haloferacaceae","Halogeometricum","Aerobic",16.2536775379,322.8966,310.8966,332.4966
-"45","Halomonas campisalis","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Oceanospirillales","Halomonadaceae","Halomonas","Aerobic",4.4690628409966,329.380468993837,321.95348315339,334.374484604612
-"46","Halomonas elongata","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Oceanospirillales","Halomonadaceae","Halomonas","Aerobic",10.8156974045723,310.436099378177,304.204262811033,316.751065881871
-"47","Halomonas halodenitrificans","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Oceanospirillales","Halomonadaceae","Halomonas","Aerobic",5.89899532080657,308.825162419612,300.974394263353,311.917655922068
-"48","Halomonas subglaciescola","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Oceanospirillales","Halomonadaceae","Halomonas","Aerobic",0.0151310882155852,296.008098860862,286.546588676087,302.502513721783
-"49","Halorubrum saccharovorum","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Haloferacales","Haloferacaceae","Halorubrum","Aerobic",12.4177293026,316.6407,306.4407,324.0407
-"50","Haloterrigena turkmenica","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Natrialbales","Natrialbaceae","Haloterrigena","Aerobic",16.7790882769,323.988,312.288,330.588
-"51","Herbaspirillum sp. k1","Specific Growth Rate","Bacteria","Proteobacteria","Betaproteobacteria","Burkholderiales","Oxalobacteraceae","Herbaspirillum","Aerobic",0.391591777307,302.916,295.016,303.316
-"52","Isosphaera pallida","Specific Growth Rate","Bacteria","Planctomycetes","Planctomycea","Planctomycetales","Planctomycetaceae","Isosphaera","Aerobic",0.923931447319,317.1887,311.0887,323.6887
-"53","Klebsiella oxytoca","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Klebsiella","Aerobic",81.496112788,312.06,305.86,315.86
-"54","Klebsiella pneumoniae","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Klebsiella","Aerobic",25.9282296242,309.6574,304.2574,314.1574
-"55","Listeria monocytogenes","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Listeriaceae","Listeria","Aerobic",28.4306090886726,311.656576890287,302.530387787406,316.234423511212
-"56","Marinithermus hydrothermalis","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Marinithermus","Aerobic",50.9882444455,341.7237,338.3237,343.0237
-"57","Marinobacter alkaliphilus","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Alteromonadaceae","Marinobacter","Aerobic",24.3975669109163,307.047963364509,298.899061541338,313.397790302186
-"58","Meiothermus chliarophilus","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Meiothermus","Aerobic",10.8645234587696,330.187825078999,320.778998674165,333.550261865285
-"59","Moritella abyssi","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Moritellaceae","Moritella","Aerobic",3.88258163154,277.56452,274.36452,280.56452
-"60","Moritella marina","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Moritellaceae","Moritella","Aerobic",7.41317953129626,293.345928604075,288.043393364737,295.637856575723
-"61","Moritella profunda","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Moritellaceae","Moritella","Aerobic",4.55826946099,262.31007,260.11007,279.51007
-"62","Natrialba asiatica","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Natrialbales","Natrialbaceae","Natrialba","Aerobic",13.1021046055,317.5448,306.0448,324.3448
-"63","Natrinema pellirubrum","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Natrialbales","Natrialbaceae","Natrinema","Aerobic",15.5290938808,325.076,313.276,330.176
-"64","Natronobacterium gregoryi","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Natrialbales","Natrialbaceae","Natronobacterium","Aerobic",14.5860251386,319.8676,308.7676,325.6676
-"65","Natronococcus occultus","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Natrialbales","Natrialbaceae","Natronococcus","Aerobic",12.4254904907,319.1631,307.0631,332.9631
-"66","Natronomonas pharaonis","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Halobacteriales","Halobacteriaceae","Natronomonas","Aerobic",14.5952948957,318.2038,309.2038,326.1038
-"67","Natronorubrum bangense","Specific Growth Rate","Archaea","Euryarchaeota","Halobacteria","Natrialbales","Natrialbaceae","Natronorubrum","Aerobic",13.5378381995,318.8757,309.6757,325.4757
-"68","Nocardioides sp. k44","Specific Growth Rate","Bacteria","Actinobacteria","Actinobacteria","Propionibacteriales","Nocardioidaceae","Nocardioides","Aerobic",0.221930509967,306.689,287.689,307.889
-"69","Picrophilus oshimae","Specific Growth Rate","Archaea","Euryarchaeota","Thermoplasmata","Thermoplasmatales","Picrophilaceae","Picrophilus","Aerobic",1.95159432467,332.3686,326.8686,336.4686
-"70","Planococcus halocryophilus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Planococcaceae","Planococcus","Aerobic",0.939395276055,300.89993292,290.99993292,314.69993292
-"71","Profundimonas piezophila","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Oceanospirillales","Oceanospirillaceae","Profundimonas","Aerobic",0.317449304072,277.95984,262.15984,287.15984
-"72","Pseudoalteromonas antarctica","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Pseudoalteromonadaceae","Pseudoalteromonas","Aerobic",4.8683952687,291.35,283.15,296.85
-"73","Pseudoalteromonas haloplanktis","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Pseudoalteromonadaceae","Pseudoalteromonas","Aerobic",13.2812111776,296.2395,290.4395,299.4395
-"74","Pseudomonas aeruginosa","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Pseudomonadaceae","Pseudomonas","Aerobic",28.8327468562,314.23747887,307.13747887,316.73747887
-"75","Pseudomonas fluorescens","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Pseudomonadaceae","Pseudomonas","Aerobic",31.5173548147267,307.60837965503,300.961328233023,310.554914296952
-"76","Pseudomonas putida","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Pseudomonadaceae","Pseudomonas","Aerobic",38.9511691564,302.66,295.86,306.96
-"77","Pseudomonas sp. k104","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Pseudomonadaceae","Pseudomonas","Aerobic",0.54851529616,300.073,294.173,302.373
-"78","Pseudoxanthomonas broegbernensis","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Xanthomonadales","Xanthomonadaceae","Pseudoxanthomonas","Aerobic",12.1794602363,321.3834,313.6834,327.5834
-"79","Pseudoxanthomonas taiwanensis","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Xanthomonadales","Xanthomonadaceae","Pseudoxanthomonas","Aerobic",10.0179458756,301.4746,299.4746,303.9746
-"80","Psychrobacter glacincola","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Moraxellaceae","Psychrobacter","Aerobic",3.74097718151326,287.574920677547,281.806662318898,290.008305812369
-"81","Psychrobacter muriicola","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Pseudomonadales","Moraxellaceae","Psychrobacter","Aerobic",3.25977296865,292.98903,289.08903,296.58903
-"82","Psychroflexus torquis","Specific Growth Rate","Bacteria","Bacteroidetes","Flavobacteriia","Flavobacteriales","Flavobacteriaceae","Psychroflexus","Aerobic",1.36844300411,288.7245,282.4245,291.0245
-"83","Psychromonas profunda","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Psychromonadaceae","Psychromonas","Aerobic",3.02994044377,276.76976,274.26976,278.96976
-"84","Pyrobaculum aerophilum","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Thermoproteales","Thermoproteaceae","Pyrobaculum","Aerobic",5.77020852951,372.3776,366.3776,374.2776
-"85","Pyrobaculum calidifontis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Thermoproteales","Thermoproteaceae","Pyrobaculum","Aerobic",3.23898977264,365.5038,361.0038,368.5038
-"86","Pyrobaculum oguniense","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Thermoproteales","Thermoproteaceae","Pyrobaculum","Aerobic",5.98862915638,364.9361,360.5361,368.8361
-"87","Ralstonia sp. k8","Specific Growth Rate","Bacteria","Proteobacteria","Betaproteobacteria","Burkholderiales","Burkholderiaceae","Ralstonia","Aerobic",0.486182550116,298.562,292.962,304.662
-"88","Ralstonia sp. phs1","Specific Growth Rate","Bacteria","Proteobacteria","Betaproteobacteria","Burkholderiales","Burkholderiaceae","Ralstonia","Aerobic",18.2788833924,314.9698,308.6698,318.3698
-"89","Rhodanobacter sp. k27","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Xanthomonadales","Rhodanobacteraceae","Rhodanobacter","Aerobic",0.202006205541,306.387,292.387,306.887
-"90","Rhodothermus  rhodothemus obamensis","Specific Growth Rate","Bacteria","Bacteroidetes","Bacteriodetes ","Incertae sedis","Rhodothermaceae","Rhodothermus ","Aerobic",11.2634159236,353.7627,342.6627,356.2627
-"91","Rubrobacter radiotolerans","Specific Growth Rate","Bacteria","Actinobacteria","Rubrobacteria","Rubrobacterales","Rubrobacteraceae","Rubrobacter","Aerobic",2.8074250347,321.7999,314.3999,325.1999
-"92","Rubrobacter xylanophilus","Specific Growth Rate","Bacteria","Actinobacteria","Rubrobacteria","Rubrobacterales","Rubrobacteraceae","Rubrobacter","Aerobic",5.07275083566,333.7898,327.5898,338.6898
-"93","Salmonella enterica","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Salmonella","Aerobic",11.4172531007,313.70524,305.90524,317.80524
-"94","Serratia marcescens","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Serratia","Aerobic",34.6924130134,307.91986039,302.51986039,310.81986039
-"95","Shewanella gelidimarina","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Alteromonadales","Shewanellaceae","Shewanella","Aerobic",6.1642872018705,288.783745786594,282.180885631765,292.243894001412
-"96","Sphingobacterium sp. k112","Specific Growth Rate","Bacteria","Bacteroidetes","Sphingobacteriia","Sphingobacteriales","Sphingobacteriaceae","Sphingobacterium","Aerobic",0.412579623132,301.153,289.553,304.953
-"97","Sphingomonas sp. k101","Specific Growth Rate","Bacteria","Proteobacteria","Alphaproteobacteria","Sphingomonadales","Sphingomonadaceae","Sphingomonas","Aerobic",0.275372447433,301.881,294.081,304.381
-"98","Sphingomonas sp. k6","Specific Growth Rate","Bacteria","Proteobacteria","Alphaproteobacteria","Sphingomonadales","Sphingomonadaceae","Sphingomonas","Aerobic",0.557280001,292.197,291.697,294.797
-"99","Sphingomonas sp. k74","Specific Growth Rate","Bacteria","Proteobacteria","Alphaproteobacteria","Sphingomonadales","Sphingomonadaceae","Sphingomonas","Aerobic",0.383760778685,303.452,295.052,304.052
-"100","Sphingomonas sp. mt1","Specific Growth Rate","Bacteria","Proteobacteria","Alphaproteobacteria","Sphingomonadales","Sphingomonadaceae","Sphingomonas","Aerobic",0.255958534178,296.74,289.54,300.24
-"101","Spiroplasma 277f","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",8.84392495994,309.45,307.15,310.05
-"102","Spiroplasma apis","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",12.6219537156676,307.509521286022,302.623347790429,311.437255551508
-"103","Spiroplasma bius-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",18.7413640379,309.55,305.55,312.35
-"104","Spiroplasma cantharicola","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",6.53954128198268,307.406117213045,300.145179599081,310.721306028265
-"105","Spiroplasma chinense","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",20.8916552558,309.65,304.05,312.75
-"106","Spiroplasma citri","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",3.89507740530743,305.896883648477,303.148309409097,308.265854242664
-"107","Spiroplasma clarkii","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",4.0751649588,304.35,299.15,304.85
-"108","Spiroplasma culicicola","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",18.0836453437566,308.748688256323,304.349408575078,312.048061202117
-"109","Spiroplasma df-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",2.7218197895,301.95,298.45,305.15
-"110","Spiroplasma diminutum","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",20.8112144385,308.75,304.45,309.55
-"111","Spiroplasma du-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",18.7211906447,307.25,303.75,309.25
-"112","Spiroplasma ea-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",16.0410230683,307.85,303.55,312.25
-"113","Spiroplasma ec-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",15.1793267037,308.75,305.55,309.55
-"114","Spiroplasma floricola","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",17.5206086483319,308.749470984249,304.1768326338,311.149345889139
-"115","Spiroplasma hyos-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",35.0189443607,308.75,306.35,309.55
-"116","Spiroplasma i-25","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",4.95156028057,302.65,299.35,304.75
-"117","Spiroplasma insolitum","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",2.42623359405,303.05,298.75,305.95
-"118","Spiroplasma ixodetis","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",1.81665741559,302.85,298.05,304.45
-"119","Spiroplasma ld-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",2.31458281216277,306.348025128284,300.789191128936,317.717291786267
-"120","Spiroplasma meliferum","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",12.0471934126,309.05,306.05,310.95
-"121","Spiroplasma mirum","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",2.54995746364,308.25,305.55,310.75
-"122","Spiroplasma monobiae","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",8.74265463664,305.45,301.85,307.25
-"123","Spiroplasma n525","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",3.40654902359,304.35,299.55,309.35
-"124","Spiroplasma pals-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",9.06525986893,304.15,300.65,306.85
-"125","Spiroplasma plhs-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",2.92170398753,301.75,298.35,303.85
-"126","Spiroplasma pup-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",1.83077657902,306.85,300.05,316.95
-"127","Spiroplasma sabaudiense","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",4.07863169974,302.85,299.15,305.15
-"128","Spiroplasma taas-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",13.7308847198,308.55,305.55,310.75
-"129","Spiroplasma taas-2","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",8.75441812445,305.15,301.35,307.75
-"130","Spiroplasma tabs-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",11.6626856992,309.45,307.35,309.85
-"131","Spiroplasma tabs-2","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",5.68638183596,304.35,301.15,306.75
-"132","Spiroplasma taiwanense","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",3.98683280667,301.25,298.45,303.95
-"133","Spiroplasma tals-2","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",2.96651401676,303.65,301.25,306.05
-"134","Spiroplasma tass-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",6.21341204916,308.65,302.75,309.45
-"135","Spiroplasma taus-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",4.19541397595,303.05,300.55,305.95
-"136","Spiroplasma tg-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",4.13510549717,304.25,299.05,307.55
-"137","Spiroplasma tius-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",4.90158433653,304.45,299.25,304.95
-"138","Spiroplasma tn-1","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",11.9439709543,308.25,304.55,310.25
-"139","Spiroplasma velocicrescens","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",29.345689567,308.95,305.05,311.65
-"140","Spiroplasma w115","Specific Growth Rate","Bacteria","Tenericutes","Mollicutes","Entomoplasmatales","Spiroplasmataceae","Spiroplasma","Aerobic",4.18367889995,302.85,299.55,304.35
-"141","Staphylococcus aureus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Staphylococcaceae","Staphylococcus","Aerobic",29.7980441995,307.300969,304.900969,307.800969
-"142","Staphylococcus xylosus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Staphylococcaceae","Staphylococcus","Aerobic",51.960575197547,305.390684685517,298.490086616336,314.941249041161
-"143","Sulfobacillus benefaciens","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiales Family XVII. Incertae Sedis","Sulfobacillus","Aerobic",4.78696807744,311.0695,307.8695,313.6695
-"144","Thermaerobacter nagasakiensis","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiales Family XVII. Incertae Sedis","Thermaerobacter","Aerobic",48.7109187572,339.9476,339.0476,342.2476
-"145","Thermus aquaticus","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Thermus","Aerobic",16.4088022136,341.7963,334.1963,348.5963
-"146","Thermus sp. at61","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Thermus","Aerobic",24.2568063272,345.8257,341.2257,348.5257
-"147","Thermus sp. di","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Thermus","Aerobic",13.6552054167,340.7353,334.4353,346.0353
-"148","Thermus sp. nh ","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Thermus","Aerobic",15.2364018578,342.6806,332.9806,351.6806
-"149","Thermus sp. yt1","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Thermus","Aerobic",16.9419418343,340.7113,334.9113,345.7113
-"150","Thermus thermophilus","Specific Growth Rate","Bacteria","Deinococcus-Thermus","Deinococci","Thermales","Thermaceae","Thermus","Aerobic",19.4369166784884,347.179194119124,337.32297675707,352.289799045085
-"151","Vibrio  psychroerythrus","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Vibrionales","Vibrionaceae","Vibrio ","Aerobic",2.46734033271,285.853255803,281.853255803,288.053255803
-"152","Xanthomonas campestris","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Xanthomonadales","Xanothomonadaceae","Xanthomonas","Aerobic",7.88949507274,304.902496462,299.402496462,307.602496462
-"153","Xylella fastidiosa","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Xanthomonadales","Xanthomonadaceae","Xylella","Aerobic",3.09883043453,300.90903995,296.70903995,304.90903995
-"154","Yersinia enterocolitica","Specific Growth Rate","Bacteria","Proteobacteria","Gammaproteobacteria","Enterobacteriales","Enterobacteriaceae","Yersinia","Aerobic",1.28145472957673,298.79627662656,292.833056517108,306.021911299262
-"155","Candidatus nitrosotalea devanaterra","Specific Growth Rate","Archaea","Thaumarchaeota","","","","Candidatus Nitrosotalea","AmmoniaOxidation",0.423478099512,295.393,293.693,297.993
-"156","Nitrosotalea sp. nd2","Specific Growth Rate","Archaea","Thaumarchaeota","","","","Candidatus Nitrosotalea","AmmoniaOxidation",0.691638854022,310.0312,304.5312,313.1312
-"157","Desulfurobacterium crinifex","Specific Growth Rate","Bacteria","Aquificae","Aquificae","Desulfurobacteriales","Desulfurobacteriaceae","Desulfurobacterium","B1",14.9529403237,335.4306,331.5306,338.6306
-"158","Ferroglobus placidus","Specific Growth Rate","Archaea","Euryarchaeota","Archaeoglobi","Archaeoglobales","Archaeoglobaceae","Ferroglobus","B1",6.16830034911,359.3042,354.5042,364.8042
-"159","Persephonella guaymasensis","Specific Growth Rate","Bacteria","Aquificae","Aquificae","Aquificales","Hydrogenothermaceae","Persephonella","B1",3.01440303802,344.0695,337.0695,347.1695
-"160","Persephonella marina","Specific Growth Rate","Bacteria","Aquificae","Aquificae","Aquificales","Hydrogenothermaceae","Persephonella","B1",4.90348400031,345.7446,341.3446,348.9446
-"161","Bacillus sp. ms30","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","B10",10.1180600967,331.7065,324.7065,337.3065
-"162","Pyrolobus fumarii","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Pyrodictiaceae","Pyrolobus","B3",21.4829427899,377.3012,375.5012,378.8012
-"163","Heliobacillus mobilis","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Heliobacteriaceae","Heliobacillus","B9",6.14503208082,311.698,308.398,314.198
-"164","Heliobacterium modesticaldum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Heliobacteriaceae","Heliobacterium","B9",6.39465190239,325.7199,320.2199,327.7199
-"165","Desulfofaba gelida","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfobacterales","Desulfobacteraceae","Desulfofaba","C1",0.12532957393,280.57938,277.57938,280.67938
-"166","Desulfofrigus fragile","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfobacterales","Desulfobacteraceae","Desulfofrigus","C1",0.873122935023,294.54456,287.44456,296.64456
-"167","Desulfofrigus oceanense","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfobacterales","Desulfobacteraceae","Desulfofrigus","C1",0.0976689044619,286.53845,278.33845,286.73845
-"168","Desulfotalea arctica","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfobacterales","Desulfobulbaceae","Desulfotalea","C1",0.514696283788,294.17252,288.27252,295.47252
-"169","Desulfotalea psychrophila","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfobacterales","Desulfobulbaceae","Desulfotalea","C1",0.539334886882,286.84799,276.24799,290.34799
-"170","Desulfotomaculum alkaliphilum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Peptococcaceae","Desulfotomaculum","C1",1.07543198275,325.7328,321.0328,328.5328
-"171","Desulfotomaculum putei","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Peptococcaceae","Desulfotomaculum","C1",10.2718565816,338.1257,335.2257,338.1257
-"172","Thermodesulfovibrio yellowstonii","Specific Growth Rate","Bacteria","Nitrospirae","Nitrospira","Nitrospirales","Nitrospiraceae","Thermodesulfovibrio","C1",0.692492013743,339.1656,318.9656,344.2656
-"173","Acidithiobacillus caldus","Specific Growth Rate","Bacteria","Proteobacteria","Acidithiobacillia","Acidithiobacillales","Acidithiobacillaceae","Acidithiobacillus","C14",6.94322500818,320.4859,312.6859,323.7859
-"174","Metallosphaera hakonensis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Metallosphaera","C16",0.883688340424,345.0838,337.5838,347.6838
-"175","Sulfolobus acidocaldarius","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Sulfolobus","C16",2.25726604294898,354.770287986569,350.917485133956,355.613244096558
-"176","Sulfolobus sp. ta-1","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Sulfolobus","C16",1.12640539349,344.7338,337.3338,353.5338
-"177","Sulfolobus tengchongensis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Sulfolobus","C16",2.37778305177,360.45,354.85,364.25
-"178","Sulfolobus yangmingensis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Sulfolobus","C16",4.38356406392,353.1679,348.0679,358.3679
-"179","Sulfurisphaera ohwakuensis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Sulfurisphaera","C16",2.90291043358,357.0799,350.1799,361.8799
-"180","Thermococcus barophilus","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C16",26.2861678931699,360.179336025125,355.779323485078,363.529862500318
-"181","Thermocrinis ruber","Specific Growth Rate","Bacteria","Aquificae","Aquificae","Aquificales","Aquificaceae","Thermocrinis","C16",19.8998453468,357.3607,353.4607,358.0607
-"182","Acidianus infernus","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Acidianus","C19",8.37568625733,365.2735,353.7735,381.5735
-"183","Acidilobus sulfurireducens","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Acidilobales","Acidilobaceae","Acidilobus","C19",0.790022999267,353.45,351.15,355.95
-"184","Caldisphaera draconis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Acidilobales","Caldisphaeraceae","Caldisphaera","C19",0.653078121006,344.35,341.75,346.25
-"185","Caldivirga maquilingensis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Thermoproteales","Thermoproteaceae","Caldivirga","C19",1.85936100945,357.7084,352.3084,360.9084
-"186","Desulfurococcus sp. s","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Desulfurococcus","C19",36.8104148723,360.6238,354.0238,362.9238
-"187","Desulfurococcus sp. sy","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Desulfurococcus","C19",32.1392769238,362.0555,354.6555,365.2555
-"188","Ignicoccus hospitalis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Ignicoccus","C19",15.8930600155,358.4741,350.8741,364.6741
-"189","Ignicoccus islandicus","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Ignicoccus","C19",12.3290737397,361.9342,357.2342,365.6342
-"190","Ignicoccus pacificus","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Ignicoccus","C19",20.1548490661,362.7975,358.9975,367.0975
-"191","Marinitoga piezophila","Specific Growth Rate","Bacteria","Thermotogae","Thermotogae","Petrotogales","","Marinitoga","C19",52.2596049361,340.0238,334.5238,342.6238
-"192","Palaeococcus helgesonii","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Palaeococcus","C19",20.8785881578,351.1923,345.3923,355.3923
-"193","Pyrobaculum islandicum","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Thermoproteales","Thermoproteaceae","Pyrobaculum","C19",3.58104238058,374.1208,361.9208,374.9208
-"194","Pyrobaculum organotrophum","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Thermoproteales","Thermoproteaceae","Pyrobaculum","C19",1.48096470393,374.9339,366.1339,375.6339
-"195","Pyrococcus abyssi","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Pyrococcus","C19",39.05992561,371.6882,366.2882,373.0882
-"196","Pyrococcus furiosus","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Pyrococcus","C19",26.4830831705,375.3104,363.7104,376.1104
-"197","Pyrococcus glycovorans","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Pyrococcus","C19",4.13717819813,368.7677,361.8677,372.3677
-"198","Pyrococcus horikoshii","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Pyrococcus","C19",44.373618634,369.8265,363.8265,372.8265
-"199","Thermococcus alcaliphilus","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",11.504249897,359.4577,352.2577,361.9577
-"200","Thermococcus barossii","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",25.1075855382,354.1995,348.0995,358.8995
-"201","Thermococcus celer","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",22.348072278,357.0995,349.0995,363.3995
-"202","Thermococcus chitonophagus","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",11.7979101785,360.069,355.469,363.269
-"203","Thermococcus fumicolans","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",18.6672009239,359.1771,355.4771,364.2771
-"204","Thermococcus hydrothermalis","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",10.0282084867,357.1388,346.4388,364.8388
-"205","Thermococcus peptonophilus","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",63.6956405115,356.0791,349.3791,362.7791
-"206","Thermococcus siculi","Specific Growth Rate","Archaea","Euryarchaeota","Thermococci","Thermococcales","Thermococcaceae","Thermococcus","C19",8.05820035097,360.215,349.715,362.815
-"207","Thermoplasma acidophilum","Specific Growth Rate","Archaea","Euryarchaeota","Thermoplasmata","Thermoplasmatales","Thermoplasmataceae","Thermoplasma","C19",6.05810023343,332.83727682,329.73727682,334.53727682
-"208","Thermoproteus uzoniensis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Thermoproteales","Thermoproteaceae","Thermoproteus","C19",8.81311299636,360.6472,355.8472,364.9472
-"209","Thermosipho japonicus","Specific Growth Rate","Bacteria","Thermotogae","Thermotogae","Thermotogales","Fervidobacteriaceae","Thermosipho","C19",21.7023797924,345.4337,338.7337,349.2337
-"210","Thermotoga maritima","Specific Growth Rate","Bacteria","Thermotogae","Thermotogae","Thermotogales","Thermotogaceae","Thermotoga","C19",13.3177662806,352.7611,347.1611,358.1611
-"211","Thermotoga sp.","Specific Growth Rate","Bacteria","Thermotogae","Thermotogae","Thermotogales","Thermotogaceae","Thermotoga","C19",20.3365937675,362.05,356.25,364.75
-"212","Archaeoglobus veneficus","Specific Growth Rate","Archaea","Euryarchaeota","Archaeoglobi","Archaeoglobales","Archaeoglobaceae","Archaeoglobus","C3",16.2431439376,353.05,346.85,359.45
-"213","Thermothrix thiopara","Specific Growth Rate","Bacteria","Proteobacteria","Betaproteobacteria","Burkholderiales","Burkholderiaceae","Thermothrix","C5",9.51363030195,344.9849,342.0849,346.7849
-"214","Chlorobium tepidum","Specific Growth Rate","Bacteria","Chlorobi","Chlorobia","Chlorobiales","Chlorobiaceae","Chlorobium","C9",7.76406116318,319.1125,313.4125,321.4125
-"215","Methanobacterium sp. ivanov","Specific Growth Rate","Archaea","Euryarchaeota","Methanobacteria","Methanobacteriales","Methanobacteriaceae","Methanobacterium","D1",1.09383168745,316.9066,308.9066,320.1066
-"216","Methanobacterium sp. kuznetsov","Specific Growth Rate","Archaea","Euryarchaeota","Methanobacteria","Methanobacteriales","Methanobacteriaceae","Methanobacterium","D1",1.10845397839,309.8066,304.0066,315.7066
-"217","Methanobacterium sp. omeliansky","Specific Growth Rate","Archaea","Euryarchaeota","Methanobacteria","Methanobacteriales","Methanobacteriaceae","Methanobacterium","D1",1.04073676438,315.5613,308.7613,319.2613
-"218","Methanobacterium subterraneum","Specific Growth Rate","Archaea","Euryarchaeota","Methanobacteria","Methanobacteriales","Methanobacteriaceae","Methanobacterium","D1",3.26223468575,311.75868,297.15868,316.65868
-"219","Methanobacterium thermaggregans","Specific Growth Rate","Archaea","Euryarchaeota","Methanobacteria","Methanobacteriales","Methanobacteriaceae","Methanobacterium","D1",6.10754139326,342.738,338.838,343.638
-"220","Methanocaldococcus jannaschii","Specific Growth Rate","Archaea","Euryarchaeota","Methanococci","Methanococcales","Methanocaldococcaceae","Methanocaldococcus","D1",34.4109618842,359.0512,348.6512,363.6512
-"221","Methanocaldococcus vulcanius","Specific Growth Rate","Archaea","Euryarchaeota","Methanococci","Methanococcales","Methanocaldococcaceae","Methanocaldococcus","D1",21.0575054089,353.2898,347.4898,356.6898
-"222","Methanococcus voltae","Specific Growth Rate","Archaea","Euryarchaeota","Methanococci","Methanococcales","Methanococcaceae","Methanococcus","D1",13.1035633438,315.101,311.801,315.801
-"223","Methanoculleus submarinus","Specific Growth Rate","Archaea","Euryarchaeota","Methanomicrobia","Methanomicrobiales","Methanomicrobiaceae","Methanoculleus","D1",2.55560944086,316.1489,309.4489,319.9489
-"224","Methanoculleus thermophilus","Specific Growth Rate","Archaea","Euryarchaeota","Methanomicrobia","Methanomicrobiales","Methanomicrobiaceae","Methanoculleus","D1",12.4452136434,329.5833,315.5833,332.5833
-"225","Methanogenium frigidum","Specific Growth Rate","Archaea","Euryarchaeota","Methanomicrobia","Methanomicrobiales","Methanomicrobiaceae","Methanogenium","D1",0.255303005606,286.32014,282.92014,288.92014
-"226","Methanohalophilus portucalensis","Specific Growth Rate","Archaea","Euryarchaeota","Methanomicrobia","Methanosarcinales","Methanosarcinaceae","Methanohalophilus","D1",1.46700543302,310.8983,306.6983,312.8983
-"227","Methanolobus psychrophilus","Specific Growth Rate","Archaea","Euryarchaeota","Methanomicrobia","Methanosarcinales","Methanosarcinaceae","Methanolobus","D1",1.55614373456,291.9932593,287.4932593,292.8932593
-"228","Methanopyrus kandleri","Specific Growth Rate","Archaea","Euryarchaeota","Methanopyri","Methanopyrales","Methanopyraceae","Methanopyrus","D1",19.5657502431181,373.728122139704,369.634933653084,377.618147942882
-"229","Methanothermococcus okinawensis","Specific Growth Rate","Archaea","Euryarchaeota","Methanococci","Methanococcales","Methanococcaceae","Methanothermococcus","D1",27.521123159,338.8003,332.3003,343.5003
-"230","Methanothermococcus thermolithotrophicus","Specific Growth Rate","Archaea","Euryarchaeota","Methanococci","Methanococcales","Methanococcaceae","Methanothermococcus","D1",18.5156642263,335.65,326.35,342.95
-"231","Acetobacterium fimetarium","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Eubacteriaceae","Acetobacterium","E1",3.62173105247,302.927,298.927,303.927
-"232","Acetobacterium tundrae","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Eubacteriaceae","Acetobacterium","E1",8.98637712287,300.33,298.53,300.93
-"233","Acetobacterium z-4290","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Eubacteriaceae","Acetobacterium","E1",3.6985002429,302.607,298.807,303.507
-"234","Thermoanaerobacter kivui","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Thermoanaerobacter","E1",7.18793063302,340.3735,334.0735,342.6735
-"235","Bacillus infernus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Bacillales","Bacillaceae","Bacillus","F14",28.5108072802,332.5452,330.0452,333.9452
-"236","Acidianus manzaensis","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Acidianus","F3",1.08944247363,352.0619,344.6619,357.4619
-"237","Acidianus sp. ale1","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Sulfolobales","Sulfolobaceae","Acidianus","F3",2.82740184209,352.3196,345.9196,353.1196
-"238","Geogemma barossii","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Pyrodictiaceae","Geogemma","F3",8.95916647722,377.248,371.448,381.648
-"239","Geoglobus ahangari","Specific Growth Rate","Archaea","Euryarchaeota","Archaeoglobi","Archaeoglobales","Archaeoglobaceae","Geoglobus","F3",3.18144713505,360.8999,347.3999,378.0999
-"240","Sulfobacillus sibiricus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiales Family XVII. Incertae Sedis","Sulfobacillus","F3",12.3075684419,327.3682,322.0682,330.1682
-"241","Sulfobacillus sp. wr1","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiales Family XVII. Incertae Sedis","Sulfobacillus","F3",4.47802994727,325.5439,317.6439,330.1439
-"242","Thermoanaerobacter siderophilus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Thermoanaerobacter","F3",5.85046991767,343.0067,336.3067,346.3067
-"243","Acidithiobacillus ferrivorans","Specific Growth Rate","Bacteria","Proteobacteria","Acidithiobacillia","Acidithiobacillales","Acidithiobacillaceae","Acidithiobacillus","F4",2.97842306602,301.5998,295.1998,313.5998
-"244","Sulfobacillus thermotolerans","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiales Family XVII. Incertae Sedis","Sulfobacillus","F4",7.7603335617,312.1524,305.8524,320.8524
-"245","Acidilobus aceticus","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Acidilobales","Acidilobaceae","Acidilobus","Fermentation",6.64834587325,357.5006,352.3006,363.7006
-"246","Brevibacterium sp.","Specific Growth Rate","Bacteria","Actinobacteria","Actinobacteria","Micrococcales","Brevibacteriaceae","Brevibacterium","Fermentation",1.97446486371,291.844144585,286.044144585,298.644144585
-"247","Brevibacterium sp. cr3/1/15","Specific Growth Rate","Bacteria","Actinobacteria","Actinobacteria","Micrococcales","Brevibacteriaceae","Brevibacterium","Fermentation",2.00209153996,292.205568863,286.105568863,298.805568863
-"248","Caldanaerobacter subterraneus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Caldanaerobacter","Fermentation",8.46786124426361,345.178411186879,338.944994562949,349.247221381045
-"249","Caldicellulosiruptor obsidiansis","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacterales Family III. Incertae Sedis","Caldicellulosiruptor","Fermentation",15.9917888997,350.1893,332.6893,355.5893
-"250","Caloramator indicus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiaceae","Caloramator","Fermentation",50.8349663259,336.8158,329.1158,341.6158
-"251","Caloranaerobacter azorensis","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiaceae","Caloranaerobacter","Fermentation",49.4574467836,342.1058,337.5058,342.3058
-"252","Clostridium perfringens","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiaceae","Clostridium","Fermentation",131.946211094313,318.734418673521,314.766434549645,321.603156180417
-"253","Desulfitobacterium dehalogenans","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Peptococcaceae","Desulfitobacterium","Fermentation",3.85679231627,311.68982,307.18982,314.58982
-"254","Desulfobacter curvatus","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfobacterales","Desulfobacteraceae","Desulfobacter","Fermentation",0.946737034626,304.42228,298.22228,309.82228
-"255","Desulforhopalus vacuolatus","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfobacterales","Desulfobulbaceae","Desulforhopalus","Fermentation",0.690863807164,294.896967,288.596967,295.996967
-"256","Desulfuromonas michiganensis","Specific Growth Rate","Bacteria","Proteobacteria","Deltaproteobacteria","Desulfuromonadales","Desulfuromonadaceae","Desulfuromonas","Fermentation",19.6403615742517,355.421430857623,347.311842488678,357.321449612082
-"257","Enterococcus faecalis","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Enterococcaceae","Enterococcus","Fermentation",30.3136969446,311.11599,305.21599,316.01599
-"258","Fervidobacterium pennivorans","Specific Growth Rate","Bacteria","Thermotogae","Thermotogae","Thermotogales","Fervidobacteriaceae","Fervidobacterium","Fermentation",5.75697850611,344.0394,333.5394,349.4394
-"259","Flexistipes sinusarabici","Specific Growth Rate","Bacteria","Deferribacteres","Deferribacteres","Deferribacterales","Deferribacteraceae","Flexistipes","Fermentation",2.04211893684,321.8338,314.3338,324.3338
-"260","Halanaerobium alcaliphilum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Halanaerobiales","Halanaerobiaceae","Halanaerobium","Fermentation",6.18220026523,315.3462,301.6462,322.4462
-"261","Halanaerobium lacusrosei","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Halanaerobiales","Halanaerobiaceae","Halanaerobium","Fermentation",4.51074093214,315.9826,310.6826,317.9826
-"262","Halonatronum saccharophilum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Halanaerobiales","Halobacteroidaceae","Halonatronum","Fermentation",5.98220013891,320.2938,311.8938,327.1938
-"263","Lactobacillus acidophilus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Lactobacillaceae","Lactobacillus","Fermentation",12.8205928791,314.8861,308.4861,318.0861
-"264","Lactobacillus delbrueckii","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Lactobacillaceae","Lactobacillus","Fermentation",26.3611296743,317.2598,313.1598,321.8598
-"265","Lactobacillus paracasei","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Lactobacillaceae","Lactobacillus","Fermentation",7.18223000852,307.20125,301.00125,313.40125
-"266","Lactococcus lactis","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Streptococcaceae","Lactococcus","Fermentation",25.4530422363211,302.685719991733,294.916614427327,312.555321450094
-"267","Lactococcus piscium","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Streptococcaceae","Lactococcus","Fermentation",17.4295921279,297.0043126,291.8043126,298.7043126
-"268","Pelotomaculum thermopropionicum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Peptococcaceae","Pelotomaculum","Fermentation",1.57991226322,328.1234,324.8234,331.2234
-"269","Peptoclostridium paradoxum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Peptostreptococcaceae","Peptoclostridium","Fermentation",0.424329497214378,328.869036004988,323.367218101727,332.020294248484
-"270","Peptoclostridium thermoalcaliphilum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Peptostreptococcaceae","Peptoclostridium","Fermentation",59.0648000675,322.2641,317.7641,324.8641
-"271","Pseudothermotoga lettingae","Specific Growth Rate","Bacteria","Thermotogae","Thermotogae","Thermotogales","Thermotogaceae","Pseudothermotoga","Fermentation",5.33921993965,337.6284,333.3284,340.8284
-"272","Streptococcus salivarius","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Streptococcaceae","Streptococcus","Fermentation",49.1617820131,319.3156,314.2156,323.4156
-"273","Streptococcus thermophilus","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Streptococcaceae","Streptococcus","Fermentation",43.7184848217358,314.19117631721,308.472002633305,318.4966650524
-"274","Sulfophobococcus zilligii","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Sulfophobococcus","Fermentation",5.16405157797,364.4286,353.5286,368.8286
-"275","Symbiobacterium toebii","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Symbiobacteriaceae","Symbiobacterium","Fermentation",10.4877445782,335.0146,330.7146,338.2146
-"276","Syntrophothermus lipocalidus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Syntrophomonadaceae","Syntrophothermus","Fermentation",1.01600450379,331.2499,322.8499,333.1499
-"277","Thermacetogenium phaeum","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Thermacetogenium","Fermentation",0.738724838331,332.4499,329.1499,334.3499
-"278","Thermoanaerobacter ethanolicus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Thermoanaerobacter","Fermentation",6.34950492099,339.48668788,329.68668788,345.78668788
-"279","Thermoanaerobacter keratinophilus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Thermoanaerobacter","Fermentation",13.784094621,346.7926,337.7926,348.6926
-"280","Thermoanaerobacter mathranii","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Thermoanaerobacter","Fermentation",20.693226117,346.7837,343.0837,347.8837
-"281","Thermoanaerobacter thermohydrosulfuricus","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacteraceae","Thermoanaerobacter","Fermentation",13.8221085884,341.04378571,334.54378571,344.94378571
-"282","Thermoanaerobacterium thermosulfurigenes","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Thermoanaerobacterales","Thermoanaerobacterales Family III. Incertae Sedis","Thermoanaerobacterium","Fermentation",10.8175160153,336.0773,330.7773,338.3773
-"283","Thermobrachium celere","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Clostridiaceae","Thermobrachium","Fermentation",80.5536285107,339.7777,335.6777,342.3777
-"284","Thermosphaera aggregans","Specific Growth Rate","Archaea","Crenarchaeota","Thermoprotei","Desulfurococcales","Desulfurococcaceae","Thermosphaera","Fermentation",9.55718192273,358.793,355.793,360.793
-"285","Thermosyntropha lipolytica","Specific Growth Rate","Bacteria","Firmicutes","Clostridia","Clostridiales","Syntrophomonadaceae","Thermosyntropha","Fermentation",13.7853186769818,355.856526683887,347.852315550033,357.257148386873
-"286","Trichococcus patagoniensis","Specific Growth Rate","Bacteria","Firmicutes","Bacilli","Lactobacillales","Carnobacteriaceae","Trichococcus","Fermentation",3.58499452355,307.05,301.95,307.85
-"287","Deferribacter thermophilus","Specific Growth Rate","Bacteria","Deferribacteres","Deferribacteres","Deferribacterales","Deferribacteraceae","Deferribacter","N14",17.1023656517,331.6529,326.3529,335.8529
-"288","N-fixing unicellular cyanobacterium strain a 2.5","Specific Growth Rate","Bacteria","Cyanobacteria","","","","","PhotosystemII",1.45389798486,302.65,301.35,303.25
-"289","N-fixing unicellular cyanobacterium strain p-3","Specific Growth Rate","Bacteria","Cyanobacteria","","","","","PhotosystemII",1.23666082196,302.65,301.25,303.25
-"290","N-fixing unicellular cyanobacterium strain p-7","Specific Growth Rate","Bacteria","Cyanobacteria","","","","","PhotosystemII",0.489888,301.65,301.15,302.15
-"291","Anabaena sp. pcc7122","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales","Nostocaceae","Anabaena","PhotosystemII",0.511488,278.15,278.15,294.45
-"292","Anabaena anabaena bergii","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales ","Nostocaceae","Anabaena","PhotosystemII",0.372760634699,301.95,290.05,307.25
-"293","Anabaena anabaena macrospora","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales ","Nostocaceae","Anabaena","PhotosystemII",0.251152860816,300.85,292.45,303.55
-"294","Anabaena anabaena spiroides","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales ","Nostocaceae","Anabaena","PhotosystemII",0.395590570105,308.75,274.15,311.25
-"295","Anabaena anabaena ucrainica","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales ","Nostocaceae","Anabaena","PhotosystemII",0.736844494898,300.85,294.55,309.45
-"296","Anabaena sp.","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales ","Nostocaceae","Anabaena","PhotosystemII",0.925417806725,307.25,302.25,307.95
-"297","Aphanizomenon aphanizomenon flosaquae","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales","Nostocaceae","Aphanizomenon","PhotosystemII",0.396064296888,300.75,285.45,302.75
-"298","Aphanizomenon aphanizomenon gracile","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales","Nostocaceae","Aphanizomenon","PhotosystemII",0.610752607280759,304.238019484745,293.65995215555,310.132935206824
-"299","Aphanizomenon aphanizomenon ovalisporum","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales","Nostocaceae","Aphanizomenon","PhotosystemII",0.453488516776,307.45,298.15,308.85
-"300","Cylindrospermopsis cylindrospermopsis raciborskii","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales","Nostocaceae","Cylindrospermopsis","PhotosystemII",0.510965499477724,304.736468456726,294.815322273883,309.252762885898
-"301","Limnothrix limnothrix redekei","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Oscillatoriaceae","Limnothrix","PhotosystemII",0.521549156888907,295.946198657797,290.697312509077,299.246240577889
-"302","Mastigocladus laminosus","Specific Growth Rate","Bacteria","Cyanobacteria","","Stigonematales","","Mastigocladus","PhotosystemII",1.45632000731673,325.277418868289,319.819857134225,329.63620799549
-"303","Merismopedia merismopedia tenuissima","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Synechococcales","Merismopediaceae","Merismopedia","PhotosystemII",0.676118861147,310.15,292.05,318.05
-"304","Microcystis microcystis aeruginosa","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Chroococcales","Microcystaceae","Microcystis","PhotosystemII",0.871955974417182,304.71472050812,298.548348621536,310.882181418646
-"305","Oscillatoria e17","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Oscillatoriaceae","Oscillatoria","PhotosystemII",0.228845947747,293.35,284.35,299.85
-"306","Oscillatoria o-salt","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Oscillatoriaceae","Oscillatoria","PhotosystemII",0.358961158369,295.75,292.35,297.55
-"307","Oscillatoria o201","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Oscillatoriaceae","Oscillatoria","PhotosystemII",0.202021281131,285.05,280.85,291.25
-"308","Oscillatoria sp.","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Oscillatoriaceae","Oscillatoria","PhotosystemII",1.18828774115,300.85,294.55,304.95
-"309","Phormidium phormidium simplicissimum","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Oscillatoriaceae","Phormidium","PhotosystemII",0.18011020016,305.45,294.25,309.15
-"310","Phormidium e11a","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.195428397957,300.45,292.55,303.25
-"311","Phormidium e11b","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.178604035984,294.95,282.85,298.25
-"312","Phormidium e12","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.264642842861,302.15,289.85,303.35
-"313","Phormidium e18","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.445377910418,301.65,296.05,302.65
-"314","Phormidium e2","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.262039302703,289.05,287.45,289.15
-"315","Phormidium e5","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.195428397957,300.45,292.55,303.25
-"316","Phormidium e6a","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.178604035984,294.95,282.85,298.25
-"317","Phormidium e7","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.262039302703,289.05,287.45,289.15
-"318","Phormidium o025","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.248017060213,286.35,283.75,290.05
-"319","Phormidium o042","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.310176001,288.45,287.75,288.55
-"320","Phormidium o043","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.225727139944,301.15,286.85,302.55
-"321","Phormidium o099","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.492980602687,296.75,293.55,297.55
-"322","Phormidium o102","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.225758195075,297.05,284.15,298.25
-"323","Phormidium o104","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.30064279436,292.65,288.15,297.55
-"324","Phormidium o152","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.227731676798,301.85,298.65,301.95
-"325","Phormidium o154","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.11973145709,302.15,277.55,303.45
-"326","Phormidium o157","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.244869261489,290.95,288.95,292.35
-"327","Phormidium o160","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.125812568176,299.75,280.25,304.05
-"328","Phormidium o202","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.362187663062,301.55,296.75,301.95
-"329","Phormidium o203","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.235914709833,307.75,297.35,308.05
-"330","Phormidium o204","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.226733114642,297.85,281.65,303.55
-"331","Phormidium o210","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.266574910196,288.75,285.65,292.35
-"332","Phormidium o211","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Phormidium","PhotosystemII",0.353383836195,288.65,284.45,292.75
-"333","Planktothrix planktothrix agardhii","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Oscillatoriaceae","Planktothrix","PhotosystemII",0.25440083241,295.65,290.95,296.45
-"334","Planktothrix planktothrix agardhii","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Planktothrix","PhotosystemII",0.85760899491,302.55,296.65,306.15
-"335","Prochlorococcus prochlorococcus marinus","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Synechococcales","Synechococcaceae","Prochlorococcus","PhotosystemII",0.554804389431705,299.518770022947,294.957675466218,300.760607439661
-"336","Sphaerospermopsis sphaerospermopsis aphanizomenoides","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Nostocales","Nostocaceae","Sphaerospermopsis","PhotosystemII",0.451378656232,306.45,290.75,308.65
-"337","Synechococcus lividus","Specific Growth Rate","Bacteria","Cyanobacteria","","Chroococcales","","Synechococcus","PhotosystemII",33.7132850594,338.77481277,334.37481277,340.97481277
-"338","Synechococcus ccmp1183","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Synechococcales","Synechococcaceae","Synechococcus","PhotosystemII",1.53955727449,299.85,298.05,300.05
-"339","Synechococcus ccmp1632","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Synechococcales","Synechococcaceae","Synechococcus","PhotosystemII",1.34899736149,295.75,294.45,296.65
-"340","Synechococcus ccmp837","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Synechococcales","Synechococcaceae","Synechococcus","PhotosystemII",0.792416262802,299.55,296.45,299.95
-"341","Synechococcus wh8102","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Synechococcales","Synechococcaceae","Synechococcus","PhotosystemII",0.716165378592,295.55,294.35,296.45
-"342","Synechococcus wh8103","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Synechococcales","Synechococcaceae","Synechococcus","PhotosystemII",0.840752631698,300.35,296.25,303.15
-"343","Trichodesmium trichodesmium erythraeum","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Trichodesmium","PhotosystemII",0.499352891653073,301.249524358219,298.083105979825,304.48182792943
-"344","Trichodesmium trichodesmium radians","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Trichodesmium","PhotosystemII",0.367430388162,299.65,297.85,301.95
-"345","Tychonema tychonema bourrellyi","Specific Growth Rate","Bacteria","Cyanobacteria","Cyanophyceae","Oscillatoriales","Phormidiaceae","Tychonema","PhotosystemII",0.60692583097,292.95,284.85,323.05
+Species,Trait,ConKingdom,ConPhylum,ConClass,ConOrder,ConFamily,ConGenus,Best_Guess,Est.Tpk,Est.Tmin,Est.Tmax,Max.response,Rank
+Acetobacterium bakii,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,NA,NA,NA,NA,1
+Acetobacterium carbinolicum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,NA,NA,NA,NA,1
+Acetobacterium fimetarium,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,302.927,298.9269999999999,303.92700000000013,3.6217310524700004,1
+Acetobacterium paludosum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,NA,NA,NA,NA,1
+Acetobacterium tundrae,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,NA,NA,NA,NA,1
+Acetobacterium z-4092,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,NA,NA,NA,NA,1
+Acetobacterium z-4290,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,302.6070000000001,298.8070000000001,303.507,3.6985002429000007,1
+Acetobacterium z-4391,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Eubacteriaceae,Acetobacterium,E1,NA,NA,NA,NA,1
+Acidianus infernus,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Acidianus,C19,365.27349999999996,353.7734999999999,381.57350000000014,8.37568625733,1
+Acidianus manzaensis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Acidianus,F3,352.0619,344.6618999999999,357.4619000000002,1.0894427412899998,1
+Acidianus sp. ale1,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Acidianus,F3,352.31960000000015,345.91959999999995,353.11959999999993,2.82740184209,1
+Acidicaldus organivorans,Specific Growth Rate,Bacteria,Proteobacteria,Alphaproteobacteria,Rhodospirillales,Acetobacteraceae,Acidicaldus,Aerobic,325.08700000000005,319.8869999999999,331.4869999999999,0.08101804629,1
+Acidilobus aceticus,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Acidilobales,Acidilobaceae,Acidilobus,Fermentation,357.5006,352.30060000000003,363.7006,6.64834587325,1
+Acidilobus sulfurireducens,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Acidilobales,Acidilobaceae,Acidilobus,C19,353.45000000000005,351.14999999999986,355.94999999999993,0.7900229992669999,1
+Acidithiobacillus caldus,Specific Growth Rate,Bacteria,Proteobacteria,Acidithiobacillia,Acidithiobacillales,Acidithiobacillaceae,Acidithiobacillus,C14,320.4859000000001,312.6859,323.7859,6.94322510831,1
+Acidithiobacillus ferrivorans,Specific Growth Rate,Bacteria,Proteobacteria,Acidithiobacillia,Acidithiobacillales,Acidithiobacillaceae,Acidithiobacillus,F4,301.5998,295.1998000000001,313.5997999999999,2.97842306602,1
+Acidocella aromatica,Specific Growth Rate,Bacteria,Proteobacteria,Alphaproteobacteria,Rhodospirillales,Acetobacteraceae,Acidocella,Aerobic,304.6509000000001,299.4509,307.75090000000006,6.37734683403,1
+Acidovorax sp. k33,Specific Growth Rate,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Comamonadaceae,Acidovorax,Aerobic,305.38099999999986,294.7810000000001,305.98099999999994,0.46191193219899995,1
+Aeribacillus pallidus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Aeribacillus,Aerobic,333.20631000000014,323.40631,338.30631,5.7084953197,1
+Aeromonas hydrophila,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Aeromonadales,Aeromonadaceae,Aeromonas,Aerobic,306.7000000000001,299.6999999999999,309.79999999999995,43.8992576041,1
+Aeropyrum pernix,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Aeropyrum,Aerobic,364.2327000000001,359.63269999999994,367.93270000000007,6.09373681479,1
+Alicyclobacillus acidocaldarius,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Alicyclobacillaceae,Alicyclobacillus,Aerobic,339.3753252179563,326.00982035643847,346.3810296021593,29.4655199355802,1
+Alkaliphilus transvaalensis,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Alkaliphilus,A1,313.94989999999996,309.34989999999993,317.7498999999999,22.134765011600003,1
+Anabaena anabaena bergii,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales ,Nostocaceae,Anabaena,PhotosystemII,301.9499999999999,290.04999999999995,307.2500000000001,0.372760684627,1
+Anabaena anabaena macrospora,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales ,Nostocaceae,Anabaena,PhotosystemII,300.8499999999999,292.45000000000005,303.55000000000007,0.25115286081599997,1
+Anabaena anabaena spiroides,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales ,Nostocaceae,Anabaena,PhotosystemII,308.8499999999999,274.14999999999986,311.2499999999999,0.395590504429,1
+Anabaena anabaena ucrainica,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales ,Nostocaceae,Anabaena,PhotosystemII,300.8499999999999,294.55000000000007,309.44999999999993,0.7368444948980001,1
+Anabaena sp.,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales ,Nostocaceae,Anabaena,PhotosystemII,307.44999999999993,302.44999999999993,307.9500000000001,0.9387960993410001,1
+Anabaena sp. pcc7122,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales,Nostocaceae,Anabaena,PhotosystemII,307.35000000000014,302.5499999999999,307.9500000000001,9.65432620936,1
+Aphanizomenon aphanizomenon flosaquae,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales,Nostocaceae,Aphanizomenon,PhotosystemII,300.7500000000001,285.4499999999999,302.7500000000001,0.39606491713200004,1
+Aphanizomenon aphanizomenon gracile,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales,Nostocaceae,Aphanizomenon,PhotosystemII,304.2380194847447,293.6599521555503,310.13293520682373,0.6107526072807594,1
+Aphanizomenon aphanizomenon ovalisporum,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales,Nostocaceae,Aphanizomenon,PhotosystemII,307.44999999999993,298.15000000000003,308.8499999999999,0.453566813407,1
+Archaeoglobus veneficus,Specific Growth Rate,Archaea,Euryarchaeota,Archaeoglobi,Archaeoglobales,Archaeoglobaceae,Archaeoglobus,C3,353.05000000000007,346.85,359.4500000000001,16.243143937599996,1
+Bacillus cereus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus,Aerobic,309.6467265038233,303.52953485328186,314.5137440139745,53.1248404135476,1
+Bacillus infernus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus,F14,332.54520000000014,330.0452,333.94519999999994,28.510806444399996,1
+Bacillus megaterium,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus,Aerobic,321.19666018322454,314.76156398812185,324.800638974381,50.943481733105685,1
+Bacillus sp. a2,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus,Aerobic,340.58510000000007,334.3850999999999,343.1850999999999,4.02724086818,1
+Bacillus sp. f70,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus,Aerobic,341.9416000000001,329.64159999999987,361.2416,20.776743685699998,1
+Bacillus sp. ms30,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus,B10,331.7064999999999,324.70650000000006,337.30650000000014,10.118060237000002,1
+Bacillus subtilis,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Bacillus,Aerobic,312.30385256000005,302.9038525600001,318.5038525600001,26.8895420968,1
+Blautia producta,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Lachnospiraceae,Blautia,E1,NA,NA,NA,NA,1
+Bosea eneae,Specific Growth Rate,Bacteria,Proteobacteria,Alphaproteobacteria,Rhizobiales,Bradyrhizobiaceae,Bosea,Aerobic,299.97299999999996,293.77299999999985,303.2730000000001,0.381011759584,1
+Brevibacterium sp.,Specific Growth Rate,Bacteria,Actinobacteria,Actinobacteria,Micrococcales,Brevibacteriaceae,Brevibacterium,Fermentation,NA,NA,NA,NA,1
+Brevibacterium sp. cr3/1/15,Specific Growth Rate,Bacteria,Actinobacteria,Actinobacteria,Micrococcales,Brevibacteriaceae,Brevibacterium,Fermentation,NA,NA,NA,NA,1
+Brochothrix thermosphacta,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Listeriaceae,Brochothrix,Aerobic,301.1637061999999,296.36370619999985,302.7637061999999,29.6375967382,1
+Caldanaerobacter subterraneus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Caldanaerobacter,Fermentation,345.178411186879,338.9449945629489,349.2472213810454,8.467845937822968,1
+Caldicellulosiruptor obsidiansis,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacterales Family III. Incertae Sedis,Caldicellulosiruptor,Fermentation,350.1893000000001,332.6892999999999,355.58930000000015,15.9917888997,1
+Caldisphaera draconis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Acidilobales,Caldisphaeraceae,Caldisphaera,C19,344.3499999999999,341.7500000000001,346.25,0.653076442654,1
+Caldivirga maquilingensis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Thermoproteales,Thermoproteaceae,Caldivirga,C19,357.7083999999999,352.3084,360.90840000000003,1.85936100945,1
+Caloramator fervidus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Caloramator,Fermentation,NA,NA,NA,NA,1
+Caloramator indicus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Caloramator,Fermentation,336.8157999999999,329.3157999999999,341.6158000000001,50.83496649039999,1
+Caloranaerobacter azorensis,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Caloranaerobacter,Fermentation,337.7058,334.0058,338.8058000000001,40.9997042339,1
+Chlorobium tepidum,Specific Growth Rate,Bacteria,Chlorobi,Chlorobia,Chlorobiales,Chlorobiaceae,Chlorobium,C9,319.11249999999995,313.41249999999997,321.4125,7.764061163180002,1
+Clostridium autoethanogenum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Clostridium,Fermentation,NA,NA,NA,NA,1
+Clostridium perfringens,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Clostridium,Fermentation,318.7344186735211,314.7664345496448,321.6031561804166,131.946322374037,1
+Colwellia demingiae,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Colwelliaceae,Colwellia,Aerobic,284.29859999999996,279.9985999999999,287.19860000000006,5.83828636347,1
+Colwellia hornerae,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Colwelliaceae,Colwellia,Aerobic,284.1650000000001,278.9649999999999,288.3650000000001,4.05542972407,1
+Colwellia psychrerythraea,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Colwelliaceae,Colwellia,Aerobic,286.27719999999994,280.4772,288.7772,5.63944731586,1
+Colwellia psychrotropica,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Colwelliaceae,Colwellia,Aerobic,291.2102,284.71020000000004,294.6101999999999,9.619668320119999,1
+Cylindrospermopsis cylindrospermopsis raciborskii,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales,Nostocaceae,Cylindrospermopsis,PhotosystemII,NA,NA,NA,NA,1
+Deferribacter thermophilus,Specific Growth Rate,Bacteria,Deferribacteres,Deferribacteres,Deferribacterales,Deferribacteraceae,Deferribacter,N14,331.6529,326.3529,335.8528999999999,17.1023730074,1
+Deinococcus geothermalis,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Deinococcales,Deinococcaceae,Deinococcus,Aerobic,321.04989999999987,315.6498999999999,325.04990000000004,20.288032317199995,1
+Deinococcus murrayi,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Deinococcales,Deinococcaceae,Deinococcus,Aerobic,323.64990000000006,317.7498999999999,325.3499000000001,18.2087614777,1
+Desulfitobacterium dehalogenans,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Peptococcaceae,Desulfitobacterium,Fermentation,311.68981999999994,307.18982000000005,314.58982000000015,3.85680582649,1
+Desulfobacter curvatus,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobacteraceae,Desulfobacter,Fermentation,306.02228,298.1222799999999,309.5222799999999,0.947343161205,1
+Desulfofaba gelida,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobacteraceae,Desulfofaba,C1,280.57938,277.57937999999984,280.6793799999999,0.12532998451300004,1
+Desulfofrigus fragile,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobacteraceae,Desulfofrigus,C1,294.54456000000005,287.44456000000014,296.6445599999999,0.873117223872,1
+Desulfofrigus oceanense,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobacteraceae,Desulfofrigus,C1,286.53845,278.33844999999997,286.73844999999994,0.09766758514000001,1
+Desulforhopalus vacuolatus,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobulbaceae,Desulforhopalus,Fermentation,294.89696700000013,288.5969670000001,295.9969670000001,0.6908633688600001,1
+Desulfotalea arctica,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobulbaceae,Desulfotalea,C1,294.1725200000001,288.27252000000016,295.47252000000003,0.514364820078,1
+Desulfotalea psychrophila,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfobacterales,Desulfobulbaceae,Desulfotalea,C1,286.84799,276.24799,290.3479899999999,0.53933527297,1
+Desulfotomaculum alkaliphilum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Peptococcaceae,Desulfotomaculum,C1,325.7328000000001,321.0328000000001,328.5328,1.07543198275,1
+Desulfotomaculum putei,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Peptococcaceae,Desulfotomaculum,C1,338.1257,335.22569999999996,338.1257,10.271856656100002,1
+Desulfurobacterium crinifex,Specific Growth Rate,Bacteria,Aquificae,Aquificae,Desulfurobacteriales,Desulfurobacteriaceae,Desulfurobacterium,B1,337.6306,335.5306,337.93060000000014,25.199493716699997,1
+Desulfurococcus sp. s,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Desulfurococcus,C19,360.6237999999999,354.02380000000005,362.92379999999997,36.81041487230001,1
+Desulfurococcus sp. sy,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Desulfurococcus,C19,362.0555,354.65550000000013,365.2555,32.13927692380001,1
+Desulfuromonas michiganensis,Specific Growth Rate,Bacteria,Proteobacteria,Deltaproteobacteria,Desulfuromonadales,Desulfuromonadaceae,Desulfuromonas,Fermentation,355.52144961011845,347.11326781452766,357.37144844388456,19.362990950923397,1
+Enterococcus faecalis,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Enterococcaceae,Enterococcus,Fermentation,318.1159899999999,304.51599,320.61599,28.9536449581,1
+Erwinia amylovora,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Erwinia,Aerobic,302.0115636160001,297.211563616,304.8115636160001,15.0378255322,1
+Escherichia coli,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Escherichia,Aerobic,NA,NA,NA,NA,1
+Ferroglobus placidus,Specific Growth Rate,Archaea,Euryarchaeota,Archaeoglobi,Archaeoglobales,Archaeoglobaceae,Ferroglobus,B1,359.3041999999999,354.5042000000001,364.8042000000001,6.168300349110001,1
+Fervidobacterium pennivorans,Specific Growth Rate,Bacteria,Thermotogae,Thermotogae,Thermotogales,Fervidobacteriaceae,Fervidobacterium,Fermentation,344.0393999999999,333.5394000000001,349.43939999999986,5.75697853462,1
+Flavobacterium limicola,Specific Growth Rate,Bacteria,Bacteroidetes,Flavobacteriia,Flavobacteriales,Flavobacteriaceae,Flavobacterium,Aerobic,293.42233999999996,288.22233999999986,295.82234,2.8918759389599993,1
+Flexistipes sinusarabici,Specific Growth Rate,Bacteria,Deferribacteres,Deferribacteres,Deferribacterales,Deferribacteraceae,Flexistipes,Fermentation,321.83380000000005,314.3338,324.3338,2.04211904428,1
+Gelidibacter gilvus,Specific Growth Rate,Bacteria,Bacteroidetes,Flavobacteriia,Flavobacteriales,Flavobacteriaceae,Gelidibacter,Aerobic,296.80731,289.30731,303.60731,3.4984707791000003,1
+Gelidibacter sp.,Specific Growth Rate,Bacteria,Bacteroidetes,Flavobacteriia,Flavobacteriales,Flavobacteriaceae,Gelidibacter,Aerobic,296.1800000000001,288.68000000000006,304.67999999999995,4.94664306784,1
+Geobacillus caldotenax,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Geobacillus,Aerobic,336.63048492054725,330.630924911084,341.7309463311025,63.56869263995484,1
+Geobacillus caldoxylosilyticus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Geobacillus,Aerobic,341.3535999999999,334.3536,345.6535999999999,35.2101512393,1
+Geobacillus stearothermophilus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Geobacillus,Aerobic,329.9028999999999,325.40289999999993,334.1029,59.59572811829998,1
+Geobacillus thermodenitrificans,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Geobacillus,Aerobic,339.03909999999996,335.9390999999999,341.1391,50.960607930799995,1
+Geobacillus thermoleovorans,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Bacillaceae,Geobacillus,Aerobic,343.9932755542852,339.88118630312607,347.02708986748564,25.078037719578106,1
+Geogemma barossii,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Pyrodictiaceae,Geogemma,F3,377.2480000000001,371.4480000000001,381.6479999999999,8.95915195485,1
+Geoglobus ahangari,Specific Growth Rate,Archaea,Euryarchaeota,Archaeoglobi,Archaeoglobales,Archaeoglobaceae,Geoglobus,F3,360.89989999999995,347.3998999999999,378.0998999999999,3.18144713505,1
+Glaciecola punicea,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Alteromonadaceae,Glaciecola,Aerobic,290.1119119002182,284.70384130601394,295.1663164698845,2.1195833456248203,1
+Halanaerobium alcaliphilum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Halanaerobiales,Halanaerobiaceae,Halanaerobium,Fermentation,310.34619999999995,304.44619999999986,316.6461999999999,7.15972413588,1
+Halanaerobium lacusrosei,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Halanaerobiales,Halanaerobiaceae,Halanaerobium,Fermentation,316.48260000000005,308.28259999999995,318.18259999999987,4.26707178079,1
+Haloarcula vallismortis,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Halobacteriales,Halobacteriaceae,Haloarcula,Aerobic,319.4679,306.5679,325.1679,13.081355904200002,1
+Halobacterium salinarum,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Halobacteriales,Halobacteriaceae,Halobacterium,Aerobic,NA,NA,NA,NA,1
+Halobacterium sp. acam32,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Halobacteriales,Halobacteriaceae,Halobacterium,Aerobic,302.72900000000016,297.229,308.5289999999999,0.426024000103,1
+Halobacterium sp. acam34,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Halobacteriales,Halobacteriaceae,Halobacterium,Aerobic,308.57099999999997,301.57099999999997,315.87100000000004,0.591983107081,1
+Halobaculum gomorrense,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Haloferacales,Haloferacaceae,Halobaculum,Aerobic,317.81950000000006,307.01949999999994,325.8194999999999,13.801868717700001,1
+Halococcus morrhuae,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Halobacteriales,Halobacteriaceae,Halococcus,Aerobic,323.57170000000013,313.37169999999986,329.27170000000007,16.789561241599998,1
+Haloferax volcanii,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Haloferacales,Haloferacaceae,Haloferax,Aerobic,318.0306999999999,309.23070000000007,322.1307000000001,16.018445461000002,1
+Halogeometricum borinquense,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Haloferacales,Haloferacaceae,Halogeometricum,Aerobic,322.89660000000003,310.89659999999986,332.4966,16.253682165500003,1
+Halomonas campisalis,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Oceanospirillales,Halomonadaceae,Halomonas,Aerobic,329.3804689938368,321.9534831533897,334.3744846046122,4.469047330043079,1
+Halomonas elongata,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Oceanospirillales,Halomonadaceae,Halomonas,Aerobic,NA,NA,NA,NA,1
+Halomonas halodenitrificans,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Oceanospirillales,Halomonadaceae,Halomonas,Aerobic,308.72571197664337,300.92464753819445,311.8926098792312,5.884628750403251,1
+Halomonas subglaciescola,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Oceanospirillales,Halomonadaceae,Halomonas,Aerobic,NA,NA,NA,NA,1
+Halonatronum saccharophilum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Halanaerobiales,Halobacteroidaceae,Halonatronum,Fermentation,322.2938000000001,307.1938,330.5937999999999,5.20666417256,1
+Halorubrum saccharovorum,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Haloferacales,Haloferacaceae,Halorubrum,Aerobic,316.6407000000001,306.44070000000005,324.04070000000013,12.4177293026,1
+Haloterrigena turkmenica,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Natrialbales,Natrialbaceae,Haloterrigena,Aerobic,324.3879999999999,312.08799999999985,330.58799999999997,16.7512919733,1
+Heliobacillus mobilis,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Heliobacteriaceae,Heliobacillus,B9,311.59799999999996,308.39799999999985,314.0979999999999,6.22298754638,1
+Heliobacterium modesticaldum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Heliobacteriaceae,Heliobacterium,B9,325.9198999999999,319.1199000000001,327.8199,6.23609610525,1
+Herbaspirillum sp. k1,Specific Growth Rate,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Oxalobacteraceae,Herbaspirillum,Aerobic,302.81600000000003,294.816,303.3160000000001,0.38937277010899995,1
+Hydrogenophaga pseudoflava,Specific Growth Rate,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Comamonadaceae,Hydrogenophaga,A1,296.74800551729845,291.64808598048785,299.4990097985751,6.057653948319164,1
+Hydrogenophilus hirschii,Specific Growth Rate,Bacteria,Proteobacteria,Betaproteobacteria,Hydrogenophilales,Hydrogenophilaceae,Hydrogenophilus,A1,336.48720000000003,328.8872000000001,339.28719999999987,25.826086852499998,1
+Ignicoccus hospitalis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Ignicoccus,C19,354.97410000000013,351.2741000000001,363.2741,16.3271457072,1
+Ignicoccus islandicus,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Ignicoccus,C19,361.93419999999986,357.2342000000001,365.6342000000001,12.3290731914,1
+Ignicoccus pacificus,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Ignicoccus,C19,362.7975000000001,358.99749999999995,367.0975,20.154849066100002,1
+Isosphaera pallida,Specific Growth Rate,Bacteria,Planctomycetes,Planctomycea,Planctomycetales,Planctomycetaceae,Isosphaera,Aerobic,317.1887,311.08870000000013,323.68870000000004,0.9239318326870001,1
+Klebsiella oxytoca,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Klebsiella,Aerobic,312.06000000000006,305.86000000000007,315.86000000000007,81.4959592785,1
+Klebsiella pneumoniae,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Klebsiella,Aerobic,309.6574000000001,304.2574,314.1573999999999,25.928229622199996,1
+Lactobacillus acidophilus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Lactobacillaceae,Lactobacillus,Fermentation,314.88609999999994,308.48609999999996,318.08610000000004,12.820592879100001,1
+Lactobacillus delbrueckii,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Lactobacillaceae,Lactobacillus,Fermentation,317.2597999999999,313.1598,321.8597999999999,26.361129674300003,1
+Lactobacillus paracasei,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Lactobacillaceae,Lactobacillus,Fermentation,307.2012499999999,301.0012500000001,313.4012499999999,7.18222995403,1
+Lactococcus lactis,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Streptococcaceae,Lactococcus,Fermentation,302.75527493644364,294.91661442732646,312.5553214500939,25.453042896245346,1
+Lactococcus piscium,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Streptococcaceae,Lactococcus,Fermentation,296.7043125999999,292.90431259999997,298.30431259999995,19.593953270800004,1
+Limnothrix limnothrix redekei,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Oscillatoriaceae,Limnothrix,PhotosystemII,295.94619865779663,290.697312509077,299.2462405778894,0.521549156888907,1
+Listeria monocytogenes,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Listeriaceae,Listeria,Aerobic,311.45627386515827,302.5220579931537,316.29270320767944,28.41128562569329,1
+Marinithermus hydrothermalis,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Marinithermus,Aerobic,341.8237000000001,337.82369999999986,343.1236999999999,49.156855340499995,1
+Marinobacter alkaliphilus,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Alteromonadaceae,Marinobacter,Aerobic,309.6504551236649,294.24778907290516,315.9490058669163,22.422501293028493,1
+Meiothermus chliarophilus,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Meiothermus,Aerobic,330.18782507899937,320.778998674165,333.5502618652849,10.86452813683705,1
+Merismopedia merismopedia tenuissima,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Merismopediaceae,Merismopedia,PhotosystemII,310.15000000000003,292.04999999999995,318.05000000000007,0.676118861147,1
+Metallosphaera hakonensis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Metallosphaera,C16,343.8837999999999,338.6837999999999,347.0838,0.90628940687,1
+Methanobacterium sp. ivanov,Specific Growth Rate,Archaea,Euryarchaeota,Methanobacteria,Methanobacteriales,Methanobacteriaceae,Methanobacterium,D1,315.6066000000001,310.5066,318.90659999999997,1.25007893987,1
+Methanobacterium sp. kuznetsov,Specific Growth Rate,Archaea,Euryarchaeota,Methanobacteria,Methanobacteriales,Methanobacteriaceae,Methanobacterium,D1,313.0066,307.10659999999996,317.20659999999987,1.2058750787,1
+Methanobacterium sp. omeliansky,Specific Growth Rate,Archaea,Euryarchaeota,Methanobacteria,Methanobacteriales,Methanobacteriaceae,Methanobacterium,D1,321.46130000000005,303.2613000000001,322.6613,0.951945032122,1
+Methanobacterium subterraneum,Specific Growth Rate,Archaea,Euryarchaeota,Methanobacteria,Methanobacteriales,Methanobacteriaceae,Methanobacterium,D1,311.75868,297.15867999999995,316.6586800000001,3.2622295171,1
+Methanobacterium thermaggregans,Specific Growth Rate,Archaea,Euryarchaeota,Methanobacteria,Methanobacteriales,Methanobacteriaceae,Methanobacterium,D1,342.8380000000001,338.93800000000005,343.638,6.14862773615,1
+Methanocaldococcus jannaschii,Specific Growth Rate,Archaea,Euryarchaeota,Methanococci,Methanococcales,Methanocaldococcaceae,Methanocaldococcus,D1,359.0512,348.6511999999999,363.6512,34.4109652005,1
+Methanocaldococcus vulcanius,Specific Growth Rate,Archaea,Euryarchaeota,Methanococci,Methanococcales,Methanocaldococcaceae,Methanocaldococcus,D1,353.3898000000001,343.98980000000006,357.4898000000002,18.956637324699997,1
+Methanococcus voltae,Specific Growth Rate,Archaea,Euryarchaeota,Methanococci,Methanococcales,Methanococcaceae,Methanococcus,D1,315.101,311.8009999999999,315.8009999999999,13.068290988800003,1
+Methanoculleus submarinus,Specific Growth Rate,Archaea,Euryarchaeota,Methanomicrobia,Methanomicrobiales,Methanomicrobiaceae,Methanoculleus,D1,316.1488999999999,309.44889999999987,319.9489,2.55560890101,1
+Methanoculleus thermophilus,Specific Growth Rate,Archaea,Euryarchaeota,Methanomicrobia,Methanomicrobiales,Methanomicrobiaceae,Methanoculleus,D1,329.28329999999994,320.4833000000001,332.28329999999994,13.253301100800002,1
+Methanogenium frigidum,Specific Growth Rate,Archaea,Euryarchaeota,Methanomicrobia,Methanomicrobiales,Methanomicrobiaceae,Methanogenium,D1,286.3201399999999,282.92014,288.92013999999995,0.2553033637240001,1
+Methanohalophilus portucalensis,Specific Growth Rate,Archaea,Euryarchaeota,Methanomicrobia,Methanosarcinales,Methanosarcinaceae,Methanohalophilus,D1,310.89830000000006,306.6983000000001,312.89829999999995,1.4670054330200002,1
+Methanolobus psychrophilus,Specific Growth Rate,Archaea,Euryarchaeota,Methanomicrobia,Methanosarcinales,Methanosarcinaceae,Methanolobus,D1,291.99325930000015,287.49325930000003,292.7932593,1.5538098801499998,1
+Methanopyrus kandleri,Specific Growth Rate,Archaea,Euryarchaeota,Methanopyri,Methanopyrales,Methanopyraceae,Methanopyrus,D1,373.7281221397041,369.6349336530836,377.6181479428821,19.565750729768467,1
+Methanothermococcus okinawensis,Specific Growth Rate,Archaea,Euryarchaeota,Methanococci,Methanococcales,Methanococcaceae,Methanothermococcus,D1,338.8003,332.3003000000001,343.50030000000004,27.521083614100004,1
+Methanothermococcus thermolithotrophicus,Specific Growth Rate,Archaea,Euryarchaeota,Methanococci,Methanococcales,Methanococcaceae,Methanothermococcus,D1,338.1500000000001,327.44999999999993,342.7499999999999,18.9186871247,1
+Microcystis microcystis aeruginosa,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Chroococcales,Microcystaceae,Microcystis,PhotosystemII,304.7147205081197,298.5483486215355,310.882181418646,0.8719561487915725,1
+Microcystis microcystis wesenbergii,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Chroococcales,Microcystaceae,Microcystis,PhotosystemII,NA,NA,NA,NA,1
+Moritella abyssi,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Moritellaceae,Moritella,Aerobic,277.56452,274.36451999999997,280.56451999999996,3.8825893378300003,1
+Moritella marina,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Moritellaceae,Moritella,Aerobic,293.3459286040754,288.04339336473726,295.63785657572316,7.413161996680557,1
+Moritella profunda,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Moritellaceae,Moritella,Aerobic,264.7100700000001,260.1100699999999,279.5100700000001,4.558269440219999,1
+Natrialba asiatica,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Natrialbales,Natrialbaceae,Natrialba,Aerobic,317.54480000000007,306.04479999999995,324.3447999999999,13.102098710499998,1
+Natrinema pellirubrum,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Natrialbales,Natrialbaceae,Natrinema,Aerobic,325.076,313.27599999999995,330.17599999999993,15.529093998599999,1
+Natronobacterium gregoryi,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Natrialbales,Natrialbaceae,Natronobacterium,Aerobic,319.86760000000004,308.7675999999999,325.66760000000005,14.586000792900002,1
+Natronococcus occultus,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Natrialbales,Natrialbaceae,Natronococcus,Aerobic,320.1631,307.0630999999999,330.16309999999993,12.5317090899,1
+Natronomonas pharaonis,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Halobacteriales,Halobacteriaceae,Natronomonas,Aerobic,318.20380000000006,309.2038000000001,326.10380000000015,14.595294895699997,1
+Natronorubrum bangense,Specific Growth Rate,Archaea,Euryarchaeota,Halobacteria,Natrialbales,Natrialbaceae,Natronorubrum,Aerobic,318.87569999999994,309.6757000000001,325.47569999999996,13.5378381995,1
+Nocardioides sp. k44,Specific Growth Rate,Bacteria,Actinobacteria,Actinobacteria,Propionibacteriales,Nocardioidaceae,Nocardioides,Aerobic,297.28899999999993,291.38899999999995,302.4890000000001,0.266851107484,1
+Oscillatoria e17,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Oscillatoriaceae,Oscillatoria,PhotosystemII,293.35,284.34999999999997,299.8499999999999,0.22884592024300002,1
+Oscillatoria o-salt,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Oscillatoriaceae,Oscillatoria,PhotosystemII,302.6500000000001,297.35,302.7500000000001,0.34201224617,1
+Oscillatoria o201,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Oscillatoriaceae,Oscillatoria,PhotosystemII,285.05000000000007,280.85,291.2500000000001,0.20202128113099999,1
+Oscillatoria sp.,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Oscillatoriaceae,Oscillatoria,PhotosystemII,300.8499999999999,294.55000000000007,304.9500000000001,1.18828774115,1
+Palaeococcus helgesonii,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Palaeococcus,C19,351.19229999999993,345.39230000000003,355.39229999999986,20.878639414400002,1
+Pelotomaculum thermopropionicum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Peptococcaceae,Pelotomaculum,Fermentation,328.1234,324.8234,331.22340000000014,1.57991226322,1
+Peptoclostridium paradoxum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Peptostreptococcaceae,Peptoclostridium,Fermentation,328.8690360049876,323.36721810172713,332.0202942484841,0.42432952118626166,1
+Peptoclostridium thermoalcaliphilum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Peptostreptococcaceae,Peptoclostridium,Fermentation,322.26409999999987,317.7640999999999,324.8641,59.06480665310003,1
+Persephonella guaymasensis,Specific Growth Rate,Bacteria,Aquificae,Aquificae,Aquificales,Hydrogenothermaceae,Persephonella,B1,344.06950000000006,337.06949999999995,347.1695000000001,3.0144042887999993,1
+Persephonella marina,Specific Growth Rate,Bacteria,Aquificae,Aquificae,Aquificales,Hydrogenothermaceae,Persephonella,B1,346.1446,340.54459999999995,349.2446000000001,4.78433891613,1
+Phormidium e11a,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,300.45,292.5500000000001,303.25,0.195423743607,1
+Phormidium e11b,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,294.95,282.85,298.2499999999999,0.178604043073,1
+Phormidium e12,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,302.15000000000003,289.74999999999994,303.35,0.26432762149700006,1
+Phormidium e18,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,301.8500000000001,296.34999999999997,302.7500000000001,0.452852805919,1
+Phormidium e2,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,293.75,290.15,293.75,0.233987466189,1
+Phormidium e5,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,300.45,292.5500000000001,303.25,0.195423743607,1
+Phormidium e6a,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,294.95,282.85,298.2499999999999,0.178604043073,1
+Phormidium e7,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,293.75,290.15,293.75,0.233987466189,1
+Phormidium o025,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,286.3500000000001,283.75000000000006,290.04999999999995,0.248017060213,1
+Phormidium o042,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,288.65000000000003,286.8500000000001,290.5499999999999,0.311775112806,1
+Phormidium o043,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,301.24999999999994,286.8500000000001,302.6500000000001,0.22580144534200003,1
+Phormidium o099,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,293.35,290.04999999999995,295.65,0.361338391558,1
+Phormidium o102,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,297.0499999999999,284.25,298.2499999999999,0.226079782008,1
+Phormidium o104,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,292.6499999999999,288.1500000000001,297.55000000000007,0.30064279436,1
+Phormidium o120,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,NA,NA,NA,NA,1
+Phormidium o152,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,300.35000000000014,297.1500000000001,300.35000000000014,0.199489788642,1
+Phormidium o154,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,302.15000000000003,277.5500000000001,303.4500000000001,0.11974441428799996,1
+Phormidium o157,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,289.05,287.85,289.15000000000003,0.186545583025,1
+Phormidium o160,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,299.7499999999999,280.24999999999994,304.04999999999995,0.12581326591699998,1
+Phormidium o202,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,302.15000000000003,297.35,302.35,0.375290132322,1
+Phormidium o203,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,291.05000000000007,286.8500000000001,296.94999999999993,0.29099443163000005,1
+Phormidium o204,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,297.8500000000001,281.6499999999999,303.55000000000007,0.22673463697799998,1
+Phormidium o210,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,288.7499999999999,285.6500000000001,292.34999999999997,0.266574910196,1
+Phormidium o211,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Phormidium,PhotosystemII,288.65000000000003,284.4500000000001,292.7499999999999,0.353384132412,1
+Phormidium phormidium simplicissimum,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Oscillatoriaceae,Phormidium,PhotosystemII,305.45,294.2500000000001,309.15000000000003,0.180110199571,1
+Picrophilus oshimae,Specific Growth Rate,Archaea,Euryarchaeota,Thermoplasmata,Thermoplasmatales,Picrophilaceae,Picrophilus,Aerobic,332.3685999999999,326.86859999999996,336.4686,1.9515903982700002,1
+Planktothrix planktothrix agardhii,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Oscillatoriaceae,Planktothrix,PhotosystemII,NA,NA,NA,NA,1
+Planktothrix planktothrix agardhii,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Planktothrix,PhotosystemII,302.5499999999999,296.64999999999986,306.15000000000003,0.85760899479,1
+Planococcus halocryophilus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Planococcaceae,Planococcus,Aerobic,300.89993291999997,290.9999329199999,314.69993292,0.939395276055,1
+Prochlorococcus prochlorococcus marinus,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Prochlorococcus,PhotosystemII,299.59000696164486,295.24473779957754,300.7891527587531,0.5587013963198514,1
+Profundimonas piezophila,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Oceanospirillales,Oceanospirillaceae,Profundimonas,Aerobic,278.35984,262.1598400000001,287.15984000000003,0.317449780671,1
+Pseudoalteromonas antarctica,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Pseudoalteromonadaceae,Pseudoalteromonas,Aerobic,291.3499999999999,283.1500000000001,296.8499999999999,4.86838975617,1
+Pseudoalteromonas haloplanktis,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Pseudoalteromonadaceae,Pseudoalteromonas,Aerobic,296.2394999999999,290.4394999999999,299.4395000000001,13.281211177599998,1
+Pseudomonas aeruginosa,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas,Aerobic,314.23747887000013,303.53747886999986,317.13747887,26.706823524400004,1
+Pseudomonas fluorescens,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas,Aerobic,307.60837965503003,300.9613282330225,310.5549142969519,31.517344588220404,1
+Pseudomonas putida,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas,Aerobic,302.66000000000014,295.86000000000007,306.95999999999987,38.951263202099994,1
+Pseudomonas sp. k104,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas,Aerobic,300.073,294.17300000000006,302.37299999999993,0.548515270486,1
+Pseudothermotoga lettingae,Specific Growth Rate,Bacteria,Thermotogae,Thermotogae,Thermotogales,Thermotogaceae,Pseudothermotoga,Fermentation,337.6284,333.3284000000001,340.82840000000004,5.339219939649999,1
+Pseudoxanthomonas broegbernensis,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Xanthomonadales,Xanthomonadaceae,Pseudoxanthomonas,Aerobic,321.3833999999999,313.6833999999999,327.58339999999987,12.1794550633,1
+Pseudoxanthomonas taiwanensis,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Xanthomonadales,Xanthomonadaceae,Pseudoxanthomonas,Aerobic,301.4746000000001,299.4746,303.9745999999999,10.017945875599997,1
+Psychrobacter glacincola,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Moraxellaceae,Psychrobacter,Aerobic,287.5749206775465,281.8066623188985,290.008305812369,3.7409759570337378,1
+Psychrobacter muriicola,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Moraxellaceae,Psychrobacter,Aerobic,292.98902999999996,289.0890300000001,296.58903000000004,3.2597729686499997,1
+Psychroflexus torquis,Specific Growth Rate,Bacteria,Bacteroidetes,Flavobacteriia,Flavobacteriales,Flavobacteriaceae,Psychroflexus,Aerobic,288.7245000000001,282.42449999999997,291.02450000000005,1.36844298058,1
+Psychromonas profunda,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Psychromonadaceae,Psychromonas,Aerobic,276.76976,274.2697600000001,278.96976,3.0299419542100003,1
+Pyrobaculum aerophilum,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Thermoproteales,Thermoproteaceae,Pyrobaculum,Aerobic,372.37760000000003,366.3776,374.2775999999999,5.770208531869999,1
+Pyrobaculum calidifontis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Thermoproteales,Thermoproteaceae,Pyrobaculum,Aerobic,365.5038,361.0038,368.5038000000001,3.2389897766,1
+Pyrobaculum islandicum,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Thermoproteales,Thermoproteaceae,Pyrobaculum,C19,374.1208,361.9207999999999,374.9207999999998,3.581042380580001,1
+Pyrobaculum oguniense,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Thermoproteales,Thermoproteaceae,Pyrobaculum,Aerobic,364.9360999999999,360.5360999999998,368.8361,5.9886328953799985,1
+Pyrobaculum organotrophum,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Thermoproteales,Thermoproteaceae,Pyrobaculum,C19,374.9339,366.13390000000004,375.6338999999999,1.48096470393,1
+Pyrococcus abyssi,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Pyrococcus,C19,371.6882000000001,366.2882000000001,373.08820000000003,39.05961247660001,1
+Pyrococcus furiosus,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Pyrococcus,C19,369.4104,358.6104,385.5103999999999,22.787115266700003,1
+Pyrococcus glycovorans,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Pyrococcus,C19,368.76770000000005,361.86769999999984,372.36769999999996,4.13717831311,1
+Pyrococcus horikoshii,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Pyrococcus,C19,369.8265,363.8265,372.8265000000001,44.373612068599996,1
+Pyrolobus fumarii,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Pyrodictiaceae,Pyrolobus,B3,377.30120000000005,375.5012,378.80120000000005,21.482942789899994,1
+Ralstonia sp. k8,Specific Growth Rate,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Burkholderiaceae,Ralstonia,Aerobic,298.5619999999999,292.96200000000005,304.66200000000003,0.48618255011600003,1
+Ralstonia sp. phs1,Specific Growth Rate,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Burkholderiaceae,Ralstonia,Aerobic,314.96980000000013,308.66979999999995,318.3698000000001,18.2788892232,1
+Rhodanobacter sp. k27,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Xanthomonadales,Rhodanobacteraceae,Rhodanobacter,Aerobic,306.28700000000015,292.3870000000001,306.7870000000001,0.201915670394,1
+Rhodothermus  rhodothemus obamensis,Specific Growth Rate,Bacteria,Bacteroidetes,Bacteriodetes ,Incertae sedis,Rhodothermaceae,Rhodothermus ,Aerobic,353.86269999999996,341.6626999999998,356.36270000000013,11.116811847499998,1
+Rubrobacter radiotolerans,Specific Growth Rate,Bacteria,Actinobacteria,Rubrobacteria,Rubrobacterales,Rubrobacteraceae,Rubrobacter,Aerobic,321.7998999999999,314.3999000000001,325.19990000000007,2.8074251097200005,1
+Rubrobacter xylanophilus,Specific Growth Rate,Bacteria,Actinobacteria,Rubrobacteria,Rubrobacterales,Rubrobacteraceae,Rubrobacter,Aerobic,333.7898,327.5898000000001,338.68980000000005,5.0727558227900005,1
+Ruminiclostridium thermosuccinogenes,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Ruminococcaceae,Ruminiclostridium,Fermentation,NA,NA,NA,NA,1
+Salmonella enterica,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Salmonella,Aerobic,313.70523999999995,305.90523999999994,317.80524,11.4172371644,1
+Serratia marcescens,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Serratia,Aerobic,308.61986038999993,299.9198603900001,311.61986039,31.866611898999995,1
+Shewanella gelidimarina,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Alteromonadales,Shewanellaceae,Shewanella,Aerobic,288.7837457865942,282.1808856317655,292.2438940014119,6.164280258042296,1
+Sphaerospermopsis sphaerospermopsis aphanizomenoides,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Nostocales,Nostocaceae,Sphaerospermopsis,PhotosystemII,306.45,290.74999999999994,308.6500000000001,0.45137907064099997,1
+Sphingobacterium sp. k112,Specific Growth Rate,Bacteria,Bacteroidetes,Sphingobacteriia,Sphingobacteriales,Sphingobacteriaceae,Sphingobacterium,Aerobic,301.1529999999999,289.55300000000005,304.9529999999999,0.412581421799,1
+Sphingomonas sp. k101,Specific Growth Rate,Bacteria,Proteobacteria,Alphaproteobacteria,Sphingomonadales,Sphingomonadaceae,Sphingomonas,Aerobic,301.88099999999986,294.0809999999999,304.38099999999986,0.275372653908,1
+Sphingomonas sp. k6,Specific Growth Rate,Bacteria,Proteobacteria,Alphaproteobacteria,Sphingomonadales,Sphingomonadaceae,Sphingomonas,Aerobic,300.29699999999997,295.2969999999999,303.1969999999999,0.293953309505,1
+Sphingomonas sp. k74,Specific Growth Rate,Bacteria,Proteobacteria,Alphaproteobacteria,Sphingomonadales,Sphingomonadaceae,Sphingomonas,Aerobic,303.35200000000003,294.952,304.05200000000013,0.38293891201499997,1
+Sphingomonas sp. mt1,Specific Growth Rate,Bacteria,Proteobacteria,Alphaproteobacteria,Sphingomonadales,Sphingomonadaceae,Sphingomonas,Aerobic,296.74000000000007,289.53999999999996,300.2399999999999,0.255958534178,1
+Spiroplasma 277f,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,309.44999999999993,307.15,310.0500000000001,8.843924959939997,1
+Spiroplasma apis,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,307.509521286022,302.623347790429,311.4372555515082,12.621932308710754,1
+Spiroplasma bius-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,309.54999999999995,305.5500000000001,312.3500000000001,18.7413640384,1
+Spiroplasma cantharicola,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,307.76108531792977,300.04454464377824,310.9250975806876,6.401492085697301,1
+Spiroplasma chinense,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,309.65000000000003,304.04999999999995,312.75000000000006,20.8916554238,1
+Spiroplasma citri,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,NA,NA,NA,NA,1
+Spiroplasma clarkii,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,304.35,299.1499999999999,304.84999999999997,4.07573439998,1
+Spiroplasma culicicola,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.7486882563228,304.34940857507837,312.0480612021165,18.083640532416123,1
+Spiroplasma df-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,301.9499999999999,298.4500000000001,305.14999999999986,2.7218197895,1
+Spiroplasma diminutum,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.6500000000001,304.4499999999999,309.54999999999995,20.783163192799996,1
+Spiroplasma du-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,307.2500000000001,303.74999999999994,309.2500000000001,18.7220705626,1
+Spiroplasma ea-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,307.85,303.55000000000007,312.24999999999994,16.041023068299996,1
+Spiroplasma ec-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.8499999999999,305.6500000000001,309.54999999999995,15.343667164300001,1
+Spiroplasma floricola,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.88244520084345,304.37528438321885,311.1159123375052,17.89242729446346,1
+Spiroplasma hyos-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.9500000000001,306.45,309.65000000000003,35.6735478696,1
+Spiroplasma i-25,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,302.6500000000001,299.3500000000001,304.7500000000001,4.95156028471,1
+Spiroplasma insolitum,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,303.05000000000007,298.7500000000001,305.9500000000001,2.42623297202,1
+Spiroplasma ixodetis,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,302.85000000000014,298.05000000000007,304.4499999999999,1.8166574155900002,1
+Spiroplasma ld-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,306.44765050494357,299.79599313533197,318.22842032100135,2.194370226176218,1
+Spiroplasma meliferum,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,309.15000000000003,306.04999999999995,311.05,11.897989619199999,1
+Spiroplasma mirum,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.2499999999999,305.5500000000001,310.75000000000006,2.54995746364,1
+Spiroplasma monobiae,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.4499999999999,304.5499999999999,309.2500000000001,11.001370110699998,1
+Spiroplasma n525,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,304.35,299.55,309.3499999999999,3.40654902359,1
+Spiroplasma pals-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,304.2500000000001,300.6500000000001,306.8500000000001,9.051287493099998,1
+Spiroplasma plhs-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,301.75,298.3500000000001,303.85,2.92170398753,1
+Spiroplasma pup-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,306.8500000000001,300.0500000000001,316.94999999999993,1.8307765790200001,1
+Spiroplasma sabaudiense,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,302.85000000000014,299.1499999999999,305.14999999999986,4.07863169814,1
+Spiroplasma taas-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.5500000000001,305.5500000000001,310.75000000000006,13.730884651199998,1
+Spiroplasma taas-2,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,305.24999999999994,301.4500000000001,307.85,8.77938346966,1
+Spiroplasma tabs-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.8499999999999,306.6500000000001,309.65000000000003,10.466149844600002,1
+Spiroplasma tabs-2,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,304.35,301.15000000000003,306.7499999999999,5.686381825390001,1
+Spiroplasma taiwanense,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,301.24999999999994,298.4500000000001,303.94999999999993,3.9868328066700003,1
+Spiroplasma tals-2,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,303.65000000000003,301.24999999999994,306.04999999999995,2.9665140167599997,1
+Spiroplasma tass-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,304.84999999999997,300.0500000000001,307.35000000000014,5.27487526284,1
+Spiroplasma taus-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,303.05000000000007,300.5499999999999,305.9500000000001,4.19541397595,1
+Spiroplasma tg-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,304.2500000000001,299.04999999999995,307.5500000000001,4.1351054971700005,1
+Spiroplasma tius-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,304.4499999999999,299.2500000000001,304.9500000000001,4.904821315209999,1
+Spiroplasma tn-1,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.2499999999999,304.5499999999999,310.24999999999994,11.9439709967,1
+Spiroplasma velocicrescens,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,308.9500000000001,305.05000000000007,311.6499999999999,29.345679973299994,1
+Spiroplasma w115,Specific Growth Rate,Bacteria,Tenericutes,Mollicutes,Entomoplasmatales,Spiroplasmataceae,Spiroplasma,Aerobic,302.85000000000014,299.55,304.35,4.18367894699,1
+Staphylococcus aureus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Staphylococcaceae,Staphylococcus,Aerobic,NA,NA,NA,NA,1
+Staphylococcus xylosus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Bacillales,Staphylococcaceae,Staphylococcus,Aerobic,NA,NA,NA,NA,1
+Streptococcus salivarius,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Streptococcaceae,Streptococcus,Fermentation,319.31560000000013,314.21560000000005,323.41559999999987,49.161706800100006,1
+Streptococcus thermophilus,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Streptococcaceae,Streptococcus,Fermentation,314.46029727853795,308.49199110006793,318.53646431290554,43.7347764609093,1
+Sulfobacillus benefaciens,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiales Family XVII. Incertae Sedis,Sulfobacillus,Aerobic,311.06950000000006,307.86949999999996,313.66949999999997,4.78696807744,1
+Sulfobacillus sibiricus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiales Family XVII. Incertae Sedis,Sulfobacillus,F3,327.3682000000001,322.0681999999999,330.1681999999999,12.307568446900001,1
+Sulfobacillus sp. wr1,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiales Family XVII. Incertae Sedis,Sulfobacillus,F3,325.5439,317.6438999999999,330.14389999999986,4.4780329731699995,1
+Sulfobacillus thermotolerans,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiales Family XVII. Incertae Sedis,Sulfobacillus,F4,312.1524,305.85240000000005,320.8523999999999,7.760333561699999,1
+Sulfolobus acidocaldarius,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Sulfolobus,C16,354.77028798656886,350.91748513395584,355.61324409655776,2.2570878965906207,1
+Sulfolobus sp. ta-1,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Sulfolobus,C16,344.7338000000001,337.33380000000005,353.5338,1.12640539349,1
+Sulfolobus tengchongensis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Sulfolobus,C16,360.44999999999993,354.85000000000014,364.2499999999999,2.37778305088,1
+Sulfolobus yangmingensis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Sulfolobus,C16,353.16790000000003,348.06790000000007,358.3678999999999,4.3835649953199995,1
+Sulfophobococcus zilligii,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Sulfophobococcus,Fermentation,364.4286,353.52859999999987,368.8286000000001,5.16405157797,1
+Sulfurihydrogenibium kristjanssonii,Specific Growth Rate,Bacteria,Aquificae,Aquificae,Aquificales,Hydrogenothermaceae,Sulfurihydrogenibium,A1,344.66260000000005,337.06259999999986,346.0626,9.02055736042,1
+Sulfurisphaera ohwakuensis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Sulfolobales,Sulfolobaceae,Sulfurisphaera,C16,357.07990000000007,350.17989999999986,361.87989999999996,2.9029103905699998,1
+Symbiobacterium toebii,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Symbiobacteriaceae,Symbiobacterium,Fermentation,335.01460000000003,330.71460000000013,338.2146000000001,10.4877538072,1
+Synechococcus ccmp1183,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,299.8499999999999,298.05000000000007,300.0500000000001,1.53955727449,1
+Synechococcus ccmp1379,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,NA,NA,NA,NA,1
+Synechococcus ccmp1630,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,NA,NA,NA,NA,1
+Synechococcus ccmp1632,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,295.75,294.4499999999999,296.64999999999986,1.34899736149,1
+Synechococcus ccmp2606,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,NA,NA,NA,NA,1
+Synechococcus ccmp837,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,292.6499999999999,291.1499999999999,295.24999999999994,0.7212790070819999,1
+Synechococcus pcc7002,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,NA,NA,NA,NA,1
+Synechococcus synechococcus elongatus,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,NA,NA,NA,NA,1
+Synechococcus wh8102,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,295.55,294.35,296.45000000000005,0.716165378592,1
+Synechococcus wh8103,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Synechococcales,Synechococcaceae,Synechococcus,PhotosystemII,310.75000000000006,292.04999999999995,311.44999999999993,0.556692489327,1
+Syntrophothermus lipocalidus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Syntrophomonadaceae,Syntrophothermus,Fermentation,330.54990000000004,327.04989999999987,332.64990000000006,1.18234070358,1
+Thermacetogenium phaeum,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Thermacetogenium,Fermentation,332.44990000000007,329.1499000000001,334.3499,0.7387247306110001,1
+Thermaerobacter nagasakiensis,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiales Family XVII. Incertae Sedis,Thermaerobacter,Aerobic,339.8475999999999,339.0476000000001,342.1475999999999,21.545394700500005,1
+Thermoanaerobacter ethanolicus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Thermoanaerobacter,Fermentation,339.48668788,329.68668788000014,345.78668787999993,6.34950492099,1
+Thermoanaerobacter keratinophilus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Thermoanaerobacter,Fermentation,346.7925999999999,337.89260000000013,348.6926000000001,13.785520356199997,1
+Thermoanaerobacter kivui,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Thermoanaerobacter,E1,NA,NA,NA,NA,1
+Thermoanaerobacter mathranii,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Thermoanaerobacter,Fermentation,346.8836999999999,339.5837,348.1837000000001,15.664977758000001,1
+Thermoanaerobacter siderophilus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Thermoanaerobacter,F3,343.0067,336.3066999999999,346.30670000000003,5.850468902959999,1
+Thermoanaerobacter thermohydrosulfuricus,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacteraceae,Thermoanaerobacter,Fermentation,341.04378571,334.54378571000007,344.94378571000004,13.822108945900002,1
+Thermoanaerobacterium thermosulfurigenes,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Thermoanaerobacterales,Thermoanaerobacterales Family III. Incertae Sedis,Thermoanaerobacterium,Fermentation,336.07730000000004,330.77729999999997,338.3772999999999,10.817516015299999,1
+Thermobrachium celere,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Clostridiaceae,Thermobrachium,Fermentation,339.77770000000004,335.6777,342.37769999999995,80.5536699468,1
+Thermococcus alcaliphilus,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,359.4577,352.25770000000006,361.95770000000005,11.5042507424,1
+Thermococcus barophilus,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C16,360.1793360251251,355.77932348507824,363.52986250031796,26.2862050732843,1
+Thermococcus barossii,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,354.1995000000001,348.0995,358.8994999999999,25.107406071500005,1
+Thermococcus celer,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,357.0994999999999,349.09950000000003,363.3995,22.348072280900002,1
+Thermococcus chitonophagus,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,360.0690000000001,355.4690000000001,363.2690000000002,11.7979074098,1
+Thermococcus fumicolans,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,359.1770999999999,355.47710000000006,364.27710000000013,18.6672009239,1
+Thermococcus hydrothermalis,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,357.1388000000001,346.4388000000001,364.83879999999994,10.0282046357,1
+Thermococcus peptonophilus,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,356.0791000000001,349.37909999999994,362.77910000000014,63.69564051150001,1
+Thermococcus siculi,Specific Growth Rate,Archaea,Euryarchaeota,Thermococci,Thermococcales,Thermococcaceae,Thermococcus,C19,360.21499999999986,349.715,362.8150000000001,8.058200350970003,1
+Thermocrinis ruber,Specific Growth Rate,Bacteria,Aquificae,Aquificae,Aquificales,Aquificaceae,Thermocrinis,C16,357.36070000000007,353.46070000000003,358.0606999999999,19.9107376909,1
+Thermodesulfovibrio yellowstonii,Specific Growth Rate,Bacteria,Nitrospirae,Nitrospira,Nitrospirales,Nitrospiraceae,Thermodesulfovibrio,C1,339.16560000000004,318.9656,344.2655999999999,0.6924920137430001,1
+Thermoplasma acidophilum,Specific Growth Rate,Archaea,Euryarchaeota,Thermoplasmata,Thermoplasmatales,Thermoplasmataceae,Thermoplasma,C19,332.83727681999994,329.73727682000015,334.5372768199999,6.0581007074599995,1
+Thermoproteus uzoniensis,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Thermoproteales,Thermoproteaceae,Thermoproteus,C19,360.6472,355.8471999999999,364.94719999999995,8.813112994679999,1
+Thermosipho japonicus,Specific Growth Rate,Bacteria,Thermotogae,Thermotogae,Thermotogales,Fervidobacteriaceae,Thermosipho,C19,345.93370000000004,337.7337000000001,349.73370000000006,21.148906529799998,1
+Thermosphaera aggregans,Specific Growth Rate,Archaea,Crenarchaeota,Thermoprotei,Desulfurococcales,Desulfurococcaceae,Thermosphaera,Fermentation,358.7930000000002,355.7930000000001,360.793,9.5571817297,1
+Thermosyntropha lipolytica,Specific Growth Rate,Bacteria,Firmicutes,Clostridia,Clostridiales,Syntrophomonadaceae,Thermosyntropha,Fermentation,355.90661683020164,347.75282715388516,357.3071496395222,13.6740272308572,1
+Thermothrix thiopara,Specific Growth Rate,Bacteria,Proteobacteria,Betaproteobacteria,Burkholderiales,Burkholderiaceae,Thermothrix,C5,344.9848999999999,342.0849,346.78489999999994,9.513627998490001,1
+Thermotoga maritima,Specific Growth Rate,Bacteria,Thermotogae,Thermotogae,Thermotogales,Thermotogaceae,Thermotoga,C19,352.7611000000001,347.16110000000003,358.1610999999999,13.317766280599999,1
+Thermotoga sp.,Specific Growth Rate,Bacteria,Thermotogae,Thermotogae,Thermotogales,Thermotogaceae,Thermotoga,C19,362.35000000000014,354.1500000000001,365.15,19.4335745139,1
+Thermus aquaticus,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Thermus,Aerobic,341.79629999999986,334.1963000000001,348.5963000000001,16.4087762397,1
+Thermus sp. at61,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Thermus,Aerobic,345.8256999999999,341.2256999999999,348.5257,24.256806269999995,1
+Thermus sp. di,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Thermus,Aerobic,340.7352999999999,334.4353000000001,346.03530000000006,13.655186232400002,1
+Thermus sp. nh ,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Thermus,Aerobic,342.6806000000002,332.98060000000004,351.6805999999999,15.2364018578,1
+Thermus sp. yt1,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Thermus,Aerobic,340.71129999999994,334.91129999999987,345.7113,16.9419415405,1
+Thermus thermophilus,Specific Growth Rate,Bacteria,Deinococcus-Thermus,Deinococci,Thermales,Thermaceae,Thermus,Aerobic,347.17919411912413,337.3229767570704,352.2897990450852,19.43698032395955,1
+Trichococcus patagoniensis,Specific Growth Rate,Bacteria,Firmicutes,Bacilli,Lactobacillales,Carnobacteriaceae,Trichococcus,Fermentation,307.15,302.0499999999999,307.85,3.60378998742,1
+Trichodesmium trichodesmium erythraeum,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Trichodesmium,PhotosystemII,301.24952435821876,298.0831059798252,304.48182792943027,0.4993526552534122,1
+Trichodesmium trichodesmium radians,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Trichodesmium,PhotosystemII,299.6500000000001,297.8500000000001,301.9499999999999,0.3674303881620001,1
+Tychonema tychonema bourrellyi,Specific Growth Rate,Bacteria,Cyanobacteria,Cyanophyceae,Oscillatoriales,Phormidiaceae,Tychonema,PhotosystemII,292.95,284.84999999999997,323.0500000000001,0.60692583097,1
+Vibrio  psychroerythrus,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Vibrionales,Vibrionaceae,Vibrio ,Aerobic,285.85325580299985,281.85325580299997,288.0532558029999,2.4673377393,1
+Xanthomonas campestris,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Xanthomonadales,Xanothomonadaceae,Xanthomonas,Aerobic,305.60249646200015,296.0024964620001,308.102496462,7.2043438864399985,1
+Xylella fastidiosa,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Xanthomonadales,Xanthomonadaceae,Xylella,Aerobic,300.9090399499999,296.70903994999986,304.90903994999996,3.0988304345299995,1
+Yersinia enterocolitica,Specific Growth Rate,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Yersinia,Aerobic,298.79627662655986,292.8330565171077,306.0219112992619,1.2814547295767296,1
