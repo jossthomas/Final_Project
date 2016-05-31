@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
 """
-This program provides a framework for and implementation of least squares fitting of various 
+
+This program provides a framework for and implementation of least squares and linear fitting of various 
 thermal response models based on experimental data
 
 Written in Python 3.5 Anaconda Distribution
+
+Contact: tjt213@ic.ac.uk
 """
 
 
@@ -19,13 +22,14 @@ from lmfit import minimize, Parameters, fit_report
 from scipy import stats, integrate
 from datetime import datetime
 from progress.bar import Bar
-from copy import deepcopy, copy
+from copy import deepcopy
 
 starttime = datetime.now()
 
 class estimate_parameters:
     """
-    This class estimates all of metabolic parameters which are required as starting points for the least squared fitting of the models themselves. It also extracts useful data from the database which is passed to the models. 
+    This class estimates all of metabolic parameters which are required as starting points for the least squared fitting of the models themselves.
+    It also extracts useful data from the database which is passed to the models. 
     """
     
     #Going to define a bunch of parameters here which can then be overwritten by passing flags to __init__
@@ -155,7 +159,7 @@ class estimate_parameters:
             x_intercept = -intercept/slope 
 
             #find the value of K a quarter of the way between T growth_max and T growth_0 (low)
-            self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 4) 
+            self.T_H_L = self.T_pk - ((self.T_pk - x_intercept) / 3) 
         else:
             #Once again, use an arbitary value and hope for the best
             self.T_H_L = self.T_pk - 5
@@ -336,7 +340,7 @@ class physiological_growth_model:
             self.upper_percentile = 'NA'
             self.max_response_est = 'NA'
             
-    def plot(self, out_path, scale_type='standard', plot_residuals=False, hist_axes = False):
+    def plot(self, out_path, scale_type='standard', plot_residuals=False, hist_axes = False, fit_stats = True, convert_kelvin = False):
         #General function to sort out plot data and call the right plotting function
     
         textdata = [self.R2, self.AIC, self.BIC] #Added to plot to show fit quality
@@ -350,7 +354,18 @@ class physiological_growth_model:
         
         #Reformat data based on scale
         
+        if convert_kelvin:
+            plt_x = plt_x - self.Tref
+            plt_x_curve = plt_x_curve - self.Tref
+            temp_unit = 'C'
+        else:
+            temp_unit = 'K'
+            
         if scale_type == 'log':
+            if plt_x_curve.min() < 0:
+                print('Warning: some x values are sub 0, x axis coerced to be positive')
+                plt_x_curve -= plt_x_curve.min()
+                plt_x -= plt_x.min()
             plt_x, plt_y, plt_x_curve, plt_y_curve = np.log(plt_x), np.log(plt_y), np.log(plt_x_curve), np.log(plt_y_curve)
                 
         if scale_type == 'arrhenius':
@@ -374,11 +389,11 @@ class physiological_growth_model:
         print('\tWriting: {}'.format(output_path))
         
         if hist_axes:
-            self.plot2(plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals)
+            self.plot2(plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals, fit_stats, temp_unit)
         else:
-            self.plot1(plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals)
+            self.plot1(plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals, fit_stats, temp_unit)
             
-    def plot1(self, plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals):
+    def plot1(self, plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals, fit_stats, temp_unit):
         #Function to plot graph without histogram axes - less seaborn dependency.
       
         f = plt.figure()
@@ -395,23 +410,28 @@ class physiological_growth_model:
         plt.title(title, fontsize=14, fontweight='bold')
         
         if scale_type == 'log':
-            plt.xlabel('log(Temperature (K))')
+            plt.xlabel('log(Temperature) ({0})'.format(temp_unit))
             plt.ylabel('Log(' + self.trait + ')')
         elif scale_type == 'arrhenius':
-            plt.xlabel('1 / Temperature (K)')
+            plt.xlabel('1 / Temperature ({0})'.format(temp_unit))
             plt.ylabel('Log(' + self.trait + ')')     
         else:
-            plt.xlabel('Temperature (K)')
+            plt.xlabel('Temperature ({0})'.format(temp_unit))
             plt.ylabel(self.trait)
-        
-        plt.text(0.05, 0.85, text_all, ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
+            
+        if fit_stats:
+            plt.text(0.05, 0.85, text_all, ha='left', va='center', transform=ax.transAxes, color='darkslategrey')
          
         sns.despine() #Remove top and right border
         
         if plot_residuals: #create an inset plot with residuals
-            if self.model_name == 'Linear Model':
+            if self.model_name_short == 'LM':
                 residual_x = self.temps
                 yvals = self.intercept + (residual_x * self.slope)
+                residuals = yvals - self.responses
+            elif self.model_name_short == 'BA':
+                residual_x = self.temps
+                yvals = np.exp(self.final_B0) * np.exp(-self.final_E / (residual_x * self.k)) 
                 residuals = yvals - self.responses
             else:
                 residuals = self.model.residual
@@ -427,7 +447,7 @@ class physiological_growth_model:
         plt.savefig(output_path, bbox_inches='tight') 
         plt.close()
         
-    def plot2(self, plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals):
+    def plot2(self, plt_x, plt_y, plt_x_curve, plt_y_curve, text_all, title, scale_type, output_path, plot_residuals, fit_stats, temp_unit):
         "Plots the graph with histogram axes, your mileage may vary..."
         
         #Scale works much better if defined manually *shrug*
@@ -459,32 +479,38 @@ class physiological_growth_model:
         
         #Add the fitted curve
         g.ax_joint.plot(plt_x_curve, plt_y_curve, marker='None', color='royalblue', linewidth=3)
-        g.ax_joint.text(0.05, 0.85, text_all, ha='left', va='center', transform=g.ax_joint.transAxes, color='darkslategrey')
         
-        """
+        if fit_stats:
+            g.ax_joint.text(0.05, 0.85, text_all, ha='left', va='center', transform=g.ax_joint.transAxes, color='darkslategrey')
+        
+        
         if scale_type == 'log':
-            g.set_axis_labels('log(Temperature (K))', 'Log(' + self.trait + ')')
+            g.set_axis_labels('log(Temperature) ({0})'.format(temp_unit), 'Log(' + self.trait + ')')
         elif scale_type == 'arrhenius':
-            g.set_axis_labels('1 / Temperature (K)', 'Log(' + self.trait + ')')
+            g.set_axis_labels('1 / Temperature ({0})'.format(temp_unit), 'Log(' + self.trait + ')')
         else:
-            g.set_axis_labels('Temperature (K)', self.trait)
+            g.set_axis_labels('Temperature ({0})'.format(temp_unit), self.trait)
         
         if plot_residuals: #create an inset plot with residuals
-            if self.model_name == 'Linear Model':
+            if self.model_name_short == 'LM':
                 residual_x = self.temps
                 yvals = self.intercept + (residual_x * self.slope)
+                residuals = yvals - self.responses
+            elif self.model_name_short == 'BA':
+                residual_x = self.temps
+                yvals = np.exp(self.final_B0) * np.exp(-self.final_E / (residual_x * self.k)) 
                 residuals = yvals - self.responses
             else:
                 residuals = self.model.residual
                 residual_x = plt_x
                 
             sns.set_style("white", {'axes.grid': True})    
-            ax2 = g.fig.add_axes([.845, .785, .15, .10])
+            ax2 = g.fig.add_axes([.845, .845, .13, .13])
             ax2.plot(residual_x, residuals, marker='None', color='royalblue', linewidth=1)
             ax2.xaxis.set_visible(False)
             ax2.yaxis.set_visible(False)
             sns.despine()
-        """
+        
         plt.savefig(output_path, bbox_inches='tight') 
         plt.close()
         
@@ -530,67 +556,64 @@ class physiological_growth_model:
             
     def __eq__(self, other):
         return self.AIC == other.AIC and self.BIC == other.BIC
-    
+
 class Boltzmann_Arrhenius(physiological_growth_model):
-    "Simplest model - only works with linear upwards responses"
     model_name = "Boltzmann Arrhenius"
     model_name_short = "BA"
     
     def fit_from_parameters(self, est_parameters, index):
         self.extract_parameters(est_parameters)
         self.index = str(index) + "_BA" #ID for the model
-        self.set_parameters()
         self.fit_model()
         self.smooth()
         self.assess_model()
-        self.get_final_values()
-        self.get_stderrs()
         
-    def set_parameters(self):
-        "Create a parameters object using out guesses, these will then be fitted using least squares regression"
-        self.parameters = Parameters()
-        #                         Name,       Start,           Can_Vary,  Lower,    Upper
-        self.parameters.add_many(('B0_start', self.B0,         True,      -np.inf,  np.inf,    None),
-                                 ('E',        self.E_init,     True,       0,       np.inf,    None))
-
-    def fit(self, params, temps):
-        "Fit a schoolfield curve to a list of temperature values"
-        parameter_vals = params.valuesdict()
-        B0 = parameter_vals['B0_start'] #Basic metabolic rate
-        E = parameter_vals['E'] #Activation energy of enzymes
-
-        fit = B0 - E / self.k * (1 / temps - 1 / self.Tref)
-
-        return fit
+    def fit_model(self):
+        x = 1 / (self.temps)
+        y = np.log(self.responses)
         
-    def get_final_values(self):
-        "Get the final fitted values for the model"
-        values = self.model.params.valuesdict()
-        self.final_B0 = values['B0_start']
-        self.final_E = values['E']
+        E, B0, r, p_value, std_err = stats.linregress(x, y)
+        
+        self.final_E = -E * self.k
+        self.final_B0 = B0
+        
+        self.R2 = r * r
+        
+        self.ndata = len(self.temps)
+        self.nvarys = 2
+        
+    def smooth(self):
+        "Pass an interpolated list of temperature values back through the curve function to generate a smooth curve"
+        self.smooth_x = np.arange(self.temps.min() - 3, self.temps.max() + 3, 0.1) #Extrapolate a little 
+        self.smooth_y = np.exp(self.final_B0) * np.exp(-self.final_E / (self.smooth_x * self.k))        
+        
+    def assess_model(self):
+        k = 2 #Number of variables
+        n = len(self.temps) #Number of data points
+        
+        rss = self.R2 #Residual sum of squares
+        
+        self.AIC = 2 * k + n * np.log(rss / n)
+        self.BIC = np.log(n)*(k + 1) + n * np.log(rss / n)
         
     def __str__(self):
         "Allows print() to be called on the object"
-        vars = [self.species_name, self.B0, self.final_B0, self.E_init, 
-                self.final_E, self.R2, self.AIC, self.BIC]
+        vars = [self.species_name, self.final_E, self.final_B0, self.R2, self.AIC, self.BIC]
                 
         text = """
-        ---Boltzmann Arrhenius Model---
+        --- Boltzmann Arrhenius ---
         {0[0]}
         
-        B0 est = {0[1]:.2f}
-        B0 final = {0[2]:.2f}
+        E = {0[1]:.2f}
+        B0 = {0[2]:.2f}
         
-        E est = {0[3]:.2f}
-        E final = {0[4]:.2f}
-        
-        R2: = {0[5]:.2f}
-        AIC = {0[6]:.2f}
-        BIC = {0[7]:.2f}
+        R2: = {0[3]:.2f}
+        AIC = {0[4]:.2f}
+        BIC = {0[5]:.2f}
         
         """.format(vars)
-        return text        
-        
+        return text                
+
 class schoolfield_two_factor(physiological_growth_model):
     "Schoolfield model using T_pk as a substitute for T_H"
     model_name = "schoolfield two factor"
@@ -776,14 +799,16 @@ class schoolfield_original(physiological_growth_model):
     def set_parameters(self):
         "Create a parameters object using out guesses, these will then be fitted using least squares regression, note additional T_H_L parameter"
         self.parameters = Parameters()
+        E_lower = self.E_init / 5
+        T_lower = self.T_pk - ((self.T_pk - self.T_H) / 1.5)
         
         #                         Name,       Start,                Can_Vary,  Lower,           Upper
         self.parameters.add_many(('B0_start', self.B0,               True,   -np.inf,         np.inf,           None),
-                                 ('E',        self.E_init,           True,   10E-10,          np.inf,           None),
+                                 ('E',        self.E_init,           True,   E_lower,         np.inf,           None), #E lower to 0.05 to stop it tending to 0
                                  ('E_D',      self.E_init * 4,       True,   10E-10,          np.inf,           None),
                                  ('E_D_L',    self.E_init * (-2),    True,   -np.inf,         -10E-10,          None),
                                  ('T_H',      self.T_H,              True,   self.T_pk + 0.1, 273.15+170,       None),
-                                 ('T_H_L',    self.T_H_L,            True,   273.15-70,       self.T_pk - 0.1,  None))
+                                 ('T_H_L',    self.T_H_L,            True,   273.15-70,       T_lower,          None))
 
     def fit(self, params, temps):
         "Fit a schoolfield curve to a list of temperature values"
@@ -960,14 +985,13 @@ def bootstrap_model(model, parameters, N = 1000, suppress_progress = False):
                 'schoolfield two factor': schoolfield_two_factor}
     
     #Lists to store the bootstrapped results speed isn't a big issue versus the model fitting.
-    completed = []
     E, B0         = [], []
     tpk, max_resp = [], []
     T_H, E_D      = [], []
     T_H_L, E_D_L  = [], []
     slope, inter  = [], []
     
-    bar_lab = '\tBootstrapping {} {}'.format(str(model.species_name)[:20], str(model.model_name_short)) #progressbar gets buggy if the text is wider than the output window. 
+    bar_lab = '\tBootstrapping {} {}'.format(str(model.species_name)[:12], str(model.model_name_short)) #progressbar gets buggy if the text is wider than the output window. 
     
     if not suppress_progress:
         progbar = Bar(bar_lab, max=N)
@@ -1000,37 +1024,37 @@ def bootstrap_model(model, parameters, N = 1000, suppress_progress = False):
     if not suppress_progress:    
         progbar.finish()
     
-    #This is painful
+    #This is painful, use nan percentile for robustness
     if B0[0] != "NA":
-        model.final_B0_max = np.percentile(B0, 97.5)
-        model.final_B0_min = np.percentile(B0, 2.5)
+        model.final_B0_max = np.nanpercentile(B0, 97.5)
+        model.final_B0_min = np.nanpercentile(B0, 2.5)
     if E[0] != "NA":
-        model.final_E_max = np.percentile(E, 97.5)
-        model.final_E_min = np.percentile(E, 2.5)
+        model.final_E_max = np.nanpercentile(E, 97.5)
+        model.final_E_min = np.nanpercentile(E, 2.5)
     if tpk[0] != "NA":
-        model.tpk_est_max = np.percentile(tpk, 97.5)
-        model.tpk_est_min = np.percentile(tpk, 2.5)
+        model.tpk_est_max = np.nanpercentile(tpk, 97.5)
+        model.tpk_est_min = np.nanpercentile(tpk, 2.5)
     if max_resp[0] != "NA":
-        model.max_response_est_max = np.percentile(max_resp, 97.5)
-        model.max_response_est_min = np.percentile(max_resp, 2.5)
+        model.max_response_est_max = np.nanpercentile(max_resp, 97.5)
+        model.max_response_est_min = np.nanpercentile(max_resp, 2.5)
     if E_D[0] != "NA":
-        model.final_E_D_max = np.percentile(E_D, 97.5)
-        model.final_E_D_min = np.percentile(E_D, 2.5)
+        model.final_E_D_max = np.nanpercentile(E_D, 97.5)
+        model.final_E_D_min = np.nanpercentile(E_D, 2.5)
     if E_D_L[0] != "NA":
-        model.final_E_D_L_max = np.percentile(E_D_L, 97.5)
-        model.final_E_D_L_min = np.percentile(E_D_L, 2.5)
+        model.final_E_D_L_max = np.nanpercentile(E_D_L, 97.5)
+        model.final_E_D_L_min = np.nanpercentile(E_D_L, 2.5)
     if T_H[0] != "NA":
-        model.final_T_H_max = np.percentile(T_H, 97.5)
-        model.final_T_H_min = np.percentile(T_H, 2.5)
+        model.final_T_H_max = np.nanpercentile(T_H, 97.5)
+        model.final_T_H_min = np.nanpercentile(T_H, 2.5)
     if T_H_L[0] != "NA":
-        model.final_T_H_L_max = np.percentile(T_H_L, 97.5)
-        model.final_T_H_L_min    = np.percentile(T_H_L, 2.5)
+        model.final_T_H_L_max = np.nanpercentile(T_H_L, 97.5)
+        model.final_T_H_L_min = np.nanpercentile(T_H_L, 2.5)
     if slope[0] != "NA":
-        model.final_slope_max = np.percentile(slope, 97.5)
-        model.final_slope_min = np.percentile(slope, 2.5)
+        model.final_slope_max = np.nanpercentile(slope, 97.5)
+        model.final_slope_min = np.nanpercentile(slope, 2.5)
     if inter[0] != "NA":
-        model.final_intercept_max = np.percentile(inter, 97.5)
-        model.final_intercept_min = np.percentile(inter, 2.5)
+        model.final_intercept_max = np.nanpercentile(inter, 97.5)
+        model.final_intercept_min = np.nanpercentile(inter, 2.5)
     
     return model
             
@@ -1162,7 +1186,7 @@ def compile_models(model_list, aux_cols = [], path = None, whole_curves = False,
             rows.append(row)
         
     df = pd.DataFrame.from_items(rows,  orient='index', columns=col_names)
-    df = df.sort_values(sortby)
+    df = df.sort_values(sortby).fillna('NA')
     
     if path:
         df.to_csv(path)     

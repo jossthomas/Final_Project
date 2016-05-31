@@ -56,21 +56,25 @@ estimate_parameters
         NB: A list of column names for these parameters must be passed to output_csv when it is call
         
         flags : Used to adjust the column names and adjustments of dataset in question. These should be passed as a dictionary to the class, potential keys and default values are shown bwloe
-            Trait_Col_Name: 'StandardisedTraitName' -The name of the column in which the trait of interest is detailed, used to label the y axis of any plots
-            X_vals_col_name: 'ConTemp' - The x values to use for the regression
-            Y_vals_col_name: 'StandardisedTraitValue' - The y values to use for the regression
-            x_val_conversion: 60 * 60 * 24 - A conversion of the x values, by default this is from S-1 to D-1
-            is_celcius: True - If TRUE then the X values will be converted to kelvin
-            species_data: True - Used to generate the plot title, if FALSE only the value from the full_strain_col_name column will be used, if TRUE then the title will be the genus and species. If TRUE and species is blank then will use full_strain_col_name. 
-            full_strain_col_name: 'Consumer' -Name of the column in which the full species name is contained
-            genus_level_col_name: 'ConGenus' -Name of the column in which the genus name is contained
-            species_level_col_name: 'ConSpecies'-Name of the column in which the species name is contained
+           
+           
+                    Flag:         |          Default:          |            Purpose:
+            ______________________|____________________________|_________________________________
+            Trait_Col_Name        | 'StandardisedTraitName'    | - The name of the column in which the trait of interest is detailed, used to label the y axis of any plots
+            X_vals_col_name       | 'ConTemp'                  | - The x values to use for the regression
+            Y_vals_col_name       | 'StandardisedTraitValue'   | - The y values to use for the regression
+            x_val_conversion      | 60 * 60 * 24               | - A conversion of the x values, by default this is from S-1 to D-1
+            is_celcius            | True                       | - If TRUE then the X values will be converted to kelvin
+            species_data          | True                       | - Used to generate the plot title, if FALSE only the value from the full_strain_col_name column will be used, if TRUE then the title will be the genus and species. If TRUE and species is blank then will use full_strain_col_name. 
+            full_strain_col_name  | 'Consumer'                 | - Name of the column in which the full species name is contained
+            genus_level_col_name  | 'ConGenus'                 | - Name of the column in which the genus name is contained
+            species_level_col_name| 'ConSpecies'               | - Name of the column in which the species name is contained
 
         An example of flag usage is shown in fit_to_summary.py.
         
 physiological_growth_model
     Purpose:
-        Base class which other thermal models inherit from. Should not be directly called
+        Base class which other thermal models inherit from. Should not be directly called.
         
     Usage:
         NA
@@ -97,7 +101,7 @@ These five classes are identical in terms of usage:
     External Calls (for any model)
         print(model) : Will print a summary of the parameters estimated
         
-        model.plot(out_path, scale_type='standard', plot_residuals=False, hist_axes = False)
+        model.plot(out_path, scale_type='standard', plot_residuals=False, hist_axes = False, fit_stats = True, convert_kelvin = False)
             Purpose:
                 Creates a scatter plot of the model with a smooth line showing the model plot
                 
@@ -112,6 +116,10 @@ These five classes are identical in terms of usage:
                 plot_residuals: Adds a subplot showing residuals
                 
                 hist_axes: Adds histograms of the distribution of the x and y axis running along each exis. Your mileage may vary!
+                
+                fit_stats: Display text on the graph detailing E, the AIC, the BIC and R2
+                
+                convert_kelvin: if set to true will subtract 273.15 from all x values. If scale is log and min(x) < 0 then minimum value will be subtracted from all x values first
                 
             Note: Plot is implemented as two seperate functions, Plot1 is a standard function and is fairly robust. Plot2 adds histograms to the axes using seaborn and is less robust. Both should be called via the main plot() function. 
                    
@@ -181,7 +189,7 @@ bootstrap_model
             Parameters: The parameters estimate object for that model
             
         Optional Arguments:
-            N: Number of bootstraps, ddefaults to 1000
+            N: Number of bootstraps, defaults to 1000
             
             suppress_progress: Don't show the progress bar, can cause problems in a few cases
 

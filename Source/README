@@ -1,3 +1,5 @@
+Author: tjt213@ic.ac.uk
+
 Thermal_Models.py: Main fitting library, See README_THERMAL_MODELS
 
 fit_from_database.py: Fit schoolfield sharp models to datasets from database and plot them.
