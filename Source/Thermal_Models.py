@@ -515,7 +515,7 @@ class physiological_growth_model:
         plt.close()
         
     def get_stderrs(self):
-        "These aren't actually outputted anywhere, but it would be easy enough to make them so I'm leaving this here"
+        "These aren't actually outputted anywhere, but it would be easy enough to make them so I'm leaving this here, bootstrapping is probably a better idea though!"
         self.final_B0_stderr = self.model.params['B0_start'].stderr
         self.final_E_stderr = self.model.params['E'].stderr 
     
@@ -568,7 +568,7 @@ class Boltzmann_Arrhenius(physiological_growth_model):
         self.smooth()
         self.assess_model()
         
-    def fit_model(self):
+    def fit_model(self): #Note this overwrites the method in the parent class so we totally cut the NLS component from this model
         x = 1 / (self.temps)
         y = np.log(self.responses)
         
@@ -1084,7 +1084,7 @@ def rank_and_flatten(model_list):
         all_models = model_list
     return all_models
     
-def compile_models(model_list, aux_cols = [], path = None, whole_curves = False, sortby=['Species', 'Model_name'], bootstrap_cols=False):
+def compile_models(model_list, aux_cols = None, path = None, whole_curves = False, sortby=['Species', 'Model_name'], bootstrap_cols=False):
     main_cols = ["Species", "Model_name", "Trait", "B0", "E", "T_pk", "E_D", "E_D_L", "Est.Tpk",
                  "Est.Tmin", "Est.Tmax", "Max.response", "Slope", "Intercept", "R_Squared", "AIC",
                  "BIC", "Rank", "Corrected", "Number.of.Data.Points", "Number.of.Variables"]
@@ -1092,6 +1092,8 @@ def compile_models(model_list, aux_cols = [], path = None, whole_curves = False,
     bootstrap_cols = ["B0.max", "B0.min", "E.max", "E.min", "Tpk.max", "Tpk.min", "Response.max",
                       "Response.min", "ED.max", "ED.min", "EDL.max", "EDL.min", "TH.max", "TH.min", 
                       "THL.max", "THL.min", "Slope.max", "Slope.min", "Intercept.max", "Intercept.min"]
+                      
+    aux_cols = aux_cols or []
     
     if bootstrap_cols:
         col_names = main_cols + bootstrap_cols + aux_cols
